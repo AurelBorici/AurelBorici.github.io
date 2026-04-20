@@ -1,0 +1,1327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Aurel Boriçi — Senior Software Engineer</title>
+<meta name="description" content="Senior Software Engineer based in Tirana, Albania. 5+ years building scalable microservices and cloud-native systems on Azure across fintech, healthcare, and e-commerce." />
+<meta name="author" content="Aurel Boriçi" />
+
+<meta property="og:title" content="Aurel Boriçi — Senior Software Engineer" />
+<meta property="og:description" content="Senior Software Engineer specialising in .NET microservices and Azure cloud-native systems." />
+<meta property="og:image" content="/assets/og-image.png" />
+<meta property="og:type" content="profile" />
+<meta property="og:locale" content="en_GB" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Aurel Boriçi — Senior Software Engineer" />
+<meta name="twitter:description" content="Senior Software Engineer specialising in .NET microservices and Azure cloud-native systems." />
+
+<link rel="canonical" href="https://aurelborici.dev" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23faf8f4'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='22' text-anchor='middle' fill='%23c2410c' font-style='italic'%3EA%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Aurel Boriçi",
+  "jobTitle": "Senior Software Engineer",
+  "address": { "@type": "PostalAddress", "addressLocality": "Tirana", "addressCountry": "AL" },
+  "email": "mailto:aurelborici20@gmail.com",
+  "sameAs": [
+    "https://www.linkedin.com/in/aurel-borici/",
+    "https://github.com/AurelBorici"
+  ],
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "Canadian Institute of Technology"
+  },
+  "knowsAbout": ["C#", ".NET", "Microservices", "Azure", "Angular", "PostgreSQL", "RabbitMQ", "MongoDB", "Elasticsearch"]
+}
+</script>
+
+<style>
+  :root {
+    --bg: #faf8f4;
+    --bg-alt: #f2ede3;
+    --ink: #1a1a1a;
+    --ink-soft: #55514a;
+    --ink-muted: #8a847a;
+    --rule: #d9d3c5;
+    --accent: #c2410c;
+    --accent-soft: #fed7aa;
+
+    --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-body: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
+
+    --max-width: 1100px;
+    --grid-meta: 180px;
+    --grid-gap: 48px;
+    --prose-width: 680px;
+  }
+
+  [data-theme="dark"] {
+    --bg: #1a1814;
+    --bg-alt: #252219;
+    --ink: #f5f1e8;
+    --ink-soft: #b8b2a4;
+    --ink-muted: #8a847a;
+    --rule: #3a352b;
+    --accent: #fb923c;
+    --accent-soft: #7c2d12;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "kern", "liga", "ss01";
+    position: relative;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Subtle noise texture overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+
+  [data-theme="dark"] body::before { mix-blend-mode: screen; opacity: 0.25; }
+
+  main, header, footer, nav { position: relative; z-index: 2; }
+
+  ::selection { background: var(--accent-soft); color: var(--ink); }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  p { margin: 0 0 1em; }
+  p:last-child { margin-bottom: 0; }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-soft);
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  a:hover { border-bottom-color: var(--accent); }
+  a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ---------- Layout primitives ---------- */
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: var(--grid-meta) 1fr;
+    gap: var(--grid-gap);
+    align-items: baseline;
+  }
+
+  .meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+
+  /* ---------- Nav ---------- */
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: saturate(140%) blur(10px);
+    -webkit-backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+  .topbar.scrolled { border-bottom-color: var(--rule); }
+
+  .topbar-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .mark {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--ink);
+    border: 0;
+  }
+  .mark::after { content: "."; color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .nav-links a {
+    color: var(--ink-soft);
+    border: 0;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .theme-toggle,
+  .menu-toggle {
+    border: 1px solid var(--rule);
+    background: transparent;
+    color: var(--ink-soft);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.15s ease, color 0.15s ease;
+    flex-shrink: 0;
+    padding: 0;
+  }
+  .theme-toggle:hover,
+  .menu-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .theme-toggle .icon-moon { display: none; }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+
+  /* Hamburger (mobile only) */
+  .menu-toggle {
+    display: none;
+    position: relative;
+    z-index: 30;
+  }
+  .menu-lines,
+  .menu-lines::before,
+  .menu-lines::after {
+    display: block;
+    width: 18px;
+    height: 1px;
+    background: currentColor;
+    transition: transform 0.2s ease, opacity 0.2s ease, top 0.2s ease, background-color 0.15s ease;
+  }
+  .menu-lines { position: relative; }
+  .menu-lines::before,
+  .menu-lines::after {
+    content: "";
+    position: absolute;
+    left: 0;
+  }
+  .menu-lines::before { top: -5px; }
+  .menu-lines::after { top: 5px; }
+
+  .menu-toggle[aria-expanded="true"] .menu-lines { background: transparent; }
+  .menu-toggle[aria-expanded="true"] .menu-lines::before { top: 0; transform: rotate(45deg); }
+  .menu-toggle[aria-expanded="true"] .menu-lines::after { top: 0; transform: rotate(-45deg); }
+
+  /* Mobile menu overlay */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    background: color-mix(in srgb, var(--bg) 94%, transparent);
+    backdrop-filter: saturate(140%) blur(16px);
+    -webkit-backdrop-filter: saturate(140%) blur(16px);
+    z-index: 20;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 32px 32px;
+  }
+  .mobile-menu[data-open="true"] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+  .mobile-nav a {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--ink);
+    padding: 18px 28px;
+    border: 0;
+    display: block;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    transition: color 0.15s ease;
+  }
+  .mobile-nav a:hover,
+  .mobile-nav a:focus-visible { color: var(--accent); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu { transition: none; }
+    .menu-lines,
+    .menu-lines::before,
+    .menu-lines::after { transition: none; }
+  }
+
+  /* ---------- Hero ---------- */
+
+  .hero {
+    padding: 80px 0 80px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-size: clamp(48px, 9vw, 104px);
+    font-weight: 400;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+    margin: 0 0 24px;
+  }
+  .hero h1 .accent {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  .hero-tagline {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.2vw, 24px);
+    font-weight: 400;
+    color: var(--ink);
+    font-style: italic;
+    margin: 0 0 40px;
+  }
+
+  .hero-lede {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: var(--prose-width);
+    margin: 0 0 48px;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    align-items: center;
+  }
+  .hero-meta .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #16a34a;
+    margin-right: 8px;
+    box-shadow: 0 0 0 3px color-mix(in srgb, #16a34a 25%, transparent);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, #16a34a 25%, transparent); }
+    50% { box-shadow: 0 0 0 6px color-mix(in srgb, #16a34a 10%, transparent); }
+  }
+  .hero-meta span + span::before {
+    content: "·";
+    color: var(--rule);
+    margin-right: 24px;
+    margin-left: -16px;
+  }
+
+  /* ---------- Sections ---------- */
+
+  section.section {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  section.section:last-of-type { border-bottom: 0; }
+
+  .section-head {
+    margin-bottom: 48px;
+  }
+
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-muted);
+    display: block;
+  }
+  .section-num .accent { color: var(--accent); }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.2vw, 40px);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  /* ---------- About ---------- */
+
+  .about p {
+    font-size: 18px;
+    line-height: 1.75;
+    max-width: var(--prose-width);
+  }
+  .about p + p { margin-top: 1.2em; }
+  .about strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* ---------- Experience ---------- */
+
+  .role {
+    padding: 36px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .role:first-of-type { border-top: 0; padding-top: 0; }
+  .role:last-of-type { padding-bottom: 0; }
+
+  .role-company {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0 0 2px;
+    letter-spacing: -0.01em;
+  }
+  .role-title {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin: 0 0 20px;
+  }
+
+  .role ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    max-width: var(--prose-width);
+  }
+  .role ul li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+  .role ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.75em;
+    width: 10px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    padding: 4px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .tag:hover { color: var(--accent); border-color: var(--accent-soft); }
+
+  /* Freelance ongoing track */
+  .ongoing-track {
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px dashed var(--rule);
+    position: relative;
+  }
+  .ongoing-label {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .ongoing-label::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .ongoing-track .role {
+    padding: 0;
+    border: 0;
+    background: var(--bg-alt);
+    padding: 32px;
+    border-radius: 4px;
+  }
+
+  /* ---------- Projects ---------- */
+
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+  }
+  .project {
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+  }
+  .project:hover { background: var(--bg-alt); }
+
+  .project-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .project-name {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .project-domain {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    flex-shrink: 0;
+  }
+  .project-desc {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  .projects-note {
+    margin-top: 32px;
+    font-size: 14px;
+    color: var(--ink-muted);
+    font-style: italic;
+    max-width: 62ch;
+  }
+
+  /* ---------- Skills ---------- */
+
+  .skill-group {
+    padding: 28px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .skill-group:first-of-type { border-top: 0; padding-top: 0; }
+  .skill-group:last-of-type { padding-bottom: 0; }
+
+  .skill-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0 0 14px;
+  }
+
+  .skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .skill-item {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--ink);
+    padding: 6px 14px;
+    background: var(--bg-alt);
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .skill-item:hover { border-color: var(--accent-soft); color: var(--accent); }
+
+  /* ---------- Education ---------- */
+
+  .education-item {
+    padding: 0;
+  }
+  .education-school {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0 0 4px;
+  }
+  .education-degree {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 16px;
+  }
+
+  /* ---------- Contact ---------- */
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px 32px;
+  }
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .contact-label {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+  }
+  .contact-value {
+    font-size: 17px;
+    color: var(--ink);
+    border: 0;
+  }
+  .contact-value:hover { color: var(--accent); }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    padding: 48px 0 64px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+  }
+  .footer-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 900px) {
+    .container { padding: 0 32px; }
+    .topbar-inner { padding: 14px 32px; }
+  }
+
+  @media (max-width: 700px) {
+    body { font-size: 16px; }
+    .hero { padding: 72px 0 56px; }
+    section.section { padding: 60px 0; }
+
+    .row {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .meta {
+      padding-top: 0;
+      order: -1;
+    }
+    .section-head { margin-bottom: 40px; }
+
+    .nav-links {
+      display: none;
+    }
+    .menu-toggle {
+      display: inline-flex;
+    }
+
+    .projects {
+      grid-template-columns: 1fr;
+    }
+
+    .hero h1 { letter-spacing: -0.03em; }
+    .hero-meta span + span::before {
+      display: none;
+    }
+    .hero-meta {
+      gap: 8px 16px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .container { padding: 0 22px; }
+    .topbar-inner { padding: 14px 22px; }
+    .footer-inner { padding: 0 22px; }
+    .hero { padding: 56px 0 48px; }
+    section.section { padding: 52px 0; }
+  }
+
+  @media print {
+    body::before, .topbar, .theme-toggle, footer { display: none; }
+    body { color: #000; background: #fff; }
+    a { color: #000; border: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <a href="#top" class="mark" aria-label="Aurel Boriçi — back to top">aurel boriçi</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle colour theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="menu-lines" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>
+
+<div class="mobile-menu" id="mobileMenu" hidden aria-hidden="true">
+  <nav class="mobile-nav" aria-label="Mobile primary">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</div>
+
+<main id="top">
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container">
+      <div class="row row--body">
+        <div class="meta">
+          <span class="section-num"><span class="accent">00</span> · CV</span>
+        </div>
+        <div>
+          <div class="hero-eyebrow">Senior Software Engineer · Tirana</div>
+          <h1>Aurel <span class="accent">Boriçi</span></h1>
+          <p class="hero-tagline">Microservices, cloud-native, and Azure — done quietly and well.</p>
+          <p class="hero-lede">
+            Senior Software Engineer with strong experience in designing and building scalable microservices and cloud-native systems on Azure. Proven track record delivering high-quality solutions across fintech, healthcare, and e-commerce domains — with a focus on performance, clean architecture, and maintainability.
+          </p>
+          <div class="hero-meta">
+            <span><span class="dot" aria-hidden="true"></span>Available for new roles</span>
+            <span>Tirana, Albania</span>
+            <span>5+ years experience</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="row">
+        <div class="meta">
+          <span class="section-num"><span class="accent">01</span> · About</span>
+        </div>
+        <div>
+          <div class="section-head">
+            <h2 class="section-title">A pragmatic engineer who enjoys <em>clean systems</em>.</h2>
+          </div>
+          <div class="about">
+            <p>
+              I build and maintain <strong>microservices and cloud-native systems on Azure</strong>, currently leading the design of services from scratch at CiGen and integrating Azure AI capabilities into e-commerce products. Most of my day is spent in .NET and C#, with Angular on the client when the shape of the work calls for it.
+            </p>
+            <p>
+              Over the last five years I&apos;ve shipped in <strong>fintech, healthcare, and e-commerce</strong> — from Identity &amp; Access Management and Document Management platforms at 3i Solutions, to enterprise .NET and Angular work at PwC, to a full .NET Framework → modern .NET migration at Engineering Group. The domains rotate, but the values don&apos;t: <strong>performance, clean architecture, maintainability</strong>, and code that the next engineer can reason about without a decoder ring.
+            </p>
+            <p>
+              Alongside employment I take on select freelance work and <strong>train aspiring developers</strong> in C#, .NET, Java, and SQL. Teaching keeps the fundamentals sharp — and has quietly made me a better engineer on the job.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="section" id="experience">
+    <div class="container">
+      <div class="row">
+        <div class="meta">
+          <span class="section-num"><span class="accent">02</span> · Experience</span>
+        </div>
+        <div>
+          <div class="section-head">
+            <h2 class="section-title">Where I&rsquo;ve <em>built</em> things.</h2>
+          </div>
+
+          <!-- 2025 — Present · CiGen -->
+          <article class="role">
+            <div class="row">
+              <div class="meta">2025 —<br/>Present</div>
+              <div>
+                <h3 class="role-company">CiGen</h3>
+                <p class="role-title">Software Engineer</p>
+                <ul>
+                  <li>Leading the design and development of microservices from scratch across multiple client projects.</li>
+                  <li>Delivering and maintaining new features, integrating Azure AI capabilities into e-commerce solutions.</li>
+                  <li>Contributing across all phases of the software development lifecycle, from design to production.</li>
+                </ul>
+                <div class="tags">
+                  <span class="tag">.NET</span>
+                  <span class="tag">C#</span>
+                  <span class="tag">Azure</span>
+                  <span class="tag">Azure AI</span>
+                  <span class="tag">Microservices</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2024 — 2025 · Engineering Group -->
+          <article class="role">
+            <div class="row">
+              <div class="meta">2024 —<br/>2025</div>
+              <div>
+                <h3 class="role-company">Engineering Group</h3>
+                <p class="role-title">Software Engineer</p>
+                <ul>
+                  <li>Developed and maintained multiple .NET microservices, delivering new features and improving application performance.</li>
+                  <li>Contributed to migrating a microservice from .NET Framework to modern .NET.</li>
+                </ul>
+                <div class="tags">
+                  <span class="tag">.NET</span>
+                  <span class="tag">C#</span>
+                  <span class="tag">Microservices</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2022 — 2024 · PwC -->
+          <article class="role">
+            <div class="row">
+              <div class="meta">2022 —<br/>2024</div>
+              <div>
+                <h3 class="role-company">PwC</h3>
+                <p class="role-title">Software Engineer</p>
+                <ul>
+                  <li>Developed and maintained microservices using .NET and Angular.</li>
+                  <li>Improved application performance through refactoring and database optimisation (MSSQL).</li>
+                  <li>Applied clean code principles and design patterns in enterprise-scale systems.</li>
+                </ul>
+                <div class="tags">
+                  <span class="tag">.NET</span>
+                  <span class="tag">Angular</span>
+                  <span class="tag">MSSQL</span>
+                  <span class="tag">Microservices</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2021 — 2022 · 3i Solutions -->
+          <article class="role">
+            <div class="row">
+              <div class="meta">2021 —<br/>2022</div>
+              <div>
+                <h3 class="role-company">3i Solutions</h3>
+                <p class="role-title">Software Engineer</p>
+                <ul>
+                  <li>Designed and developed microservices using .NET and Spring Boot for multiple applications, ensuring scalability and performance.</li>
+                  <li>Applied clean code principles and industry-standard design patterns to improve maintainability and development efficiency.</li>
+                  <li>Built and managed end-to-end microservice architectures, including database design using MSSQL, PostgreSQL, MongoDB, and Elasticsearch.</li>
+                </ul>
+                <div class="tags">
+                  <span class="tag">.NET</span>
+                  <span class="tag">Spring Boot</span>
+                  <span class="tag">MSSQL</span>
+                  <span class="tag">PostgreSQL</span>
+                  <span class="tag">MongoDB</span>
+                  <span class="tag">Elasticsearch</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Ongoing parallel track: Freelance -->
+          <div class="ongoing-track" aria-label="Ongoing parallel track">
+            <div class="ongoing-label">Ongoing · parallel track</div>
+            <article class="role">
+              <div class="row">
+                <div class="meta">2020 —<br/>Present</div>
+                <div>
+                  <h3 class="role-company">Freelance</h3>
+                  <p class="role-title">Software Engineer &amp; Mentor</p>
+                  <ul>
+                    <li>Adding new features and fixing bugs in microservices using .NET, Java (Spring Boot), and Angular.</li>
+                    <li>Working with PostgreSQL — schema design and query tuning.</li>
+                    <li>Code refactoring and performance improvements across client codebases.</li>
+                    <li>Training aspiring developers in C#, .NET, Java, and SQL.</li>
+                  </ul>
+                  <div class="tags">
+                    <span class="tag">.NET</span>
+                    <span class="tag">Java</span>
+                    <span class="tag">Spring Boot</span>
+                    <span class="tag">Angular</span>
+                    <span class="tag">PostgreSQL</span>
+                    <span class="tag">Mentoring</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="row">
+        <div class="meta">
+          <span class="section-num"><span class="accent">03</span> · Projects</span>
+        </div>
+        <div>
+          <div class="section-head">
+            <h2 class="section-title">A partial <em>catalogue</em>.</h2>
+          </div>
+
+          <div class="projects">
+            <div class="project">
+              <div class="project-head">
+                <span class="project-name">UK Healthcare System</span>
+                <span class="project-domain">Healthcare</span>
+              </div>
+              <p class="project-desc">Healthcare platform for the UK market.</p>
+            </div>
+            <div class="project">
+              <div class="project-head">
+                <span class="project-name">Identity &amp; Access Management</span>
+                <span class="project-domain">Security</span>
+              </div>
+              <p class="project-desc">IAM system for enterprise access control.</p>
+            </div>
+            <div class="project">
+              <div class="project-head">
+                <span class="project-name">Document Management</span>
+                <span class="project-domain">Enterprise</span>
+              </div>
+              <p class="project-desc">Platform for document lifecycle and retrieval.</p>
+            </div>
+            <div class="project">
+              <div class="project-head">
+                <span class="project-name">HR System Management</span>
+                <span class="project-domain">Enterprise</span>
+              </div>
+              <p class="project-desc">HR platform for workforce operations.</p>
+            </div>
+            <div class="project">
+              <div class="project-head">
+                <span class="project-name">E-Commerce</span>
+                <span class="project-domain">Retail</span>
+              </div>
+              <p class="project-desc">E-commerce solution with Azure AI integration.</p>
+            </div>
+            <div class="project">
+              <div class="project-head">
+                <span class="project-name">Teams Management Service</span>
+                <span class="project-domain">Enterprise</span>
+              </div>
+              <p class="project-desc">Microsoft Teams admin tooling.</p>
+            </div>
+            <div class="project">
+              <div class="project-head">
+                <span class="project-name">iTime</span>
+                <span class="project-domain">Productivity</span>
+              </div>
+              <p class="project-desc">Timesheet management system.</p>
+            </div>
+            <div class="project">
+              <div class="project-head">
+                <span class="project-name">IFP — Intelligent File Processor</span>
+                <span class="project-domain">Enterprise</span>
+              </div>
+              <p class="project-desc">File processing platform.</p>
+            </div>
+            <div class="project">
+              <div class="project-head">
+                <span class="project-name">ESG Platform</span>
+                <span class="project-domain">Compliance</span>
+              </div>
+              <p class="project-desc">Environmental, Social &amp; Corporate Governance reporting.</p>
+            </div>
+            <div class="project">
+              <div class="project-head">
+                <span class="project-name">LMS</span>
+                <span class="project-domain">EdTech</span>
+              </div>
+              <p class="project-desc">Learning management system.</p>
+            </div>
+            <div class="project">
+              <div class="project-head">
+                <span class="project-name">FinTech</span>
+                <span class="project-domain">Fintech</span>
+              </div>
+              <p class="project-desc">Financial platform work across several products.</p>
+            </div>
+          </div>
+
+          <p class="projects-note">
+            Many of these projects were delivered under NDA — happy to discuss scope and architecture in an interview.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="section" id="skills">
+    <div class="container">
+      <div class="row">
+        <div class="meta">
+          <span class="section-num"><span class="accent">04</span> · Skills</span>
+        </div>
+        <div>
+          <div class="section-head">
+            <h2 class="section-title">The <em>toolkit</em>.</h2>
+          </div>
+
+          <div class="skill-group">
+            <h3 class="skill-title">Backend</h3>
+            <div class="skill-list">
+              <span class="skill-item">C#</span>
+              <span class="skill-item">.NET</span>
+              <span class="skill-item">ASP.NET</span>
+              <span class="skill-item">REST APIs</span>
+              <span class="skill-item">GraphQL</span>
+              <span class="skill-item">SignalR</span>
+              <span class="skill-item">RabbitMQ</span>
+              <span class="skill-item">Entity Framework</span>
+              <span class="skill-item">Dapper</span>
+              <span class="skill-item">LINQ</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <h3 class="skill-title">Frontend</h3>
+            <div class="skill-list">
+              <span class="skill-item">Angular</span>
+              <span class="skill-item">React</span>
+              <span class="skill-item">TypeScript</span>
+              <span class="skill-item">HTML</span>
+              <span class="skill-item">CSS</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <h3 class="skill-title">Cloud — Azure</h3>
+            <div class="skill-list">
+              <span class="skill-item">Azure Functions</span>
+              <span class="skill-item">Blob Storage</span>
+              <span class="skill-item">Service Bus</span>
+              <span class="skill-item">Azure Monitor</span>
+              <span class="skill-item">Azure DevOps</span>
+              <span class="skill-item">Azure AI Foundry</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <h3 class="skill-title">Data</h3>
+            <div class="skill-list">
+              <span class="skill-item">SQL Server</span>
+              <span class="skill-item">PostgreSQL</span>
+              <span class="skill-item">MongoDB</span>
+              <span class="skill-item">Elasticsearch</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="section" id="education">
+    <div class="container">
+      <div class="row">
+        <div class="meta">
+          <span class="section-num"><span class="accent">05</span> · Education</span>
+        </div>
+        <div>
+          <div class="section-head">
+            <h2 class="section-title">Where I <em>studied</em>.</h2>
+          </div>
+          <div class="education-item">
+            <h3 class="education-school">Canadian Institute of Technology</h3>
+            <p class="education-degree">Bachelor of Software Engineering · 2018 — 2022</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="meta">
+          <span class="section-num"><span class="accent">06</span> · Contact</span>
+        </div>
+        <div>
+          <div class="section-head">
+            <h2 class="section-title">Let&rsquo;s <em>talk</em>.</h2>
+          </div>
+
+          <div class="contact-grid">
+            <div class="contact-item">
+              <span class="contact-label">Email</span>
+              <a class="contact-value" href="mailto:aurelborici20@gmail.com">aurelborici20@gmail.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label">LinkedIn</span>
+              <a class="contact-value" href="https://www.linkedin.com/in/aurel-borici/" target="_blank" rel="noopener">linkedin.com/in/aurel-borici</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label">GitHub</span>
+              <a class="contact-value" href="https://github.com/AurelBorici" target="_blank" rel="noopener">github.com/AurelBorici</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label">Location</span>
+              <span class="contact-value">Tirana, Albania</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 2026 Aurel Boriçi</span>
+    <span>Built with HTML, CSS &amp; care</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var STORAGE_KEY = "aurel-theme";
+    var root = document.documentElement;
+    var toggle = document.getElementById("themeToggle");
+    var topbar = document.getElementById("topbar");
+
+    function apply(theme) {
+      if (theme === "dark") root.setAttribute("data-theme", "dark");
+      else root.removeAttribute("data-theme");
+    }
+
+    var saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      apply(saved);
+    } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      apply("dark");
+    }
+
+    toggle.addEventListener("click", function () {
+      var isDark = root.getAttribute("data-theme") === "dark";
+      var next = isDark ? "light" : "dark";
+      apply(next);
+      localStorage.setItem(STORAGE_KEY, next);
+    });
+
+    var onScroll = function () {
+      if (window.scrollY > 8) topbar.classList.add("scrolled");
+      else topbar.classList.remove("scrolled");
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    // ---------- Mobile menu ----------
+    var menuToggle = document.getElementById("menuToggle");
+    var mobileMenu = document.getElementById("mobileMenu");
+    var mobileLinks = Array.prototype.slice.call(mobileMenu.querySelectorAll("a"));
+    var hideTimer = null;
+    var lastFocused = null;
+
+    function isOpen() { return menuToggle.getAttribute("aria-expanded") === "true"; }
+
+    function openMenu() {
+      if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+      lastFocused = document.activeElement;
+      mobileMenu.hidden = false;
+      // force layout so transition plays
+      void mobileMenu.offsetWidth;
+      mobileMenu.setAttribute("data-open", "true");
+      mobileMenu.setAttribute("aria-hidden", "false");
+      menuToggle.setAttribute("aria-expanded", "true");
+      menuToggle.setAttribute("aria-label", "Close menu");
+      document.body.style.overflow = "hidden";
+      requestAnimationFrame(function () { mobileLinks[0].focus(); });
+    }
+
+    function closeMenu() {
+      mobileMenu.setAttribute("data-open", "false");
+      mobileMenu.setAttribute("aria-hidden", "true");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Open menu");
+      document.body.style.overflow = "";
+      hideTimer = setTimeout(function () {
+        if (!isOpen()) mobileMenu.hidden = true;
+        hideTimer = null;
+      }, 220);
+      if (lastFocused && typeof lastFocused.focus === "function") {
+        menuToggle.focus();
+      }
+    }
+
+    menuToggle.addEventListener("click", function () {
+      if (isOpen()) closeMenu(); else openMenu();
+    });
+
+    mobileLinks.forEach(function (link) {
+      link.addEventListener("click", function () { closeMenu(); });
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (!isOpen()) return;
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeMenu();
+        return;
+      }
+      if (e.key === "Tab") {
+        var focusables = mobileLinks.slice();
+        focusables.push(menuToggle);
+        var first = focusables[0];
+        var last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth >= 700 && isOpen()) closeMenu();
+    });
+  })();
+</script>
+
+</body>
+</html>
