@@ -464,6 +464,58 @@
         }
       }
 
+      /* Scroll-to-top (mobile only) */
+      .scroll-top {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 1px solid var(--rule);
+        background: color-mix(in srgb, var(--bg) 92%, transparent);
+        backdrop-filter: saturate(140%) blur(10px);
+        -webkit-backdrop-filter: saturate(140%) blur(10px);
+        color: var(--ink-soft);
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 15;
+        opacity: 0;
+        transform: translateY(8px);
+        transition:
+          opacity 0.2s ease,
+          transform 0.2s ease,
+          border-color 0.15s ease,
+          color 0.15s ease;
+        padding: 0;
+      }
+      .scroll-top svg {
+        width: 18px;
+        height: 18px;
+      }
+      .scroll-top:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .scroll-top.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 700px) {
+        .scroll-top {
+          display: inline-flex;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .scroll-top {
+          transition: none;
+        }
+      }
+
       /* ---------- Hero ---------- */
 
       .hero {
@@ -1620,6 +1672,27 @@
       </div>
     </footer>
 
+    <button
+      class="scroll-top"
+      id="scrollTop"
+      type="button"
+      aria-label="Scroll to top"
+      hidden
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M12 19V5" />
+        <path d="M5 12l7-7 7 7" />
+      </svg>
+    </button>
+
     <script>
       (function () {
         var STORAGE_KEY = "aurel-theme";
@@ -1738,6 +1811,73 @@
 
         window.addEventListener("resize", function () {
           if (window.innerWidth >= 700 && isOpen()) closeMenu();
+        });
+
+        // ---------- Smooth scroll without hash in URL ----------
+        var allNavLinks = document.querySelectorAll(
+          '.nav-links a[href^="#"], .mobile-nav a[href^="#"], .mark[href^="#"]'
+        );
+
+        allNavLinks.forEach(function (link) {
+          link.addEventListener("click", function (e) {
+            var href = link.getAttribute("href");
+            if (!href || href.charAt(0) !== "#") return;
+
+            var targetId = href.slice(1);
+            var target =
+              targetId === "top" || targetId === ""
+                ? document.documentElement
+                : document.getElementById(targetId);
+            if (!target) return;
+
+            e.preventDefault();
+
+            var reduceMotion = window.matchMedia(
+              "(prefers-reduced-motion: reduce)"
+            ).matches;
+
+            if (targetId === "top" || targetId === "") {
+              window.scrollTo({
+                top: 0,
+                behavior: reduceMotion ? "auto" : "smooth",
+              });
+            } else {
+              var rect = target.getBoundingClientRect();
+              var offset = window.scrollY + rect.top - 20;
+              window.scrollTo({
+                top: offset,
+                behavior: reduceMotion ? "auto" : "smooth",
+              });
+            }
+          });
+        });
+
+        // ---------- Scroll-to-top ----------
+        var scrollTopBtn = document.getElementById("scrollTop");
+
+        function toggleScrollTop() {
+          if (window.scrollY > 400) {
+            scrollTopBtn.hidden = false;
+            scrollTopBtn.classList.add("visible");
+          } else {
+            scrollTopBtn.classList.remove("visible");
+            setTimeout(function () {
+              if (window.scrollY <= 400) scrollTopBtn.hidden = true;
+            }, 220);
+          }
+        }
+
+        window.addEventListener("scroll", toggleScrollTop, { passive: true });
+        toggleScrollTop();
+
+        scrollTopBtn.addEventListener("click", function () {
+          window.scrollTo({
+            top: 0,
+            behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+              .matches
+              ? "auto"
+              : "smooth",
+          });
         });
       })();
     </script>
