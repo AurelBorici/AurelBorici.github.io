@@ -657,10 +657,31 @@
 
       .hero-typed {
         display: block;
+        position: relative;
         margin-top: 12px;
         color: var(--accent);
-        min-height: 1.1em;
         white-space: nowrap;
+      }
+
+      /* The cycling phrases have different lengths, so on narrow screens some
+         wrap to two lines and some don't — which resized the h1 mid-animation
+         and shunted the whole page up and down while scrolling. An invisible
+         copy of the widest phrase ("teams can maintain.", 407px @ 48px) holds
+         the box at whatever height the longest phrase needs, and the live text
+         is layered on top so it can never affect layout. Sizing from real text
+         means this stays exact at any viewport width and font size. */
+      .hero-typed-sizer {
+        display: block;
+        visibility: hidden;
+      }
+
+      .hero-typed-sizer .caret {
+        animation: none;
+      }
+
+      .hero-typed-live {
+        position: absolute;
+        inset: 0;
       }
 
       .caret {
@@ -726,8 +747,12 @@
         display: flex;
       }
 
+      /* 14ch = the longest label ("availability", 12 chars) plus a 2-char gap.
+         In IBM Plex Mono this lands on 118px at the desktop 14px size, and
+         rescales with the mobile font instead of colliding — a fixed 92px left
+         "availability" only 2px of clearance. */
       .term-key {
-        flex: 0 0 118px;
+        flex: 0 0 14ch;
         color: var(--accent);
       }
 
@@ -1172,6 +1197,12 @@
           margin-top: 4px;
         }
 
+        /* Two-line phrases must not put the caret on a third line, or the
+           sizer would under-reserve. */
+        .hero-typed-live {
+          overflow: hidden;
+        }
+
         .hero-lede {
           margin-top: 28px;
         }
@@ -1233,10 +1264,6 @@
         .term-body {
           padding: 20px 16px;
           font-size: 12.5px;
-        }
-
-        .term-key {
-          flex-basis: 92px;
         }
 
         .term-bar {
@@ -1381,8 +1408,11 @@
           </p>
           <h1 class="hero-title">
             I build software <span class="hero-typed"
-              ><span id="typed">for fintech.</span
-              ><span class="caret" aria-hidden="true"></span
+              ><span class="hero-typed-sizer" aria-hidden="true"
+                >teams can maintain.<span class="caret"></span></span
+              ><span class="hero-typed-live"
+                ><span id="typed">for fintech.</span
+                ><span class="caret" aria-hidden="true"></span></span
             ></span>
           </h1>
           <p class="hero-lede">
