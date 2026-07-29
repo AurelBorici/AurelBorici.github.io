@@ -32,17 +32,30 @@
       content="Senior Software Engineer specialising in .NET microservices and Azure cloud-native systems."
     />
 
+    <meta id="themeColor" name="theme-color" content="#0d0e0b" />
+
     <link rel="canonical" href="https://aborici.dev" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate icon" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
-    <link rel="mask-icon" href="/favicon.svg" color="#c2410c" />
+    <link rel="mask-icon" href="/favicon.svg" color="#e0a458" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap"
       rel="stylesheet"
     />
+
+    <script>
+      // Applied before first paint so a saved light preference doesn't flash dark.
+      (function () {
+        try {
+          if (localStorage.getItem("aurel-theme") === "light") {
+            document.documentElement.setAttribute("data-theme", "light");
+          }
+        } catch (e) {}
+      })();
+    </script>
 
     <script type="application/ld+json">
       {
@@ -69,6 +82,7 @@
           ".NET",
           "Microservices",
           "Azure",
+          "Azure AI",
           "Angular",
           "PostgreSQL",
           "RabbitMQ",
@@ -79,1669 +93,1798 @@
     </script>
 
     <style>
+      /* ============================================================
+         Tokens
+         ============================================================ */
       :root {
-        --bg: #faf8f4;
-        --bg-alt: #f2ede3;
-        --ink: #1a1a1a;
-        --ink-soft: #55514a;
-        --ink-muted: #8a847a;
-        --rule: #d9d3c5;
-        --accent: #c2410c;
-        --accent-soft: #fed7aa;
+        --bg: #0d0e0b;
+        --panel: #101109;
+        --line: #262820;
+        --chip: #2e3026;
+        --ink: #edebe0;
+        --body: #c9c5b6;
+        --muted: #9b978a;
+        --dim: #85837a;
+        --nav: rgba(13, 14, 11, 0.85);
+        --grid: rgba(237, 235, 224, 0.025);
+        --ok: #7fbf6f;
+        --accent: #e0a458;
+        --accent-on: #0d0e0b;
+        --select: rgba(224, 164, 88, 0.35);
+        --shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 
-        --font-display: "Fraunces", Georgia, "Times New Roman", serif;
-        --font-body:
-          "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        --font-sans:
+          "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI",
           sans-serif;
-        --font-mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
+        --font-mono: "IBM Plex Mono", "SF Mono", Consolas, monospace;
+        --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
 
-        --max-width: 1100px;
-        --grid-meta: 180px;
-        --grid-gap: 48px;
-        --prose-width: 680px;
+        --max: 1160px;
+        --pad: 48px;
+        --nav-h: 78px;
       }
 
-      [data-theme="dark"] {
-        --bg: #1a1814;
-        --bg-alt: #252219;
-        --ink: #f5f1e8;
-        --ink-soft: #b8b2a4;
-        --ink-muted: #8a847a;
-        --rule: #3a352b;
-        --accent: #fb923c;
-        --accent-soft: #7c2d12;
+      html[data-theme="light"] {
+        --bg: #faf8f4;
+        --panel: #f2eee4;
+        --line: #e3ddcf;
+        --chip: #d8d1bf;
+        --ink: #1c1a16;
+        --body: #3b372f;
+        --muted: #5c574c;
+        --dim: #736e62;
+        --nav: rgba(250, 248, 244, 0.88);
+        --grid: rgba(28, 26, 22, 0.045);
+        --ok: #3e6b3a;
+        --accent: #a85b12;
+        --accent-on: #faf8f4;
+        --select: rgba(168, 91, 18, 0.22);
+        --shadow: 0 20px 60px rgba(28, 26, 22, 0.08);
       }
 
+      /* ============================================================
+         Reset & base
+         ============================================================ */
       *,
       *::before,
       *::after {
         box-sizing: border-box;
       }
 
-      html,
-      body {
-        overflow-x: hidden;
-        max-width: 100vw;
-      }
-
       html {
         scroll-behavior: smooth;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
-        }
-        *,
-        *::before,
-        *::after {
-          animation-duration: 0.01ms !important;
-          transition-duration: 0.01ms !important;
-        }
+        -webkit-text-size-adjust: 100%;
       }
 
       body {
         margin: 0;
-        font-family: var(--font-body);
-        font-size: 17px;
-        line-height: 1.65;
-        color: var(--ink-soft);
         background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-sans);
+        font-size: 16px;
+        line-height: 1.5;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        font-feature-settings: "kern", "liga", "ss01";
-        position: relative;
         transition:
-          background-color 0.3s ease,
-          color 0.3s ease;
-      }
-
-      /* Subtle noise texture overlay */
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 1;
-        opacity: 0.35;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        mix-blend-mode: multiply;
-      }
-
-      [data-theme="dark"] body::before {
-        mix-blend-mode: screen;
-        opacity: 0.25;
-      }
-
-      main,
-      header,
-      footer,
-      nav {
-        position: relative;
-        z-index: 2;
-      }
-
-      ::selection {
-        background: var(--accent-soft);
-        color: var(--ink);
-      }
-
-      h1,
-      h2,
-      h3,
-      h4 {
-        font-family: var(--font-display);
-        color: var(--ink);
-        font-weight: 500;
-        letter-spacing: -0.01em;
-        margin: 0;
-        line-height: 1.1;
-      }
-
-      p {
-        margin: 0 0 1em;
-      }
-      p:last-child {
-        margin-bottom: 0;
+          background 0.25s ease,
+          color 0.25s ease;
       }
 
       a {
-        color: var(--accent);
-        text-decoration: none;
-        border-bottom: 1px solid var(--accent-soft);
-        transition:
-          border-color 0.15s ease,
-          color 0.15s ease;
+        color: var(--ink);
       }
+
       a:hover {
-        border-bottom-color: var(--accent);
+        color: var(--accent);
       }
-      a:focus-visible {
+
+      ::selection {
+        background: var(--select);
+      }
+
+      :focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
         border-radius: 2px;
       }
 
-      /* ---------- Layout primitives ---------- */
-
-      .container {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 0 32px;
-        position: relative;
-        z-index: 2;
+      p {
+        text-wrap: pretty;
       }
 
-      .row {
-        display: grid;
-        grid-template-columns: var(--grid-meta) 1fr;
-        gap: var(--grid-gap);
-        align-items: baseline;
+      main > section[id],
+      main > header[id] {
+        scroll-margin-top: var(--nav-h);
       }
 
-      .meta {
-        font-family: var(--font-mono);
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: var(--ink-muted);
-        line-height: 1.5;
-      }
-
-      /* ---------- Nav ---------- */
-
-      .topbar {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        background: color-mix(in srgb, var(--bg) 88%, transparent);
-        backdrop-filter: saturate(140%) blur(10px);
-        -webkit-backdrop-filter: saturate(140%) blur(10px);
-        border-bottom: 1px solid transparent;
-        transition: border-color 0.2s ease;
-      }
-      .topbar.scrolled {
-        border-bottom-color: var(--rule);
-      }
-
-      .topbar-inner {
-        max-width: var(--max-width);
-        margin: 0 auto;
-        padding: 16px 32px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-      }
-
-      .topbar-left {
-        display: inline-flex;
-        align-items: center;
-        gap: 14px;
-      }
-
-      .mark {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        font-family: var(--font-display);
-        font-weight: 500;
-        font-size: 17px;
-        color: var(--ink);
-        border: 0;
-        text-decoration: none;
-      }
-      .mark-logo {
-        width: 22px;
-        height: 22px;
-        color: var(--ink);
-        flex-shrink: 0;
-      }
-      .mark span {
-        letter-spacing: -0.01em;
-      }
-      .mark-accent {
-        color: var(--accent);
-      }
-
-      .nav-links {
-        display: flex;
-        gap: 28px;
-        font-family: var(--font-mono);
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-      }
-      .nav-links a {
-        color: var(--ink-soft);
-        border: 0;
-      }
-      .nav-links a:hover {
-        color: var(--accent);
-      }
-
-      .theme-toggle,
-      .menu-toggle {
-        border: 1px solid var(--rule);
-        background: transparent;
-        color: var(--ink-soft);
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        transition:
-          border-color 0.15s ease,
-          color 0.15s ease;
-        flex-shrink: 0;
-        padding: 0;
-      }
-      .theme-toggle:hover,
-      .menu-toggle:hover {
-        border-color: var(--accent);
-        color: var(--accent);
-      }
-      .theme-toggle svg {
-        width: 16px;
-        height: 16px;
-      }
-      .theme-toggle .icon-moon {
-        display: none;
-      }
-      [data-theme="dark"] .theme-toggle .icon-sun {
-        display: none;
-      }
-      [data-theme="dark"] .theme-toggle .icon-moon {
-        display: block;
-      }
-
-      /* Hamburger (mobile only) */
-      .menu-toggle {
-        display: none;
-        position: relative;
-        z-index: 30;
-      }
-      .menu-lines,
-      .menu-lines::before,
-      .menu-lines::after {
-        display: block;
-        width: 18px;
-        height: 1px;
-        background: currentColor;
-        transition:
-          transform 0.2s ease,
-          opacity 0.2s ease,
-          top 0.2s ease,
-          background-color 0.15s ease;
-      }
-      .menu-lines {
-        position: relative;
-      }
-      .menu-lines::before,
-      .menu-lines::after {
-        content: "";
+      .sr-only {
         position: absolute;
-        left: 0;
-      }
-      .menu-lines::before {
-        top: -5px;
-      }
-      .menu-lines::after {
-        top: 5px;
-      }
-
-      .menu-toggle[aria-expanded="true"] .menu-lines {
-        background: transparent;
-      }
-      .menu-toggle[aria-expanded="true"] .menu-lines::before {
-        top: 0;
-        transform: rotate(45deg);
-      }
-      .menu-toggle[aria-expanded="true"] .menu-lines::after {
-        top: 0;
-        transform: rotate(-45deg);
-      }
-
-      /* Mobile menu overlay */
-      .mobile-menu {
-        position: fixed;
-        inset: 0;
-        background: color-mix(in srgb, var(--bg) 94%, transparent);
-        backdrop-filter: saturate(140%) blur(16px);
-        -webkit-backdrop-filter: saturate(140%) blur(16px);
-        z-index: 20;
-        opacity: 0;
-        transform: translateY(-8px);
-        transition:
-          opacity 0.2s ease-out,
-          transform 0.2s ease-out;
-        pointer-events: none;
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        padding: 96px 32px 32px;
-      }
-
-      body.menu-open .topbar {
-        z-index: 25;
-      }
-      .mobile-menu[data-open="true"] {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
-      }
-
-      .mobile-nav {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        text-align: center;
-      }
-      .mobile-nav a {
-        font-family: var(--font-display);
-        font-size: 28px;
-        font-weight: 500;
-        color: var(--ink);
-        padding: 18px 28px;
-        border: 0;
-        display: block;
-        letter-spacing: -0.01em;
-        line-height: 1.15;
-        transition: color 0.15s ease;
-      }
-      .mobile-nav a:hover,
-      .mobile-nav a:focus-visible {
-        color: var(--accent);
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .mobile-menu {
-          transition: none;
-        }
-        .menu-lines,
-        .menu-lines::before,
-        .menu-lines::after {
-          transition: none;
-        }
-      }
-
-      /* Scroll-to-top (mobile only) */
-      .scroll-top {
-        position: fixed;
-        bottom: 24px;
-        right: 24px;
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        border: 1px solid var(--rule);
-        background: color-mix(in srgb, var(--bg) 92%, transparent);
-        backdrop-filter: saturate(140%) blur(10px);
-        -webkit-backdrop-filter: saturate(140%) blur(10px);
-        color: var(--ink-soft);
-        cursor: pointer;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 15;
-        opacity: 0;
-        transform: translateY(8px);
-        transition:
-          opacity 0.2s ease,
-          transform 0.2s ease,
-          border-color 0.15s ease,
-          color 0.15s ease;
-        padding: 0;
-      }
-      .scroll-top svg {
-        width: 18px;
-        height: 18px;
-      }
-      .scroll-top:hover {
-        border-color: var(--accent);
-        color: var(--accent);
-      }
-      .scroll-top.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      @media (max-width: 700px) {
-        .scroll-top {
-          display: inline-flex;
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .scroll-top {
-          transition: none;
-        }
-      }
-
-      /* ---------- Hero ---------- */
-
-      .hero {
-        padding: 80px 0 80px;
-        border-bottom: 1px solid var(--rule);
-      }
-
-      .hero-eyebrow {
-        font-family: var(--font-mono);
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        color: var(--ink-muted);
-        margin-bottom: 28px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-      .hero-eyebrow::before {
-        content: "";
-        display: inline-block;
-        width: 24px;
+        width: 1px;
         height: 1px;
-        background: var(--accent);
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+        border: 0;
       }
 
-      .hero h1 {
-        font-size: clamp(48px, 9vw, 104px);
-        font-weight: 400;
-        letter-spacing: -0.035em;
-        line-height: 0.98;
-        margin: 0 0 24px;
-      }
-      .hero h1 .accent {
-        font-style: italic;
-        color: var(--accent);
-        font-weight: 400;
-      }
-
-      .hero-tagline {
-        font-family: var(--font-display);
-        font-size: clamp(20px, 2.2vw, 24px);
-        font-weight: 400;
-        color: var(--ink);
-        font-style: italic;
-        margin: 0 0 40px;
-      }
-
-      .hero-lede {
-        font-size: 18px;
-        line-height: 1.7;
-        color: var(--ink-soft);
-        max-width: var(--prose-width);
-        margin: 0 0 48px;
-      }
-
-      .hero-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px 24px;
-        font-family: var(--font-mono);
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: var(--ink-muted);
-        align-items: center;
-      }
-      .hero-meta .dot {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #16a34a;
-        margin-right: 8px;
-        box-shadow: 0 0 0 3px color-mix(in srgb, #16a34a 25%, transparent);
-        animation: pulse 2.4s ease-in-out infinite;
-      }
-      @keyframes pulse {
+      @keyframes blink {
         0%,
+        49% {
+          opacity: 1;
+        }
+        50%,
         100% {
-          box-shadow: 0 0 0 3px color-mix(in srgb, #16a34a 25%, transparent);
-        }
-        50% {
-          box-shadow: 0 0 0 6px color-mix(in srgb, #16a34a 10%, transparent);
+          opacity: 0;
         }
       }
-      .hero-meta span + span::before {
-        content: "·";
-        color: var(--rule);
-        margin-right: 24px;
-        margin-left: -16px;
+
+      /* ============================================================
+         Shell
+         ============================================================ */
+      .page {
+        background-image:
+          linear-gradient(var(--grid) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+        background-size: 56px 56px;
       }
 
-      /* ---------- Sections ---------- */
-
-      section.section {
-        padding: 80px 0;
-        border-bottom: 1px solid var(--rule);
-      }
-      section.section:last-of-type {
-        border-bottom: 0;
+      .wrap {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding-left: var(--pad);
+        padding-right: var(--pad);
       }
 
-      .section-head {
-        margin-bottom: 48px;
-      }
-
-      .section-num {
+      .eyebrow {
         font-family: var(--font-mono);
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 0.14em;
-        color: var(--ink-muted);
-        display: block;
-      }
-      .section-num .accent {
-        color: var(--accent);
-      }
-
-      .section-title {
-        font-family: var(--font-display);
-        font-size: clamp(28px, 3.2vw, 40px);
+        font-size: 12px;
         font-weight: 400;
-        letter-spacing: -0.02em;
-        color: var(--ink);
-      }
-      .section-title em {
-        font-style: italic;
-        color: var(--accent);
-        font-weight: 400;
-      }
-
-      /* ---------- About ---------- */
-
-      .about p {
-        font-size: 18px;
-        line-height: 1.75;
-        max-width: var(--prose-width);
-      }
-      .about p + p {
-        margin-top: 1.2em;
-      }
-      .about strong {
-        color: var(--ink);
-        font-weight: 500;
-      }
-
-      /* ---------- Experience ---------- */
-
-      .role {
-        padding: 36px 0;
-        border-top: 1px solid var(--rule);
-      }
-      .role:first-of-type {
-        border-top: 0;
-        padding-top: 0;
-      }
-      .role:last-of-type {
-        padding-bottom: 0;
-      }
-
-      .role-company {
-        font-family: var(--font-display);
-        font-size: 22px;
-        font-weight: 500;
-        color: var(--ink);
-        margin: 0 0 2px;
-        letter-spacing: -0.01em;
-      }
-      .role-title {
-        font-family: var(--font-body);
-        font-size: 15px;
-        color: var(--ink-soft);
-        font-style: italic;
-        margin: 0 0 20px;
-      }
-
-      .role ul {
-        list-style: none;
-        padding: 0;
-        margin: 0 0 24px;
-        max-width: var(--prose-width);
-      }
-      .role ul li {
-        position: relative;
-        padding-left: 22px;
-        margin-bottom: 10px;
-        line-height: 1.6;
-      }
-      .role ul li::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0.75em;
-        width: 10px;
-        height: 1px;
-        background: var(--accent);
-      }
-
-      .tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-      }
-      .tag {
-        font-family: var(--font-mono);
-        font-size: 10.5px;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: var(--ink-muted);
-        padding: 4px 10px;
-        border: 1px solid var(--rule);
-        border-radius: 999px;
-        transition:
-          color 0.15s ease,
-          border-color 0.15s ease;
-      }
-      .tag:hover {
-        color: var(--accent);
-        border-color: var(--accent-soft);
-      }
-
-      /* Freelance ongoing track */
-      .ongoing-track {
-        margin-top: 64px;
-        padding-top: 40px;
-        border-top: 1px dashed var(--rule);
-        position: relative;
-      }
-      .ongoing-label {
-        font-family: var(--font-mono);
-        font-size: 10.5px;
-        text-transform: uppercase;
         letter-spacing: 0.12em;
-        color: var(--accent);
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .ongoing-label::before {
-        content: "";
-        display: inline-block;
-        width: 18px;
-        height: 1px;
-        background: var(--accent);
-      }
-      .ongoing-track .role {
-        padding: 0;
-        border: 0;
-        background: var(--bg-alt);
-        padding: 32px;
-        border-radius: 4px;
-      }
-
-      /* ---------- Projects ---------- */
-
-      .projects {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0;
-        border-top: 1px solid var(--rule);
-        border-left: 1px solid var(--rule);
-      }
-      .project {
-        border-right: 1px solid var(--rule);
-        border-bottom: 1px solid var(--rule);
-        padding: 24px 28px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        transition: background-color 0.2s ease;
-      }
-      .project:hover {
-        background: var(--bg-alt);
-      }
-
-      .project-head {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        gap: 12px;
-      }
-      .project-name {
-        font-family: var(--font-display);
-        font-size: 18px;
-        font-weight: 500;
-        color: var(--ink);
-        letter-spacing: -0.005em;
-      }
-      .project-domain {
-        font-family: var(--font-mono);
-        font-size: 10px;
+        line-height: 1.5;
         text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: var(--ink-muted);
-        flex-shrink: 0;
-      }
-      .project-desc {
-        font-size: 14.5px;
-        color: var(--ink-soft);
-        line-height: 1.55;
-      }
-
-      .projects-note {
-        margin-top: 32px;
-        font-size: 14px;
-        color: var(--ink-muted);
-        font-style: italic;
-        max-width: 62ch;
-      }
-
-      /* ---------- Skills ---------- */
-
-      .skill-group {
-        padding: 28px 0;
-        border-top: 1px solid var(--rule);
-      }
-      .skill-group:first-of-type {
-        border-top: 0;
-        padding-top: 0;
-      }
-      .skill-group:last-of-type {
-        padding-bottom: 0;
-      }
-
-      .skill-title {
-        font-family: var(--font-display);
-        font-size: 22px;
-        font-weight: 500;
-        color: var(--ink);
+        color: var(--dim);
         margin: 0 0 14px;
       }
 
-      .skill-list {
+      .eyebrow--hero {
+        margin-bottom: 28px;
+      }
+      .eyebrow--contact {
+        margin-bottom: 20px;
+      }
+      .eyebrow--skills {
+        margin-bottom: 40px;
+      }
+
+      .section-title {
+        font-size: clamp(32px, 4vw, 48px);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        margin: 0 0 64px;
+      }
+
+      .section-title--tight {
+        margin-bottom: 12px;
+      }
+
+      .section-title em,
+      .contact-title em {
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-weight: 500;
+        color: var(--accent);
+      }
+
+      /* ============================================================
+         Nav
+         ============================================================ */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 16px var(--pad);
+        background: var(--nav);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--line);
+        font-family: var(--font-mono);
+      }
+
+      .nav-mark {
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        white-space: nowrap;
+      }
+
+      .nav-mark b {
+        font-weight: inherit;
+        color: var(--accent);
+      }
+
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        font-size: 12px;
+        letter-spacing: 0.04em;
+      }
+
+      .nav-link {
+        text-decoration: none;
+        color: var(--muted);
+      }
+
+      .nav-link:hover {
+        color: var(--accent);
+      }
+
+      .theme-toggle {
+        width: 30px;
+        height: 30px;
+        flex: none;
+        border-radius: 50%;
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 14px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        transition:
+          border-color 0.2s ease,
+          color 0.2s ease;
+      }
+
+      .theme-toggle:hover {
+        border-color: var(--muted);
+        color: var(--ink);
+      }
+
+      .glyph-moon {
+        display: none;
+      }
+      html[data-theme="light"] .glyph-sun {
+        display: none;
+      }
+      html[data-theme="light"] .glyph-moon {
+        display: block;
+      }
+
+      .btn-accent {
+        text-decoration: none;
+        color: var(--accent-on);
+        background: var(--accent);
+        padding: 7px 16px;
+        border-radius: 3px;
+        font-weight: 600;
+        white-space: nowrap;
+        transition:
+          background 0.2s ease,
+          color 0.2s ease;
+      }
+
+      .btn-accent:hover {
+        background: var(--ink);
+        color: var(--bg);
+      }
+
+      /* ------------------------------------------------------------
+         Mobile menu — only shown once JS can drive it, so a no-JS
+         visitor never meets a dead button.
+         ------------------------------------------------------------ */
+      .menu-toggle {
+        display: none;
+        width: 30px;
+        height: 30px;
+        flex: none;
+        border-radius: 50%;
+        border: 1px solid var(--line);
+        background: transparent;
+        cursor: pointer;
+        padding: 0;
+        align-items: center;
+        justify-content: center;
+        transition: border-color 0.2s ease;
+      }
+
+      .menu-toggle:hover {
+        border-color: var(--muted);
+      }
+
+      .menu-toggle span {
+        position: relative;
+        display: block;
+        width: 12px;
+        height: 1px;
+        background: var(--muted);
+        transition: background 0.2s ease;
+      }
+
+      .menu-toggle span::before,
+      .menu-toggle span::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 12px;
+        height: 1px;
+        background: var(--muted);
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease,
+          top 0.2s ease;
+      }
+
+      .menu-toggle span::before {
+        top: -4px;
+      }
+      .menu-toggle span::after {
+        top: 4px;
+      }
+
+      .menu-toggle[aria-expanded="true"] {
+        border-color: var(--accent);
+      }
+
+      .menu-toggle[aria-expanded="true"] span {
+        background: transparent;
+      }
+
+      .menu-toggle[aria-expanded="true"] span::before,
+      .menu-toggle[aria-expanded="true"] span::after {
+        top: 0;
+        background: var(--accent);
+      }
+
+      .menu-toggle[aria-expanded="true"] span::before {
+        transform: rotate(45deg);
+      }
+      .menu-toggle[aria-expanded="true"] span::after {
+        transform: rotate(-45deg);
+      }
+
+      /* Full-screen overlay, not a dropdown — solid ground, own grid. */
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        flex-direction: column;
+        background-color: var(--bg);
+        background-image:
+          linear-gradient(var(--grid) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+        background-size: 56px 56px;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      .mobile-menu[data-open="true"] {
+        opacity: 1;
+      }
+
+      .mm-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex: none;
+        padding: 12px 20px;
+        min-height: var(--nav-h);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .mm-close {
+        width: 36px;
+        height: 36px;
+        flex: none;
+        border-radius: 50%;
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        font-family: var(--font-mono);
+        font-size: 15px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        transition:
+          border-color 0.2s ease,
+          color 0.2s ease;
+      }
+
+      .mm-close:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .mobile-nav {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 22px;
+        min-height: 0;
+      }
+
+      .mobile-nav a {
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+        padding: 18px 0;
+        text-decoration: none;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .mobile-nav a:last-child {
+        border-bottom: 0;
+      }
+
+      .mm-sys {
+        flex: none;
+        width: 52px;
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+      }
+
+      .mm-label {
+        font-family: var(--font-sans);
+        font-size: 34px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        color: var(--ink);
+        transition: color 0.2s ease;
+      }
+
+      .mobile-nav a:hover .mm-label,
+      .mobile-nav a:focus-visible .mm-label {
+        color: var(--accent);
+      }
+
+      .mm-status {
+        flex: none;
+        margin: 0;
+        padding: 0 22px 28px;
+        font-family: var(--font-mono);
+        font-size: 11.5px;
+        line-height: 1.6;
+        color: var(--dim);
+      }
+
+      @keyframes mmUp {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      .mobile-menu[data-open="true"] .mobile-nav a,
+      .mobile-menu[data-open="true"] .mm-status {
+        animation: mmUp 0.35s ease both;
+      }
+
+      .mobile-menu[data-open="true"] .mobile-nav a:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .mobile-menu[data-open="true"] .mobile-nav a:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .mobile-menu[data-open="true"] .mobile-nav a:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .mobile-menu[data-open="true"] .mobile-nav a:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+      .mobile-menu[data-open="true"] .mobile-nav a:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+      .mobile-menu[data-open="true"] .mm-status {
+        animation-delay: 0.3s;
+      }
+
+      /* ============================================================
+         Back to top — mobile only
+         ============================================================ */
+      .to-top {
+        display: none;
+        position: fixed;
+        right: 18px;
+        bottom: 20px;
+        z-index: 60;
+        width: 46px;
+        height: 46px;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border-radius: 50%;
+        border: 1px solid var(--line);
+        background: var(--nav);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+        color: var(--ink);
+        font-size: 17px;
+        line-height: 1;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.25s ease,
+          visibility 0.25s ease;
+      }
+
+      .to-top[data-visible="true"] {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* ============================================================
+         Hero
+         ============================================================ */
+      .hero {
+        padding-top: 130px;
+        padding-bottom: 90px;
+      }
+
+      .hero-title {
+        font-size: clamp(48px, 7.5vw, 104px);
+        line-height: 1.02;
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        margin: 0;
+      }
+
+      .hero-typed {
+        display: block;
+        margin-top: 12px;
+        color: var(--accent);
+        min-height: 1.1em;
+        white-space: nowrap;
+      }
+
+      .caret {
+        display: inline-block;
+        width: 0.08em;
+        height: 0.85em;
+        background: var(--accent);
+        margin-left: 6px;
+        vertical-align: baseline;
+        animation: blink 1.1s step-end infinite;
+      }
+
+      .hero-lede {
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-size: clamp(20px, 2.4vw, 27px);
+        color: var(--muted);
+        max-width: 560px;
+        line-height: 1.4;
+        margin: 44px 0 0;
+      }
+
+      /* ============================================================
+         Now — terminal
+         ============================================================ */
+      .now {
+        padding-top: 20px;
+        padding-bottom: 100px;
+      }
+
+      .term {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+
+      .term-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 20px;
+        border-bottom: 1px solid var(--line);
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--dim);
+      }
+
+      .term-body {
+        padding: 26px 24px;
+        font-family: var(--font-mono);
+        font-size: 14px;
+        line-height: 2.1;
+        color: var(--body);
+      }
+
+      /* Real label/value columns — the design's space-padded alignment
+         collapses in HTML, and a fixed label column lets the value wrap
+         inside its own column instead of under the label. */
+      .term-line {
+        display: flex;
+      }
+
+      .term-key {
+        flex: 0 0 118px;
+        color: var(--accent);
+      }
+
+      .term-val {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .term-sigil {
+        color: var(--dim);
+      }
+
+      .term-cmd {
+        color: var(--ink);
+      }
+
+      .term-ok {
+        color: var(--ok);
+      }
+
+      .term-caret {
+        display: inline-block;
+        width: 8px;
+        height: 16px;
+        background: var(--body);
+        vertical-align: middle;
+        animation: blink 1.1s step-end infinite;
+      }
+
+      /* ============================================================
+         Timeline
+         ============================================================ */
+      .timeline {
+        padding-top: 40px;
+        padding-bottom: 110px;
+      }
+
+      .rail {
+        position: relative;
+        padding-left: 44px;
+      }
+
+      .rail-track,
+      .rail-fill {
+        position: absolute;
+        left: 8px;
+        top: 6px;
+        width: 2px;
+      }
+
+      .rail-track {
+        bottom: 6px;
+        background: var(--line);
+      }
+
+      .rail-fill {
+        height: 0;
+        background: var(--accent);
+        transition: height 0.15s linear;
+      }
+
+      .jobs {
+        display: flex;
+        flex-direction: column;
+        gap: 72px;
+      }
+
+      .job {
+        position: relative;
+        transition: opacity 0.4s ease;
+      }
+
+      /* Without JS every entry stays fully legible; .rail-on enables the
+         scroll-driven dimming. */
+      .rail-on .job {
+        opacity: 0.35;
+      }
+      .rail-on .job.is-past {
+        opacity: 1;
+      }
+
+      .job-dot {
+        position: absolute;
+        left: -42px;
+        top: 6px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--bg);
+        border: 2px solid var(--accent);
+        transition: border-color 0.3s ease;
+      }
+
+      .rail-on .job-dot {
+        border-color: var(--chip);
+      }
+      .rail-on .job.is-past .job-dot {
+        border-color: var(--accent);
+      }
+
+      .job-grid {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 40px;
+      }
+
+      .job-years {
+        font-family: var(--font-mono);
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--dim);
+        transition: color 0.3s ease;
+      }
+
+      .rail-on .job.is-current .job-years {
+        color: var(--accent);
+      }
+
+      .job-note {
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        letter-spacing: 0.08em;
+        color: var(--dim);
+        margin-top: 6px;
+      }
+
+      .job-head {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-bottom: 12px;
+      }
+
+      .job-company {
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        margin: 0;
+      }
+
+      .job-role {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .job-bullets {
+        margin: 0 0 16px;
+        padding-left: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+
+      .job-bullets li {
+        font-size: 15.5px;
+        line-height: 1.55;
+        color: var(--body);
+        max-width: 600px;
+      }
+
+      .chips {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
       }
-      .skill-item {
-        font-family: var(--font-body);
-        font-size: 14px;
-        color: var(--ink);
-        padding: 6px 14px;
-        background: var(--bg-alt);
-        border-radius: 999px;
-        border: 1px solid transparent;
-        transition:
-          border-color 0.15s ease,
-          color 0.15s ease;
-      }
-      .skill-item:hover {
-        border-color: var(--accent-soft);
-        color: var(--accent);
-      }
 
-      /* ---------- Education ---------- */
-
-      .education-item {
-        padding: 0;
-      }
-      .education-school {
-        font-family: var(--font-display);
-        font-size: 24px;
-        font-weight: 500;
-        color: var(--ink);
-        margin: 0 0 4px;
-      }
-      .education-degree {
-        font-style: italic;
-        color: var(--ink-soft);
-        font-size: 16px;
-      }
-
-      /* ---------- Contact ---------- */
-
-      .contact-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 24px 32px;
-      }
-      .contact-item {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-      }
-      .contact-label {
-        font-family: var(--font-mono);
-        font-size: 10.5px;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: var(--ink-muted);
-      }
-      .contact-value {
-        font-size: 17px;
-        color: var(--ink);
-        border: 0;
-        word-break: break-word;
-        overflow-wrap: anywhere;
-      }
-      .contact-value:hover {
-        color: var(--accent);
-      }
-
-      /* ---------- Footer ---------- */
-
-      footer {
-        padding: 48px 0 64px;
-        border-top: 1px solid var(--rule);
+      .chip {
         font-family: var(--font-mono);
         font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: var(--ink-muted);
+        color: var(--muted);
+        border: 1px solid var(--chip);
+        padding: 3px 10px;
+        border-radius: 3px;
       }
-      .footer-inner {
-        max-width: var(--max-width);
-        margin: 0 auto;
-        padding: 0 32px;
+
+      /* ============================================================
+         Case notes
+         ============================================================ */
+      .work {
+        padding-top: 100px;
+        padding-bottom: 100px;
+      }
+
+      .work-lede {
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--muted);
+        max-width: 560px;
+        margin: 0 0 52px;
+      }
+
+      .cases {
         display: flex;
+        flex-direction: column;
+      }
+
+      .case {
+        display: grid;
+        grid-template-columns: 60px 260px 1fr 200px;
+        gap: 28px;
+        align-items: baseline;
+        padding: 24px 0;
+        border-top: 1px solid var(--line);
+        transition: background 0.2s ease;
+      }
+
+      .case:hover {
+        background: var(--grid);
+      }
+
+      .case-num {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--dim);
+      }
+
+      .case-title {
+        font-size: 17px;
+        font-weight: 700;
+      }
+
+      .case-domain {
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-top: 5px;
+      }
+
+      .case-detail {
+        font-size: 14.5px;
+        line-height: 1.6;
+        color: var(--muted);
+        margin: 0;
+      }
+
+      .case-meta {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        line-height: 1.8;
+        color: var(--dim);
+      }
+
+      .work-footnote {
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+        line-height: 1.7;
+        color: var(--dim);
+        margin: 28px 0 0;
+      }
+
+      /* ============================================================
+         Skills
+         ============================================================ */
+      .skills {
+        padding-bottom: 100px;
+      }
+
+      .tiers {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .tier {
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        padding: 24px;
+        background: var(--panel);
+      }
+
+      .tier-head {
+        display: flex;
+        align-items: baseline;
         justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .tier-name {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .tier-sub {
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        letter-spacing: 0.06em;
+        color: var(--dim);
+        white-space: nowrap;
+      }
+
+      .tier .chip {
+        font-size: 11.5px;
+        color: var(--body);
+        padding: 4px 10px;
+      }
+
+      /* ============================================================
+         Contact & footer
+         ============================================================ */
+      .contact {
+        border-top: 1px solid var(--line);
+        padding-top: 110px;
+      }
+
+      .contact-title {
+        font-size: clamp(44px, 6vw, 84px);
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        line-height: 1.05;
+        margin: 0 0 36px;
+      }
+
+      .contact-actions {
+        display: flex;
+        align-items: center;
         flex-wrap: wrap;
         gap: 16px;
+        margin-bottom: 48px;
       }
 
-      /* ---------- Responsive ---------- */
-
-      @media (max-width: 900px) {
-        .container {
-          padding: 0 32px;
-        }
-        .topbar-inner {
-          padding: 14px 32px;
-        }
+      /* Transparent on desktop so the three buttons stay one flex row; becomes
+         a real 50/50 grid at the mobile breakpoint. */
+      .contact-secondary {
+        display: contents;
       }
 
-      @media (max-width: 700px) {
-        body {
-          font-size: 16px;
+      .btn-primary {
+        text-decoration: none;
+        background: var(--accent);
+        color: var(--accent-on);
+        padding: 15px 30px;
+        border-radius: 4px;
+        font-family: var(--font-mono);
+        font-size: 15px;
+        font-weight: 700;
+        transition:
+          background 0.2s ease,
+          color 0.2s ease;
+      }
+
+      .btn-primary:hover {
+        background: var(--ink);
+        color: var(--bg);
+      }
+
+      .btn-ghost {
+        text-decoration: none;
+        color: var(--body);
+        border: 1px solid var(--chip);
+        padding: 14px 24px;
+        border-radius: 4px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        transition:
+          border-color 0.2s ease,
+          color 0.2s ease;
+      }
+
+      .btn-ghost:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .site-foot {
+        padding-bottom: 80px;
+      }
+
+      .site-foot-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 12px;
+        border-top: 1px solid var(--line);
+        padding-top: 22px;
+        font-family: var(--font-mono);
+        font-size: 11.5px;
+        color: var(--dim);
+      }
+
+      /* ============================================================
+         Mobile
+         ============================================================ */
+      @media (max-width: 760px) {
+        :root {
+          --pad: 22px;
+          --nav-h: 66px;
         }
+
+        .nav {
+          padding: 12px 20px;
+        }
+
+        .nav-right {
+          gap: 16px;
+        }
+
+        .nav-link {
+          display: none;
+        }
+
+        html.js .menu-toggle,
+        html.js .to-top {
+          display: flex;
+        }
+
+        html.js .mobile-menu:not([hidden]) {
+          display: flex;
+        }
+
+        /* Matches the 36px ✕ inside the overlay; the theme toggle is sized
+           to match so the two controls don't read as a mistake. */
+        .menu-toggle,
+        .theme-toggle {
+          width: 36px;
+          height: 36px;
+        }
+
+        .btn-accent {
+          padding: 7px 12px;
+        }
+
+        /* Section rhythm is retuned for a phone: the desktop 100–110px
+           paddings read as dead space once the viewport is 375px wide. */
         .hero {
-          padding: 72px 0 56px;
-        }
-        section.section {
-          padding: 60px 0;
+          padding-top: 64px;
+          padding-bottom: 48px;
         }
 
-        .row {
-          grid-template-columns: 1fr;
+        .eyebrow--hero {
+          margin-bottom: 18px;
+        }
+
+        .hero-typed {
+          white-space: normal;
+          margin-top: 4px;
+        }
+
+        .hero-lede {
+          margin-top: 28px;
+        }
+
+        .section-title {
+          margin-bottom: 36px;
+        }
+
+        .now {
+          padding-top: 0;
+          padding-bottom: 56px;
+        }
+
+        .timeline {
+          padding-top: 24px;
+          padding-bottom: 64px;
+        }
+
+        .skills {
+          padding-bottom: 56px;
+        }
+
+        .eyebrow--skills {
+          margin-bottom: 26px;
+        }
+
+        .contact {
+          padding-top: 64px;
+        }
+
+        .contact-actions {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 12px;
+          margin-bottom: 34px;
+        }
+
+        .contact-actions .btn-primary {
+          width: 100%;
+          text-align: center;
+        }
+
+        /* LinkedIn + GitHub share one row, together spanning the email
+           button's width. */
+        .contact-secondary {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
           gap: 12px;
         }
-        .meta {
-          padding-top: 0;
-          order: -1;
-        }
-        .section-head {
-          margin-bottom: 40px;
+
+        .contact-secondary .btn-ghost {
+          text-align: center;
         }
 
-        .nav-links {
-          display: none;
-        }
-        .menu-toggle {
-          display: inline-flex;
+        .site-foot {
+          padding-bottom: 48px;
         }
 
-        .projects {
+        .term-body {
+          padding: 20px 16px;
+          font-size: 12.5px;
+        }
+
+        .term-key {
+          flex-basis: 92px;
+        }
+
+        .term-bar {
+          padding: 10px 16px;
+        }
+
+        .job-grid,
+        .case,
+        .tiers {
           grid-template-columns: 1fr;
+          gap: 10px;
         }
 
-        .hero h1 {
-          letter-spacing: -0.03em;
+        .jobs {
+          gap: 44px;
         }
-        .hero-meta span + span::before {
-          display: none;
+
+        .work-lede {
+          margin-bottom: 34px;
         }
-        .hero-meta {
-          gap: 8px 16px;
+
+        .rail {
+          padding-left: 32px;
+        }
+
+        .job-dot {
+          left: -30px;
+        }
+
+        .work {
+          padding-top: 56px;
+          padding-bottom: 56px;
+        }
+
+        .site-foot-inner {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
         }
       }
 
-      @media (max-width: 420px) {
-        .container {
-          padding: 0 22px;
+      /* ============================================================
+         Reduced motion
+         ============================================================ */
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
         }
-        .topbar-inner {
-          padding: 14px 22px;
-        }
-        .footer-inner {
-          padding: 0 22px;
-        }
-        .hero {
-          padding: 56px 0 48px;
-        }
-        section.section {
-          padding: 52px 0;
-        }
-      }
 
-      @media print {
-        body::before,
-        .topbar,
-        .theme-toggle,
-        footer {
-          display: none;
-        }
-        body {
-          color: #000;
-          background: #fff;
-        }
-        a {
-          color: #000;
-          border: 0;
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          /* Negative delay lands each staggered item on its end state
+             immediately, instead of holding at opacity 0 for the delay. */
+          animation-delay: -1ms !important;
+          transition-duration: 0.01ms !important;
         }
       }
     </style>
   </head>
+
   <body>
-    <div class="topbar" id="topbar">
-      <div class="topbar-inner">
-        <div class="topbar-left">
-          <a href="#top" class="mark" aria-label="Aurel Boriçi — back to top">
-            <svg
-              class="mark-logo"
-              viewBox="0 0 80 80"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path
-                d="M 14 68 L 40 14 L 66 68"
-                stroke="currentColor"
-                stroke-width="7"
-                fill="none"
-                stroke-linecap="square"
-              />
-              <line
-                x1="24"
-                y1="48"
-                x2="56"
-                y2="48"
-                stroke="var(--accent)"
-                stroke-width="7"
-              />
-            </svg>
-            <span>Aurel <span class="mark-accent">Boriçi</span></span>
-          </a>
+    <div class="page">
+      <nav class="nav" aria-label="Primary">
+        <a class="nav-mark" href="#top">ABORICI<b>.DEV</b></a>
+        <div class="nav-right">
+          <a class="nav-link" href="#now">NOW</a>
+          <a class="nav-link" href="#timeline">TIMELINE</a>
+          <a class="nav-link" href="#work">WORK</a>
           <button
             class="theme-toggle"
             id="themeToggle"
             type="button"
-            aria-label="Toggle colour theme"
+            aria-label="Switch to light theme"
           >
-            <svg
-              class="icon-sun"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.6"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <circle cx="12" cy="12" r="4" />
-              <path
-                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
-              />
-            </svg>
-            <svg
-              class="icon-moon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.6"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
-            </svg>
+            <span class="glyph-sun" aria-hidden="true">&#9728;</span>
+            <span class="glyph-moon" aria-hidden="true">&#9790;</span>
+          </button>
+          <a class="btn-accent" href="mailto:aurelborici20@gmail.com"
+            >CONTACT &rarr;</a
+          >
+          <button
+            class="menu-toggle"
+            id="menuToggle"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="mobileMenu"
+          >
+            <span aria-hidden="true"></span>
           </button>
         </div>
-        <nav class="nav-links" aria-label="Primary">
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#skills">Skills</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <button
-          class="menu-toggle"
-          id="menuToggle"
-          type="button"
-          aria-label="Open menu"
-          aria-expanded="false"
-          aria-controls="mobileMenu"
-        >
-          <span class="menu-lines" aria-hidden="true"></span>
-        </button>
-      </div>
-    </div>
-
-    <div class="mobile-menu" id="mobileMenu" hidden aria-hidden="true">
-      <nav class="mobile-nav" aria-label="Mobile primary">
-        <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
       </nav>
-    </div>
 
-    <main id="top">
-      <!-- Hero -->
-      <header class="hero">
-        <div class="container">
-          <div class="row row--body">
-            <div class="meta">
-              <span class="section-num"
-                ><span class="accent">00</span> · CV</span
-              >
+      <div class="mobile-menu" id="mobileMenu" hidden>
+        <div class="mm-top">
+          <a class="nav-mark" href="#top">ABORICI<b>.DEV</b></a>
+          <button
+            class="mm-close"
+            id="menuClose"
+            type="button"
+            aria-label="Close menu"
+          >
+            <span aria-hidden="true">&#10005;</span>
+          </button>
+        </div>
+        <nav class="mobile-nav" aria-label="Sections">
+          <a href="#now"
+            ><span class="mm-sys">SYS.01</span
+            ><span class="mm-label">Now</span></a
+          >
+          <a href="#timeline"
+            ><span class="mm-sys">SYS.02</span
+            ><span class="mm-label">Timeline</span></a
+          >
+          <a href="#work"
+            ><span class="mm-sys">SYS.03</span
+            ><span class="mm-label">Work</span></a
+          >
+          <a href="#skills"
+            ><span class="mm-sys">SYS.04</span
+            ><span class="mm-label">Skills</span></a
+          >
+          <a href="#contact"
+            ><span class="mm-sys">SYS.05</span
+            ><span class="mm-label">Contact</span></a
+          >
+        </nav>
+        <p class="mm-status">
+          <span class="term-ok">&#9679; OPEN</span> &mdash; senior engineering
+          &amp; cloud-native roles
+        </p>
+      </div>
+
+      <main>
+        <!-- Hero -->
+        <header class="hero wrap" id="top">
+          <p class="eyebrow eyebrow--hero">
+            Aurel Boriçi &middot; Senior Software Engineer &middot; Tirana, AL
+          </p>
+          <h1 class="hero-title">
+            I build software <span class="hero-typed"
+              ><span id="typed">for fintech.</span
+              ><span class="caret" aria-hidden="true"></span
+            ></span>
+          </h1>
+          <p class="hero-lede">
+            Microservices, cloud-native, and Azure &mdash; done quietly and
+            well.
+          </p>
+        </header>
+
+        <!-- Now -->
+        <section class="now wrap" id="now">
+          <h2 class="sr-only">Current status</h2>
+          <div class="term">
+            <div class="term-bar">
+              <span>aurel@tirana &mdash; status</span>
+              <span><span id="clock">--:--:--</span> &middot; UTC+2</span>
             </div>
-            <div>
-              <div class="hero-eyebrow">Senior Software Engineer · Tirana</div>
-              <h1>Aurel <span class="accent">Boriçi</span></h1>
-              <p class="hero-tagline">
-                Microservices, cloud-native, and Azure — done quietly and well.
-              </p>
-              <p class="hero-lede">
-                Senior Software Engineer with strong experience in designing and
-                building scalable microservices and cloud-native systems on
-                Azure. Proven track record delivering high-quality solutions
-                across fintech, healthcare, and e-commerce domains — with a
-                focus on performance, clean architecture, and maintainability.
-              </p>
-              <div class="hero-meta">
-                <span
-                  ><span class="dot" aria-hidden="true"></span>Available for new
-                  roles</span
+            <div class="term-body">
+              <div>
+                <span class="term-sigil">$</span>
+                <span class="term-cmd">status --now</span>
+              </div>
+              <div class="term-line">
+                <span class="term-key">role</span>
+                <span class="term-val">Senior Software Engineer @ CiGen</span>
+              </div>
+              <div class="term-line">
+                <span class="term-key">building</span>
+                <span class="term-val"
+                  >large-scale fintech platform &middot; loan processing</span
                 >
-                <span>Tirana, Albania</span>
-                <span>5+ years experience</span>
+              </div>
+              <div class="term-line">
+                <span class="term-key">integrating</span>
+                <span class="term-val"
+                  >Azure AI &rarr; product features, design to production</span
+                >
+              </div>
+              <div class="term-line">
+                <span class="term-key">mentoring</span>
+                <span class="term-val">aspiring devs &middot; C# / .NET / Java / SQL</span>
+              </div>
+              <div class="term-line">
+                <span class="term-key">availability</span>
+                <span class="term-val"
+                  ><span class="term-ok">&#9679; OPEN</span> &mdash; senior
+                  engineering &amp; cloud-native roles</span
+                >
+              </div>
+              <div>
+                <span class="term-sigil">$</span>
+                <span class="term-caret" aria-hidden="true"></span>
               </div>
             </div>
           </div>
-        </div>
-      </header>
+        </section>
 
-      <!-- About -->
-      <section class="section" id="about">
-        <div class="container">
-          <div class="row">
-            <div class="meta">
-              <span class="section-num"
-                ><span class="accent">01</span> · About</span
-              >
-            </div>
-            <div>
-              <div class="section-head">
-                <h2 class="section-title">
-                  A pragmatic engineer who enjoys <em>clean systems</em>.
-                </h2>
-              </div>
-              <div class="about">
-                <p>
-                  I build and maintain
-                  <strong
-                    >microservices and cloud-native systems on Azure</strong
-                  >, currently leading the design of services from scratch at
-                  CiGen and integrating Azure AI capabilities into e-commerce
-                  products. Most of my day is spent in .NET and C#, with Angular
-                  on the client when the shape of the work calls for it.
-                </p>
-                <p>
-                  Over the last five years I&apos;ve shipped in
-                  <strong>fintech, healthcare, and e-commerce</strong> — from
-                  Identity &amp; Access Management and Document Management
-                  platforms at 3i Solutions, to enterprise .NET and Angular work
-                  at PwC, to a full .NET Framework → modern .NET migration at
-                  Engineering Group. The domains rotate, but the values
-                  don&apos;t:
-                  <strong
-                    >performance, clean architecture, maintainability</strong
-                  >, and code that the next engineer can reason about without a
-                  decoder ring.
-                </p>
-                <p>
-                  Alongside employment I take on select freelance work and
-                  <strong>train aspiring developers</strong> in C#, .NET, Java,
-                  and SQL. Teaching keeps the fundamentals sharp — and has
-                  quietly made me a better engineer on the job.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        <!-- Timeline -->
+        <section class="timeline wrap" id="timeline">
+          <p class="eyebrow">SYS.02 &mdash; Career log</p>
+          <h2 class="section-title">
+            Five years, four domains, <em>one discipline</em>.
+          </h2>
 
-      <!-- Experience -->
-      <section class="section" id="experience">
-        <div class="container">
-          <div class="row">
-            <div class="meta">
-              <span class="section-num"
-                ><span class="accent">02</span> · Experience</span
-              >
-            </div>
-            <div>
-              <div class="section-head">
-                <h2 class="section-title">
-                  Where I&rsquo;ve <em>built</em> things.
-                </h2>
-              </div>
+          <div class="rail" id="rail">
+            <div class="rail-track" aria-hidden="true"></div>
+            <div class="rail-fill" id="railFill" aria-hidden="true"></div>
 
-              <!-- 2025 — Present · CiGen -->
-              <article class="role">
-                <div class="row">
-                  <div class="meta">2025 —<br />Present</div>
+            <div class="jobs">
+              <article class="job">
+                <span class="job-dot" aria-hidden="true"></span>
+                <div class="job-grid">
                   <div>
-                    <h3 class="role-company">CiGen</h3>
-                    <p class="role-title">Software Engineer</p>
-                    <ul>
+                    <div class="job-years">2025 &mdash; NOW</div>
+                  </div>
+                  <div>
+                    <div class="job-head">
+                      <h3 class="job-company">CiGen</h3>
+                      <span class="job-role">Software Engineer</span>
+                    </div>
+                    <ul class="job-bullets">
                       <li>
-                        Leading the design and development of microservices from
-                        scratch across multiple client projects.
+                        Building a large-scale fintech loan-processing platform
+                        &mdash; designing microservices from scratch across the
+                        origination-to-disbursement flow.
                       </li>
                       <li>
-                        Delivering and maintaining new features, integrating
-                        Azure AI capabilities into e-commerce solutions.
-                      </li>
-                      <li>
-                        Contributing across all phases of the software
-                        development lifecycle, from design to production.
+                        Integrated Azure AI capabilities into client solutions,
+                        shipping features end-to-end from design to production.
                       </li>
                     </ul>
-                    <div class="tags">
-                      <span class="tag">.NET</span>
-                      <span class="tag">C#</span>
-                      <span class="tag">Azure</span>
-                      <span class="tag">Azure AI</span>
-                      <span class="tag">Microservices</span>
+                    <div class="chips">
+                      <span class="chip">.NET</span>
+                      <span class="chip">C#</span>
+                      <span class="chip">Azure</span>
+                      <span class="chip">Azure AI</span>
+                      <span class="chip">Microservices</span>
                     </div>
                   </div>
                 </div>
               </article>
 
-              <!-- 2024 — 2025 · Engineering Group -->
-              <article class="role">
-                <div class="row">
-                  <div class="meta">2024 —<br />2025</div>
+              <article class="job">
+                <span class="job-dot" aria-hidden="true"></span>
+                <div class="job-grid">
                   <div>
-                    <h3 class="role-company">Engineering Group</h3>
-                    <p class="role-title">Software Engineer</p>
-                    <ul>
+                    <div class="job-years">2024 &mdash; 2025</div>
+                  </div>
+                  <div>
+                    <div class="job-head">
+                      <h3 class="job-company">Engineering Group</h3>
+                      <span class="job-role">Software Engineer</span>
+                    </div>
+                    <ul class="job-bullets">
                       <li>
                         Developed and maintained multiple .NET microservices,
-                        delivering new features and improving application
-                        performance.
+                        improving application performance release over release.
                       </li>
                       <li>
-                        Contributed to migrating a microservice from .NET
-                        Framework to modern .NET.
+                        Migrated a production microservice from .NET Framework
+                        to modern .NET.
                       </li>
                     </ul>
-                    <div class="tags">
-                      <span class="tag">.NET</span>
-                      <span class="tag">C#</span>
-                      <span class="tag">Microservices</span>
+                    <div class="chips">
+                      <span class="chip">.NET</span>
+                      <span class="chip">C#</span>
+                      <span class="chip">Microservices</span>
                     </div>
                   </div>
                 </div>
               </article>
 
-              <!-- 2022 — 2024 · PwC -->
-              <article class="role">
-                <div class="row">
-                  <div class="meta">2022 —<br />2024</div>
+              <article class="job">
+                <span class="job-dot" aria-hidden="true"></span>
+                <div class="job-grid">
                   <div>
-                    <h3 class="role-company">PwC</h3>
-                    <p class="role-title">Software Engineer</p>
-                    <ul>
+                    <div class="job-years">2022 &mdash; 2024</div>
+                  </div>
+                  <div>
+                    <div class="job-head">
+                      <h3 class="job-company">PwC</h3>
+                      <span class="job-role">Software Engineer</span>
+                    </div>
+                    <ul class="job-bullets">
                       <li>
-                        Developed and maintained microservices using .NET and
-                        Angular.
+                        Built and maintained enterprise-scale microservices in
+                        .NET and Angular.
                       </li>
                       <li>
                         Improved application performance through refactoring and
-                        database optimisation (MSSQL).
-                      </li>
-                      <li>
-                        Applied clean code principles and design patterns in
-                        enterprise-scale systems.
+                        MSSQL query optimisation.
                       </li>
                     </ul>
-                    <div class="tags">
-                      <span class="tag">.NET</span>
-                      <span class="tag">Angular</span>
-                      <span class="tag">MSSQL</span>
-                      <span class="tag">Microservices</span>
+                    <div class="chips">
+                      <span class="chip">.NET</span>
+                      <span class="chip">Angular</span>
+                      <span class="chip">MSSQL</span>
                     </div>
                   </div>
                 </div>
               </article>
 
-              <!-- 2021 — 2022 · 3i Solutions -->
-              <article class="role">
-                <div class="row">
-                  <div class="meta">2021 —<br />2022</div>
+              <article class="job">
+                <span class="job-dot" aria-hidden="true"></span>
+                <div class="job-grid">
                   <div>
-                    <h3 class="role-company">3i Solutions</h3>
-                    <p class="role-title">Software Engineer</p>
-                    <ul>
+                    <div class="job-years">2021 &mdash; 2022</div>
+                  </div>
+                  <div>
+                    <div class="job-head">
+                      <h3 class="job-company">3i Solutions</h3>
+                      <span class="job-role">Software Engineer</span>
+                    </div>
+                    <ul class="job-bullets">
                       <li>
-                        Designed and developed microservices using .NET and
-                        Spring Boot for multiple applications, ensuring
-                        scalability and performance.
-                      </li>
-                      <li>
-                        Applied clean code principles and industry-standard
-                        design patterns to improve maintainability and
-                        development efficiency.
-                      </li>
-                      <li>
-                        Built and managed end-to-end microservice architectures,
-                        including database design using MSSQL, PostgreSQL,
-                        MongoDB, and Elasticsearch.
+                        Designed end-to-end microservice architectures in .NET
+                        and Spring Boot, including database design across MSSQL,
+                        PostgreSQL, MongoDB, and Elasticsearch.
                       </li>
                     </ul>
-                    <div class="tags">
-                      <span class="tag">.NET</span>
-                      <span class="tag">Spring Boot</span>
-                      <span class="tag">MSSQL</span>
-                      <span class="tag">PostgreSQL</span>
-                      <span class="tag">MongoDB</span>
-                      <span class="tag">Elasticsearch</span>
+                    <div class="chips">
+                      <span class="chip">.NET</span>
+                      <span class="chip">Spring Boot</span>
+                      <span class="chip">PostgreSQL</span>
+                      <span class="chip">MongoDB</span>
+                      <span class="chip">Elasticsearch</span>
                     </div>
                   </div>
                 </div>
               </article>
 
-              <!-- Ongoing parallel track: Freelance -->
-              <div class="ongoing-track" aria-label="Ongoing parallel track">
-                <div class="ongoing-label">Ongoing · parallel track</div>
-                <article class="role">
-                  <div class="row">
-                    <div class="meta">2020 —<br />Present</div>
-                    <div>
-                      <h3 class="role-company">Freelance</h3>
-                      <p class="role-title">Software Engineer &amp; Mentor</p>
-                      <ul>
-                        <li>
-                          Adding new features and fixing bugs in microservices
-                          using .NET, Java (Spring Boot), and Angular.
-                        </li>
-                        <li>
-                          Working with PostgreSQL — schema design and query
-                          tuning.
-                        </li>
-                        <li>
-                          Code refactoring and performance improvements across
-                          client codebases.
-                        </li>
-                        <li>
-                          Training aspiring developers in C#, .NET, Java, and
-                          SQL.
-                        </li>
-                      </ul>
-                      <div class="tags">
-                        <span class="tag">.NET</span>
-                        <span class="tag">Java</span>
-                        <span class="tag">Spring Boot</span>
-                        <span class="tag">Angular</span>
-                        <span class="tag">PostgreSQL</span>
-                        <span class="tag">Mentoring</span>
-                      </div>
+              <article class="job">
+                <span class="job-dot" aria-hidden="true"></span>
+                <div class="job-grid">
+                  <div>
+                    <div class="job-years">2020 &mdash; NOW</div>
+                    <div class="job-note">PARALLEL TRACK</div>
+                  </div>
+                  <div>
+                    <div class="job-head">
+                      <h3 class="job-company">Freelance</h3>
+                      <span class="job-role">Engineer &amp; Mentor</span>
+                    </div>
+                    <ul class="job-bullets">
+                      <li>
+                        Feature work, refactoring, and PostgreSQL tuning across
+                        client codebases in .NET, Spring Boot, and Angular.
+                      </li>
+                      <li>
+                        Training aspiring developers in C#, .NET, Java, and SQL.
+                      </li>
+                    </ul>
+                    <div class="chips">
+                      <span class="chip">.NET</span>
+                      <span class="chip">Java</span>
+                      <span class="chip">Angular</span>
+                      <span class="chip">PostgreSQL</span>
+                      <span class="chip">Mentoring</span>
                     </div>
                   </div>
-                </article>
-              </div>
+                </div>
+              </article>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Projects -->
-      <section class="section" id="projects">
-        <div class="container">
-          <div class="row">
-            <div class="meta">
-              <span class="section-num"
-                ><span class="accent">03</span> · Projects</span
-              >
-            </div>
-            <div>
-              <div class="section-head">
-                <h2 class="section-title">A partial <em>catalogue</em>.</h2>
+        <!-- Case notes -->
+        <section class="work wrap" id="work">
+          <p class="eyebrow">SYS.03 &mdash; Case notes</p>
+          <h2 class="section-title section-title--tight">
+            Shipped under NDA.
+          </h2>
+          <p class="work-lede">
+            Clients stay unnamed &mdash; the engineering doesn&rsquo;t have to.
+          </p>
+
+          <div class="cases">
+            <article class="case">
+              <span class="case-num">001</span>
+              <div>
+                <div class="case-title">UK Healthcare Platform</div>
+                <div class="case-domain">Healthcare</div>
               </div>
-
-              <div class="projects">
-                <div class="project">
-                  <div class="project-head">
-                    <span class="project-name">UK Healthcare System</span>
-                    <span class="project-domain">Healthcare</span>
-                  </div>
-                  <p class="project-desc">
-                    Healthcare platform for the UK market.
-                  </p>
-                </div>
-                <div class="project">
-                  <div class="project-head">
-                    <span class="project-name"
-                      >Identity &amp; Access Management</span
-                    >
-                    <span class="project-domain">Security</span>
-                  </div>
-                  <p class="project-desc">
-                    IAM system for enterprise access control.
-                  </p>
-                </div>
-                <div class="project">
-                  <div class="project-head">
-                    <span class="project-name">Document Management</span>
-                    <span class="project-domain">Enterprise</span>
-                  </div>
-                  <p class="project-desc">
-                    Platform for document lifecycle and retrieval.
-                  </p>
-                </div>
-                <div class="project">
-                  <div class="project-head">
-                    <span class="project-name">HR System Management</span>
-                    <span class="project-domain">Enterprise</span>
-                  </div>
-                  <p class="project-desc">
-                    HR platform for workforce operations.
-                  </p>
-                </div>
-                <div class="project">
-                  <div class="project-head">
-                    <span class="project-name">E-Commerce</span>
-                    <span class="project-domain">Retail</span>
-                  </div>
-                  <p class="project-desc">
-                    E-commerce solution with Azure AI integration.
-                  </p>
-                </div>
-                <div class="project">
-                  <div class="project-head">
-                    <span class="project-name">Teams Management Service</span>
-                    <span class="project-domain">Enterprise</span>
-                  </div>
-                  <p class="project-desc">Microsoft Teams admin tooling.</p>
-                </div>
-                <div class="project">
-                  <div class="project-head">
-                    <span class="project-name">iTime</span>
-                    <span class="project-domain">Productivity</span>
-                  </div>
-                  <p class="project-desc">Timesheet management system.</p>
-                </div>
-                <div class="project">
-                  <div class="project-head">
-                    <span class="project-name"
-                      >IFP — Intelligent File Processor</span
-                    >
-                    <span class="project-domain">Enterprise</span>
-                  </div>
-                  <p class="project-desc">File processing platform.</p>
-                </div>
-                <div class="project">
-                  <div class="project-head">
-                    <span class="project-name">ESG Platform</span>
-                    <span class="project-domain">Compliance</span>
-                  </div>
-                  <p class="project-desc">
-                    Environmental, Social &amp; Corporate Governance reporting.
-                  </p>
-                </div>
-                <div class="project">
-                  <div class="project-head">
-                    <span class="project-name">LMS</span>
-                    <span class="project-domain">EdTech</span>
-                  </div>
-                  <p class="project-desc">Learning management system.</p>
-                </div>
-                <div class="project">
-                  <div class="project-head">
-                    <span class="project-name">FinTech</span>
-                    <span class="project-domain">Fintech</span>
-                  </div>
-                  <p class="project-desc">
-                    Financial platform work across several products.
-                  </p>
-                </div>
-              </div>
-
-              <p class="projects-note">
-                Many of these projects were delivered under NDA — happy to
-                discuss scope and architecture in an interview.
+              <p class="case-detail">
+                Patient-facing platform for the UK market. Owned service
+                refactoring and database optimisation on high-traffic query
+                paths.
               </p>
+              <div class="case-meta">
+                Backend engineer<br />.NET &middot; Angular &middot; MSSQL
+              </div>
+            </article>
+
+            <article class="case">
+              <span class="case-num">002</span>
+              <div>
+                <div class="case-title">Identity &amp; Access Management</div>
+                <div class="case-domain">Security</div>
+              </div>
+              <p class="case-detail">
+                Enterprise IAM: authentication, role-based access, and audit
+                trails consumed by multiple downstream products.
+              </p>
+              <div class="case-meta">
+                Service design<br />.NET &middot; Spring Boot
+              </div>
+            </article>
+
+            <article class="case">
+              <span class="case-num">003</span>
+              <div>
+                <div class="case-title">Document Management</div>
+                <div class="case-domain">Enterprise</div>
+              </div>
+              <p class="case-detail">
+                Document lifecycle and retrieval platform &mdash; full-text
+                search over Elasticsearch with versioned storage.
+              </p>
+              <div class="case-meta">
+                Architecture<br />.NET &middot; Elasticsearch
+              </div>
+            </article>
+
+            <article class="case">
+              <span class="case-num">004</span>
+              <div>
+                <div class="case-title">Loan Processing Platform</div>
+                <div class="case-domain">Fintech</div>
+              </div>
+              <p class="case-detail">
+                Ongoing at CiGen: large-scale loan platform &mdash;
+                origination, AI-assisted decisioning, and disbursement as
+                decoupled microservices.
+              </p>
+              <div class="case-meta">
+                Lead engineer<br />.NET &middot; Azure AI
+              </div>
+            </article>
+
+            <article class="case">
+              <span class="case-num">005</span>
+              <div>
+                <div class="case-title">FinTech Products</div>
+                <div class="case-domain">Fintech</div>
+              </div>
+              <p class="case-detail">
+                Financial platform work across several products &mdash;
+                message-driven services with an emphasis on correctness and
+                auditability.
+              </p>
+              <div class="case-meta">
+                Backend engineer<br />.NET &middot; RabbitMQ
+              </div>
+            </article>
+
+            <article class="case">
+              <span class="case-num">006</span>
+              <div>
+                <div class="case-title">Framework &rarr; Modern .NET</div>
+                <div class="case-domain">Migration</div>
+              </div>
+              <p class="case-detail">
+                Migrated a production microservice off .NET Framework,
+                modernising the stack without interrupting delivery.
+              </p>
+              <div class="case-meta">
+                Migration owner<br />.NET Framework &rarr; .NET
+              </div>
+            </article>
+          </div>
+
+          <p class="work-footnote">
+            + five more across HR, LMS, ESG reporting, and productivity tooling
+            &mdash; happy to walk through architecture in an interview.
+          </p>
+        </section>
+
+        <!-- Skills -->
+        <section class="skills wrap" id="skills">
+          <h2 class="eyebrow eyebrow--skills">
+            SYS.04 &mdash; Toolkit, by depth
+          </h2>
+          <div class="tiers">
+            <div class="tier">
+              <div class="tier-head">
+                <h3 class="tier-name">Core</h3>
+                <span class="tier-sub">DAILY DRIVERS</span>
+              </div>
+              <div class="chips">
+                <span class="chip">C#</span>
+                <span class="chip">.NET</span>
+                <span class="chip">ASP.NET</span>
+                <span class="chip">REST APIs</span>
+                <span class="chip">Entity Framework</span>
+                <span class="chip">SQL Server</span>
+                <span class="chip">Azure Functions</span>
+                <span class="chip">Service Bus</span>
+                <span class="chip">Azure DevOps</span>
+              </div>
+            </div>
+
+            <div class="tier">
+              <div class="tier-head">
+                <h3 class="tier-name">Working</h3>
+                <span class="tier-sub">REGULAR USE</span>
+              </div>
+              <div class="chips">
+                <span class="chip">Angular</span>
+                <span class="chip">TypeScript</span>
+                <span class="chip">PostgreSQL</span>
+                <span class="chip">RabbitMQ</span>
+                <span class="chip">SignalR</span>
+                <span class="chip">Dapper</span>
+                <span class="chip">Blob Storage</span>
+                <span class="chip">Azure Monitor</span>
+                <span class="chip">Azure AI Foundry</span>
+              </div>
+            </div>
+
+            <div class="tier">
+              <div class="tier-head">
+                <h3 class="tier-name">Familiar</h3>
+                <span class="tier-sub">SHIPPED WITH</span>
+              </div>
+              <div class="chips">
+                <span class="chip">React</span>
+                <span class="chip">Java</span>
+                <span class="chip">Spring Boot</span>
+                <span class="chip">GraphQL</span>
+                <span class="chip">MongoDB</span>
+                <span class="chip">Elasticsearch</span>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Skills -->
-      <section class="section" id="skills">
-        <div class="container">
-          <div class="row">
-            <div class="meta">
-              <span class="section-num"
-                ><span class="accent">04</span> · Skills</span
+        <!-- Contact -->
+        <section class="contact" id="contact">
+          <div class="wrap">
+            <p class="eyebrow eyebrow--contact">SYS.05 &mdash; Handshake</p>
+            <h2 class="contact-title">Let&rsquo;s <em>talk</em>.</h2>
+            <div class="contact-actions">
+              <a class="btn-primary" href="mailto:aurelborici20@gmail.com"
+                >aurelborici20@gmail.com</a
               >
-            </div>
-            <div>
-              <div class="section-head">
-                <h2 class="section-title">The <em>toolkit</em>.</h2>
-              </div>
-
-              <div class="skill-group">
-                <h3 class="skill-title">Backend</h3>
-                <div class="skill-list">
-                  <span class="skill-item">C#</span>
-                  <span class="skill-item">.NET</span>
-                  <span class="skill-item">ASP.NET</span>
-                  <span class="skill-item">REST APIs</span>
-                  <span class="skill-item">GraphQL</span>
-                  <span class="skill-item">SignalR</span>
-                  <span class="skill-item">RabbitMQ</span>
-                  <span class="skill-item">Entity Framework</span>
-                  <span class="skill-item">Dapper</span>
-                  <span class="skill-item">LINQ</span>
-                </div>
-              </div>
-
-              <div class="skill-group">
-                <h3 class="skill-title">Frontend</h3>
-                <div class="skill-list">
-                  <span class="skill-item">Angular</span>
-                  <span class="skill-item">React</span>
-                  <span class="skill-item">TypeScript</span>
-                  <span class="skill-item">HTML</span>
-                  <span class="skill-item">CSS</span>
-                </div>
-              </div>
-
-              <div class="skill-group">
-                <h3 class="skill-title">Cloud — Azure</h3>
-                <div class="skill-list">
-                  <span class="skill-item">Azure Functions</span>
-                  <span class="skill-item">Blob Storage</span>
-                  <span class="skill-item">Service Bus</span>
-                  <span class="skill-item">Azure Monitor</span>
-                  <span class="skill-item">Azure DevOps</span>
-                  <span class="skill-item">Azure AI Foundry</span>
-                </div>
-              </div>
-
-              <div class="skill-group">
-                <h3 class="skill-title">Data</h3>
-                <div class="skill-list">
-                  <span class="skill-item">SQL Server</span>
-                  <span class="skill-item">PostgreSQL</span>
-                  <span class="skill-item">MongoDB</span>
-                  <span class="skill-item">Elasticsearch</span>
-                </div>
+              <div class="contact-secondary">
+                <a
+                  class="btn-ghost"
+                  href="https://www.linkedin.com/in/aurel-borici/"
+                  target="_blank"
+                  rel="noopener"
+                  >LINKEDIN &nearr;</a
+                >
+                <a
+                  class="btn-ghost"
+                  href="https://github.com/AurelBorici"
+                  target="_blank"
+                  rel="noopener"
+                  >GITHUB &nearr;</a
+                >
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
-      <!-- Education -->
-      <section class="section" id="education">
-        <div class="container">
-          <div class="row">
-            <div class="meta">
-              <span class="section-num"
-                ><span class="accent">05</span> · Education</span
-              >
-            </div>
-            <div>
-              <div class="section-head">
-                <h2 class="section-title">Where I <em>studied</em>.</h2>
-              </div>
-              <div class="education-item">
-                <h3 class="education-school">
-                  Canadian Institute of Technology
-                </h3>
-                <p class="education-degree">
-                  Bachelor of Software Engineering · 2018 — 2022
-                </p>
-              </div>
-            </div>
+      <footer class="site-foot">
+        <div class="wrap">
+          <div class="site-foot-inner">
+            <span>&copy; 2026 AUREL BORIÇI</span>
+            <span
+              >BSc SOFTWARE ENGINEERING &middot; CANADIAN INSTITUTE OF
+              TECHNOLOGY &middot; 2018&ndash;2022</span
+            >
+            <span>TIRANA, ALBANIA &middot; UTC+2</span>
           </div>
         </div>
-      </section>
-
-      <!-- Contact -->
-      <section class="section" id="contact">
-        <div class="container">
-          <div class="row">
-            <div class="meta">
-              <span class="section-num"
-                ><span class="accent">06</span> · Contact</span
-              >
-            </div>
-            <div>
-              <div class="section-head">
-                <h2 class="section-title">Let&rsquo;s <em>talk</em>.</h2>
-              </div>
-
-              <div class="contact-grid">
-                <div class="contact-item">
-                  <span class="contact-label">Email</span>
-                  <a class="contact-value" href="mailto:aurelborici20@gmail.com"
-                    >aurelborici20@gmail.com</a
-                  >
-                </div>
-                <div class="contact-item">
-                  <span class="contact-label">LinkedIn</span>
-                  <a
-                    class="contact-value"
-                    href="https://www.linkedin.com/in/aurel-borici/"
-                    target="_blank"
-                    rel="noopener"
-                    >linkedin.com/in/aurel-borici</a
-                  >
-                </div>
-                <div class="contact-item">
-                  <span class="contact-label">GitHub</span>
-                  <a
-                    class="contact-value"
-                    href="https://github.com/AurelBorici"
-                    target="_blank"
-                    rel="noopener"
-                    >github.com/AurelBorici</a
-                  >
-                </div>
-                <div class="contact-item">
-                  <span class="contact-label">Location</span>
-                  <span class="contact-value">Tirana, Albania</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="footer-inner">
-        <span>© 2026 Aurel Boriçi</span>
-        <span>Built with HTML, CSS &amp; care</span>
-      </div>
-    </footer>
+      </footer>
+    </div>
 
     <button
-      class="scroll-top"
-      id="scrollTop"
+      class="to-top"
+      id="toTop"
       type="button"
-      aria-label="Scroll to top"
-      hidden
+      aria-label="Back to top"
+      data-visible="false"
     >
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.6"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M12 19V5" />
-        <path d="M5 12l7-7 7 7" />
-      </svg>
+      <span aria-hidden="true">&uarr;</span>
     </button>
 
     <script>
       (function () {
-        var STORAGE_KEY = "aurel-theme";
         var root = document.documentElement;
-        var toggle = document.getElementById("themeToggle");
-        var topbar = document.getElementById("topbar");
-
-        function apply(theme) {
-          if (theme === "dark") root.setAttribute("data-theme", "dark");
-          else root.removeAttribute("data-theme");
-        }
-
-        var saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) {
-          apply(saved);
-        } else if (
+        var STORAGE_KEY = "aurel-theme";
+        var reduceMotion =
           window.matchMedia &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches
-        ) {
-          apply("dark");
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        // ---------- Theme ----------
+        var toggle = document.getElementById("themeToggle");
+        var themeColor = document.getElementById("themeColor");
+
+        function syncTheme() {
+          var light = root.getAttribute("data-theme") === "light";
+          toggle.setAttribute(
+            "aria-label",
+            light ? "Switch to dark theme" : "Switch to light theme",
+          );
+          themeColor.setAttribute("content", light ? "#faf8f4" : "#0d0e0b");
         }
+
+        syncTheme();
 
         toggle.addEventListener("click", function () {
-          var isDark = root.getAttribute("data-theme") === "dark";
-          var next = isDark ? "light" : "dark";
-          apply(next);
-          localStorage.setItem(STORAGE_KEY, next);
+          var light = root.getAttribute("data-theme") === "light";
+          if (light) root.removeAttribute("data-theme");
+          else root.setAttribute("data-theme", "light");
+          try {
+            localStorage.setItem(STORAGE_KEY, light ? "dark" : "light");
+          } catch (e) {}
+          syncTheme();
         });
 
-        var onScroll = function () {
-          if (window.scrollY > 8) topbar.classList.add("scrolled");
-          else topbar.classList.remove("scrolled");
-        };
-        window.addEventListener("scroll", onScroll, { passive: true });
-        onScroll();
-
         // ---------- Mobile menu ----------
+        // The toggle is CSS-hidden until this class lands, so the button only
+        // exists where it can actually work.
+        root.classList.add("js");
+
         var menuToggle = document.getElementById("menuToggle");
         var mobileMenu = document.getElementById("mobileMenu");
-        var mobileLinks = Array.prototype.slice.call(
+        // Every anchor in the overlay dismisses it (the logo included — it
+        // jumps to #top). The trap spans anchors and buttons in DOM order;
+        // menuToggle itself is covered by the overlay, so it stays out.
+        var menuLinks = Array.prototype.slice.call(
           mobileMenu.querySelectorAll("a"),
         );
+        var menuFocusables = Array.prototype.slice.call(
+          mobileMenu.querySelectorAll("a, button"),
+        );
+        var firstSectionLink = mobileMenu.querySelector(".mobile-nav a");
         var hideTimer = null;
-        var lastFocused = null;
 
-        function isOpen() {
+        function menuOpen() {
           return menuToggle.getAttribute("aria-expanded") === "true";
         }
 
@@ -1750,138 +1893,174 @@
             clearTimeout(hideTimer);
             hideTimer = null;
           }
-          lastFocused = document.activeElement;
           mobileMenu.hidden = false;
-          // force layout so transition plays
-          void mobileMenu.offsetWidth;
+          void mobileMenu.offsetWidth; // force layout so the transition plays
           mobileMenu.setAttribute("data-open", "true");
-          mobileMenu.setAttribute("aria-hidden", "false");
           menuToggle.setAttribute("aria-expanded", "true");
           menuToggle.setAttribute("aria-label", "Close menu");
           document.body.style.overflow = "hidden";
-          document.body.classList.add("menu-open");
           requestAnimationFrame(function () {
-            mobileLinks[0].focus();
+            firstSectionLink.focus();
           });
         }
 
-        function closeMenu() {
+        function closeMenu(returnFocus) {
           mobileMenu.setAttribute("data-open", "false");
-          mobileMenu.setAttribute("aria-hidden", "true");
           menuToggle.setAttribute("aria-expanded", "false");
           menuToggle.setAttribute("aria-label", "Open menu");
           document.body.style.overflow = "";
-          document.body.classList.remove("menu-open");
           hideTimer = setTimeout(function () {
-            if (!isOpen()) mobileMenu.hidden = true;
+            if (!menuOpen()) mobileMenu.hidden = true;
             hideTimer = null;
           }, 220);
-          if (lastFocused && typeof lastFocused.focus === "function") {
-            menuToggle.focus();
-          }
+          if (returnFocus) menuToggle.focus();
         }
 
         menuToggle.addEventListener("click", function () {
-          if (isOpen()) closeMenu();
+          if (menuOpen()) closeMenu(true);
           else openMenu();
         });
 
-        mobileLinks.forEach(function (link) {
+        menuLinks.forEach(function (link) {
           link.addEventListener("click", function () {
-            closeMenu();
+            closeMenu(false);
           });
         });
 
+        document
+          .getElementById("menuClose")
+          .addEventListener("click", function () {
+            closeMenu(true);
+          });
+
         document.addEventListener("keydown", function (e) {
-          if (!isOpen()) return;
+          if (!menuOpen()) return;
           if (e.key === "Escape") {
             e.preventDefault();
-            closeMenu();
+            closeMenu(true);
             return;
           }
-          if (e.key === "Tab") {
-            var focusables = mobileLinks.slice();
-            focusables.push(menuToggle);
-            var first = focusables[0];
-            var last = focusables[focusables.length - 1];
-            if (e.shiftKey && document.activeElement === first) {
-              e.preventDefault();
-              last.focus();
-            } else if (!e.shiftKey && document.activeElement === last) {
-              e.preventDefault();
-              first.focus();
-            }
+          if (e.key !== "Tab") return;
+          var first = menuFocusables[0];
+          var last = menuFocusables[menuFocusables.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
           }
         });
 
         window.addEventListener("resize", function () {
-          if (window.innerWidth >= 700 && isOpen()) closeMenu();
+          if (window.innerWidth > 760 && menuOpen()) closeMenu(false);
         });
 
-        // ---------- Smooth scroll without hash in URL ----------
-        var allNavLinks = document.querySelectorAll(
-          '.nav-links a[href^="#"], .mobile-nav a[href^="#"], .mark[href^="#"]'
-        );
+        // ---------- Tirana clock ----------
+        var clock = document.getElementById("clock");
 
-        allNavLinks.forEach(function (link) {
-          link.addEventListener("click", function (e) {
-            var href = link.getAttribute("href");
-            if (!href || href.charAt(0) !== "#") return;
-
-            var targetId = href.slice(1);
-            var target =
-              targetId === "top" || targetId === ""
-                ? document.documentElement
-                : document.getElementById(targetId);
-            if (!target) return;
-
-            e.preventDefault();
-
-            var reduceMotion = window.matchMedia(
-              "(prefers-reduced-motion: reduce)"
-            ).matches;
-
-            if (targetId === "top" || targetId === "") {
-              window.scrollTo({
-                top: 0,
-                behavior: reduceMotion ? "auto" : "smooth",
-              });
-            } else {
-              var rect = target.getBoundingClientRect();
-              var offset = window.scrollY + rect.top - 20;
-              window.scrollTo({
-                top: offset,
-                behavior: reduceMotion ? "auto" : "smooth",
-              });
-            }
+        function tick() {
+          clock.textContent = new Date().toLocaleTimeString("en-GB", {
+            timeZone: "Europe/Tirane",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
           });
-        });
-
-        // ---------- Scroll-to-top ----------
-        var scrollTopBtn = document.getElementById("scrollTop");
-
-        function toggleScrollTop() {
-          if (window.scrollY > 400) {
-            scrollTopBtn.hidden = false;
-            scrollTopBtn.classList.add("visible");
-          } else {
-            scrollTopBtn.classList.remove("visible");
-            setTimeout(function () {
-              if (window.scrollY <= 400) scrollTopBtn.hidden = true;
-            }, 220);
-          }
         }
 
-        window.addEventListener("scroll", toggleScrollTop, { passive: true });
-        toggleScrollTop();
+        tick();
+        setInterval(tick, 1000);
 
-        scrollTopBtn.addEventListener("click", function () {
+        // ---------- Typing headline ----------
+        // The static markup already reads as a complete sentence, so this only
+        // takes over when motion is welcome.
+        var typed = document.getElementById("typed");
+        var words = [
+          "for fintech.",
+          "on Azure.",
+          "that scales quietly.",
+          "in .NET & Angular.",
+          "end to end.",
+          "teams can maintain.",
+        ];
+
+        if (!reduceMotion) {
+          var wi = 0;
+          var ci = 0;
+          var deleting = false;
+          var pause = 0;
+          typed.textContent = "";
+          setInterval(function () {
+            var word = words[wi];
+            if (!deleting) {
+              ci++;
+              if (ci === word.length) {
+                deleting = true;
+                pause = 22;
+              }
+            } else if (pause > 0) {
+              pause--;
+            } else {
+              ci--;
+              if (ci === 0) {
+                deleting = false;
+                wi = (wi + 1) % words.length;
+              }
+            }
+            typed.textContent = word.slice(0, ci);
+          }, 75);
+        }
+
+        // ---------- Scroll-driven timeline rail ----------
+        var rail = document.getElementById("rail");
+        var railFill = document.getElementById("railFill");
+        var jobs = Array.prototype.slice.call(rail.querySelectorAll(".job"));
+
+        if (reduceMotion) {
+          railFill.style.height = "100%";
+        } else {
+          rail.classList.add("rail-on");
+
+          var onScroll = function () {
+            var rect = rail.getBoundingClientRect();
+            var progress = Math.max(
+              0,
+              Math.min(1, (window.innerHeight * 0.55 - rect.top) / rect.height),
+            );
+            railFill.style.height = (progress * 100).toFixed(1) + "%";
+
+            var active = Math.min(
+              jobs.length - 1,
+              Math.floor(progress * jobs.length),
+            );
+            jobs.forEach(function (job, i) {
+              job.classList.toggle("is-past", i <= active);
+              job.classList.toggle("is-current", i === active);
+            });
+          };
+
+          window.addEventListener("scroll", onScroll, { passive: true });
+          window.addEventListener("resize", onScroll);
+          onScroll();
+        }
+
+        // ---------- Back to top ----------
+        var toTop = document.getElementById("toTop");
+
+        var onTopScroll = function () {
+          toTop.setAttribute(
+            "data-visible",
+            window.scrollY > 700 ? "true" : "false",
+          );
+        };
+
+        window.addEventListener("scroll", onTopScroll, { passive: true });
+        onTopScroll();
+
+        toTop.addEventListener("click", function () {
           window.scrollTo({
             top: 0,
-            behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
-              .matches
-              ? "auto"
-              : "smooth",
+            behavior: reduceMotion ? "auto" : "smooth",
           });
         });
       })();
