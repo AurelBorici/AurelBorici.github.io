@@ -1,2106 +1,983 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Aurel Boriçi — Senior Software Engineer</title>
-    <meta
-      name="description"
-      content="Senior Software Engineer based in Tirana, Albania. 5+ years building scalable microservices and cloud-native systems on Azure across fintech, healthcare, and e-commerce."
-    />
-    <meta name="author" content="Aurel Boriçi" />
-
-    <meta
-      property="og:title"
-      content="Aurel Boriçi — Senior Software Engineer"
-    />
-    <meta
-      property="og:description"
-      content="Senior Software Engineer specialising in .NET microservices and Azure cloud-native systems."
-    />
-    <meta property="og:image" content="/assets/og-image.png" />
-    <meta property="og:type" content="profile" />
-    <meta property="og:locale" content="en_GB" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Aurel Boriçi — Senior Software Engineer"
-    />
-    <meta
-      name="twitter:description"
-      content="Senior Software Engineer specialising in .NET microservices and Azure cloud-native systems."
-    />
-
-    <meta id="themeColor" name="theme-color" content="#0d0e0b" />
-
-    <link rel="canonical" href="https://aborici.dev" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="alternate icon" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
-    <link rel="mask-icon" href="/favicon.svg" color="#e0a458" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap"
-      rel="stylesheet"
-    />
-
-    <script>
-      // Applied before first paint so a saved light preference doesn't flash dark.
-      (function () {
-        try {
-          if (localStorage.getItem("aurel-theme") === "light") {
-            document.documentElement.setAttribute("data-theme", "light");
-          }
-        } catch (e) {}
-      })();
-    </script>
-
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Aurel Boriçi",
-        "jobTitle": "Senior Software Engineer",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Tirana",
-          "addressCountry": "AL"
-        },
-        "email": "mailto:aurelborici20@gmail.com",
-        "sameAs": [
-          "https://www.linkedin.com/in/aurel-borici/",
-          "https://github.com/AurelBorici"
-        ],
-        "alumniOf": {
-          "@type": "CollegeOrUniversity",
-          "name": "Canadian Institute of Technology"
-        },
-        "knowsAbout": [
-          "C#",
-          ".NET",
-          "Microservices",
-          "Azure",
-          "Azure AI",
-          "Angular",
-          "PostgreSQL",
-          "RabbitMQ",
-          "MongoDB",
-          "Elasticsearch"
-        ]
-      }
-    </script>
-
-    <style>
-      /* ============================================================
-         Tokens
-         ============================================================ */
-      :root {
-        --bg: #0d0e0b;
-        --panel: #101109;
-        --line: #262820;
-        --chip: #2e3026;
-        --ink: #edebe0;
-        --body: #c9c5b6;
-        --muted: #9b978a;
-        --dim: #85837a;
-        --nav: rgba(13, 14, 11, 0.85);
-        --grid: rgba(237, 235, 224, 0.025);
-        --ok: #7fbf6f;
-        --accent: #e0a458;
-        --accent-on: #0d0e0b;
-        --select: rgba(224, 164, 88, 0.35);
-        --shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-
-        --font-sans:
-          "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI",
-          sans-serif;
-        --font-mono: "IBM Plex Mono", "SF Mono", Consolas, monospace;
-        --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
-
-        --max: 1160px;
-        --pad: 48px;
-        --nav-h: 78px;
-      }
-
-      html[data-theme="light"] {
-        --bg: #faf8f4;
-        --panel: #f2eee4;
-        --line: #e3ddcf;
-        --chip: #d8d1bf;
-        --ink: #1c1a16;
-        --body: #3b372f;
-        --muted: #5c574c;
-        --dim: #736e62;
-        --nav: rgba(250, 248, 244, 0.88);
-        --grid: rgba(28, 26, 22, 0.045);
-        --ok: #3e6b3a;
-        --accent: #a85b12;
-        --accent-on: #faf8f4;
-        --select: rgba(168, 91, 18, 0.22);
-        --shadow: 0 20px 60px rgba(28, 26, 22, 0.08);
-      }
-
-      /* ============================================================
-         Reset & base
-         ============================================================ */
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-        -webkit-text-size-adjust: 100%;
-      }
-
-      body {
-        margin: 0;
-        background: var(--bg);
-        color: var(--ink);
-        font-family: var(--font-sans);
-        font-size: 16px;
-        line-height: 1.5;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        transition:
-          background 0.25s ease,
-          color 0.25s ease;
-      }
-
-      a {
-        color: var(--ink);
-      }
-
-      a:hover {
-        color: var(--accent);
-      }
-
-      ::selection {
-        background: var(--select);
-      }
-
-      :focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 3px;
-        border-radius: 2px;
-      }
-
-      p {
-        text-wrap: pretty;
-      }
-
-      main > section[id],
-      main > header[id] {
-        scroll-margin-top: var(--nav-h);
-      }
-
-      .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0 0 0 0);
-        white-space: nowrap;
-        border: 0;
-      }
-
-      @keyframes blink {
-        0%,
-        49% {
-          opacity: 1;
-        }
-        50%,
-        100% {
-          opacity: 0;
-        }
-      }
-
-      /* ============================================================
-         Shell
-         ============================================================ */
-      .page {
-        background-image:
-          linear-gradient(var(--grid) 1px, transparent 1px),
-          linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-        background-size: 56px 56px;
-      }
-
-      .wrap {
-        max-width: var(--max);
-        margin: 0 auto;
-        padding-left: var(--pad);
-        padding-right: var(--pad);
-      }
-
-      .eyebrow {
-        font-family: var(--font-mono);
-        font-size: 12px;
-        font-weight: 400;
-        letter-spacing: 0.12em;
-        line-height: 1.5;
-        text-transform: uppercase;
-        color: var(--dim);
-        margin: 0 0 14px;
-      }
-
-      .eyebrow--hero {
-        margin-bottom: 28px;
-      }
-      .eyebrow--contact {
-        margin-bottom: 20px;
-      }
-      .eyebrow--skills {
-        margin-bottom: 40px;
-      }
-
-      .section-title {
-        font-size: clamp(32px, 4vw, 48px);
-        font-weight: 800;
-        letter-spacing: -0.03em;
-        line-height: 1.1;
-        margin: 0 0 64px;
-      }
-
-      .section-title--tight {
-        margin-bottom: 12px;
-      }
-
-      .section-title em,
-      .contact-title em {
-        font-family: var(--font-serif);
-        font-style: italic;
-        font-weight: 500;
-        color: var(--accent);
-      }
-
-      /* ============================================================
-         Nav
-         ============================================================ */
-      .nav {
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        padding: 16px var(--pad);
-        background: var(--nav);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border-bottom: 1px solid var(--line);
-        font-family: var(--font-mono);
-      }
-
-      .nav-mark {
-        text-decoration: none;
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        white-space: nowrap;
-      }
-
-      .nav-mark b {
-        font-weight: inherit;
-        color: var(--accent);
-      }
-
-      .nav-right {
-        display: flex;
-        align-items: center;
-        gap: 26px;
-        font-size: 12px;
-        letter-spacing: 0.04em;
-      }
-
-      .nav-link {
-        text-decoration: none;
-        color: var(--muted);
-      }
-
-      .nav-link:hover {
-        color: var(--accent);
-      }
-
-      .theme-toggle {
-        width: 30px;
-        height: 30px;
-        flex: none;
-        border-radius: 50%;
-        border: 1px solid var(--line);
-        background: transparent;
-        color: var(--muted);
-        cursor: pointer;
-        font-family: inherit;
-        font-size: 14px;
-        line-height: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        transition:
-          border-color 0.2s ease,
-          color 0.2s ease;
-      }
-
-      .theme-toggle:hover {
-        border-color: var(--muted);
-        color: var(--ink);
-      }
-
-      .glyph-moon {
-        display: none;
-      }
-      html[data-theme="light"] .glyph-sun {
-        display: none;
-      }
-      html[data-theme="light"] .glyph-moon {
-        display: block;
-      }
-
-      .btn-accent {
-        text-decoration: none;
-        color: var(--accent-on);
-        background: var(--accent);
-        padding: 7px 16px;
-        border-radius: 3px;
-        font-weight: 600;
-        white-space: nowrap;
-        transition:
-          background 0.2s ease,
-          color 0.2s ease;
-      }
-
-      .btn-accent:hover {
-        background: var(--ink);
-        color: var(--bg);
-      }
-
-      /* ------------------------------------------------------------
-         Mobile menu — only shown once JS can drive it, so a no-JS
-         visitor never meets a dead button.
-         ------------------------------------------------------------ */
-      .menu-toggle {
-        display: none;
-        width: 30px;
-        height: 30px;
-        flex: none;
-        border-radius: 50%;
-        border: 1px solid var(--line);
-        background: transparent;
-        cursor: pointer;
-        padding: 0;
-        align-items: center;
-        justify-content: center;
-        transition: border-color 0.2s ease;
-      }
-
-      .menu-toggle:hover {
-        border-color: var(--muted);
-      }
-
-      .menu-toggle span {
-        position: relative;
-        display: block;
-        width: 12px;
-        height: 1px;
-        background: var(--muted);
-        transition: background 0.2s ease;
-      }
-
-      .menu-toggle span::before,
-      .menu-toggle span::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        width: 12px;
-        height: 1px;
-        background: var(--muted);
-        transition:
-          transform 0.2s ease,
-          background 0.2s ease,
-          top 0.2s ease;
-      }
-
-      .menu-toggle span::before {
-        top: -4px;
-      }
-      .menu-toggle span::after {
-        top: 4px;
-      }
-
-      .menu-toggle[aria-expanded="true"] {
-        border-color: var(--accent);
-      }
-
-      .menu-toggle[aria-expanded="true"] span {
-        background: transparent;
-      }
-
-      .menu-toggle[aria-expanded="true"] span::before,
-      .menu-toggle[aria-expanded="true"] span::after {
-        top: 0;
-        background: var(--accent);
-      }
-
-      .menu-toggle[aria-expanded="true"] span::before {
-        transform: rotate(45deg);
-      }
-      .menu-toggle[aria-expanded="true"] span::after {
-        transform: rotate(-45deg);
-      }
-
-      /* Full-screen overlay, not a dropdown — solid ground, own grid. */
-      .mobile-menu {
-        display: none;
-        position: fixed;
-        inset: 0;
-        z-index: 100;
-        flex-direction: column;
-        background-color: var(--bg);
-        background-image:
-          linear-gradient(var(--grid) 1px, transparent 1px),
-          linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-        background-size: 56px 56px;
-        opacity: 0;
-        transition: opacity 0.2s ease;
-      }
-
-      .mobile-menu[data-open="true"] {
-        opacity: 1;
-      }
-
-      .mm-top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        flex: none;
-        padding: 12px 20px;
-        min-height: var(--nav-h);
-        border-bottom: 1px solid var(--line);
-      }
-
-      .mm-close {
-        width: 36px;
-        height: 36px;
-        flex: none;
-        border-radius: 50%;
-        border: 1px solid var(--line);
-        background: transparent;
-        color: var(--muted);
-        cursor: pointer;
-        font-family: var(--font-mono);
-        font-size: 15px;
-        line-height: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        transition:
-          border-color 0.2s ease,
-          color 0.2s ease;
-      }
-
-      .mm-close:hover {
-        border-color: var(--accent);
-        color: var(--accent);
-      }
-
-      .mobile-nav {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 0 22px;
-        min-height: 0;
-      }
-
-      .mobile-nav a {
-        display: flex;
-        align-items: baseline;
-        gap: 14px;
-        padding: 18px 0;
-        text-decoration: none;
-        border-bottom: 1px solid var(--line);
-      }
-
-      .mobile-nav a:last-child {
-        border-bottom: 0;
-      }
-
-      .mm-sys {
-        flex: none;
-        width: 52px;
-        font-family: var(--font-mono);
-        font-size: 10.5px;
-        letter-spacing: 0.12em;
-        color: var(--accent);
-      }
-
-      .mm-label {
-        font-family: var(--font-sans);
-        font-size: 34px;
-        font-weight: 700;
-        letter-spacing: -0.02em;
-        line-height: 1.1;
-        color: var(--ink);
-        transition: color 0.2s ease;
-      }
-
-      .mobile-nav a:hover .mm-label,
-      .mobile-nav a:focus-visible .mm-label {
-        color: var(--accent);
-      }
-
-      .mm-status {
-        flex: none;
-        margin: 0;
-        padding: 0 22px 28px;
-        font-family: var(--font-mono);
-        font-size: 11.5px;
-        line-height: 1.6;
-        color: var(--dim);
-      }
-
-      @keyframes mmUp {
-        from {
-          opacity: 0;
-          transform: translateY(12px);
-        }
-        to {
-          opacity: 1;
-          transform: none;
-        }
-      }
-
-      .mobile-menu[data-open="true"] .mobile-nav a,
-      .mobile-menu[data-open="true"] .mm-status {
-        animation: mmUp 0.35s ease both;
-      }
-
-      .mobile-menu[data-open="true"] .mobile-nav a:nth-child(1) {
-        animation-delay: 0.05s;
-      }
-      .mobile-menu[data-open="true"] .mobile-nav a:nth-child(2) {
-        animation-delay: 0.1s;
-      }
-      .mobile-menu[data-open="true"] .mobile-nav a:nth-child(3) {
-        animation-delay: 0.15s;
-      }
-      .mobile-menu[data-open="true"] .mobile-nav a:nth-child(4) {
-        animation-delay: 0.2s;
-      }
-      .mobile-menu[data-open="true"] .mobile-nav a:nth-child(5) {
-        animation-delay: 0.25s;
-      }
-      .mobile-menu[data-open="true"] .mm-status {
-        animation-delay: 0.3s;
-      }
-
-      /* ============================================================
-         Back to top — mobile only
-         ============================================================ */
-      .to-top {
-        display: none;
-        position: fixed;
-        right: 18px;
-        bottom: 20px;
-        z-index: 60;
-        width: 46px;
-        height: 46px;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        border-radius: 50%;
-        border: 1px solid var(--line);
-        background: var(--nav);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-        color: var(--ink);
-        font-size: 17px;
-        line-height: 1;
-        cursor: pointer;
-        opacity: 0;
-        visibility: hidden;
-        transition:
-          opacity 0.25s ease,
-          visibility 0.25s ease;
-      }
-
-      .to-top[data-visible="true"] {
-        opacity: 1;
-        visibility: visible;
-      }
-
-      /* ============================================================
-         Hero
-         ============================================================ */
-      .hero {
-        padding-top: 130px;
-        padding-bottom: 90px;
-      }
-
-      .hero-title {
-        font-size: clamp(48px, 7.5vw, 104px);
-        line-height: 1.02;
-        font-weight: 800;
-        letter-spacing: -0.035em;
-        margin: 0;
-      }
-
-      .hero-typed {
-        display: block;
-        position: relative;
-        margin-top: 12px;
-        color: var(--accent);
-        white-space: nowrap;
-      }
-
-      /* The cycling phrases have different lengths, so on narrow screens some
-         wrap to two lines and some don't — which resized the h1 mid-animation
-         and shunted the whole page up and down while scrolling. An invisible
-         copy of the widest phrase ("teams can maintain.", 407px @ 48px) holds
-         the box at whatever height the longest phrase needs, and the live text
-         is layered on top so it can never affect layout. Sizing from real text
-         means this stays exact at any viewport width and font size. */
-      .hero-typed-sizer {
-        display: block;
-        visibility: hidden;
-      }
-
-      .hero-typed-sizer .caret {
-        animation: none;
-      }
-
-      .hero-typed-live {
-        position: absolute;
-        inset: 0;
-      }
-
-      .caret {
-        display: inline-block;
-        width: 0.08em;
-        height: 0.85em;
-        background: var(--accent);
-        margin-left: 6px;
-        vertical-align: baseline;
-        animation: blink 1.1s step-end infinite;
-      }
-
-      .hero-lede {
-        font-family: var(--font-serif);
-        font-style: italic;
-        font-size: clamp(20px, 2.4vw, 27px);
-        color: var(--muted);
-        max-width: 560px;
-        line-height: 1.4;
-        margin: 44px 0 0;
-      }
-
-      /* ============================================================
-         Now — terminal
-         ============================================================ */
-      .now {
-        padding-top: 20px;
-        padding-bottom: 100px;
-      }
-
-      .term {
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: var(--panel);
-        overflow: hidden;
-        box-shadow: var(--shadow);
-      }
-
-      .term-bar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 12px 20px;
-        border-bottom: 1px solid var(--line);
-        font-family: var(--font-mono);
-        font-size: 11px;
-        color: var(--dim);
-      }
-
-      .term-body {
-        padding: 26px 24px;
-        font-family: var(--font-mono);
-        font-size: 14px;
-        line-height: 2.1;
-        color: var(--body);
-      }
-
-      /* Real label/value columns — the design's space-padded alignment
-         collapses in HTML, and a fixed label column lets the value wrap
-         inside its own column instead of under the label. */
-      .term-line {
-        display: flex;
-      }
-
-      /* 14ch = the longest label ("availability", 12 chars) plus a 2-char gap.
-         In IBM Plex Mono this lands on 118px at the desktop 14px size, and
-         rescales with the mobile font instead of colliding — a fixed 92px left
-         "availability" only 2px of clearance. */
-      .term-key {
-        flex: 0 0 14ch;
-        color: var(--accent);
-      }
-
-      .term-val {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .term-sigil {
-        color: var(--dim);
-      }
-
-      .term-cmd {
-        color: var(--ink);
-      }
-
-      .term-ok {
-        color: var(--ok);
-      }
-
-      .term-caret {
-        display: inline-block;
-        width: 8px;
-        height: 16px;
-        background: var(--body);
-        vertical-align: middle;
-        animation: blink 1.1s step-end infinite;
-      }
-
-      /* ============================================================
-         Timeline
-         ============================================================ */
-      .timeline {
-        padding-top: 40px;
-        padding-bottom: 110px;
-      }
-
-      .rail {
-        position: relative;
-        padding-left: 44px;
-      }
-
-      .rail-track,
-      .rail-fill {
-        position: absolute;
-        left: 8px;
-        top: 6px;
-        width: 2px;
-      }
-
-      .rail-track {
-        bottom: 6px;
-        background: var(--line);
-      }
-
-      .rail-fill {
-        height: 0;
-        background: var(--accent);
-        transition: height 0.15s linear;
-      }
-
-      .jobs {
-        display: flex;
-        flex-direction: column;
-        gap: 72px;
-      }
-
-      .job {
-        position: relative;
-        transition: opacity 0.4s ease;
-      }
-
-      /* Without JS every entry stays fully legible; .rail-on enables the
-         scroll-driven dimming. */
-      .rail-on .job {
-        opacity: 0.35;
-      }
-      .rail-on .job.is-past {
-        opacity: 1;
-      }
-
-      .job-dot {
-        position: absolute;
-        left: -42px;
-        top: 6px;
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        background: var(--bg);
-        border: 2px solid var(--accent);
-        transition: border-color 0.3s ease;
-      }
-
-      .rail-on .job-dot {
-        border-color: var(--chip);
-      }
-      .rail-on .job.is-past .job-dot {
-        border-color: var(--accent);
-      }
-
-      .job-grid {
-        display: grid;
-        grid-template-columns: 200px 1fr;
-        gap: 40px;
-      }
-
-      .job-years {
-        font-family: var(--font-mono);
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--dim);
-        transition: color 0.3s ease;
-      }
-
-      .rail-on .job.is-current .job-years {
-        color: var(--accent);
-      }
-
-      .job-note {
-        font-family: var(--font-mono);
-        font-size: 10.5px;
-        letter-spacing: 0.08em;
-        color: var(--dim);
-        margin-top: 6px;
-      }
-
-      .job-head {
-        display: flex;
-        align-items: baseline;
-        flex-wrap: wrap;
-        gap: 14px;
-        margin-bottom: 12px;
-      }
-
-      .job-company {
-        font-size: 24px;
-        font-weight: 700;
-        letter-spacing: -0.01em;
-        margin: 0;
-      }
-
-      .job-role {
-        font-family: var(--font-mono);
-        font-size: 12px;
-        color: var(--muted);
-      }
-
-      .job-bullets {
-        margin: 0 0 16px;
-        padding-left: 18px;
-        display: flex;
-        flex-direction: column;
-        gap: 7px;
-      }
-
-      .job-bullets li {
-        font-size: 15.5px;
-        line-height: 1.55;
-        color: var(--body);
-        max-width: 600px;
-      }
-
-      .chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-
-      .chip {
-        font-family: var(--font-mono);
-        font-size: 11px;
-        color: var(--muted);
-        border: 1px solid var(--chip);
-        padding: 3px 10px;
-        border-radius: 3px;
-      }
-
-      /* ============================================================
-         Case notes
-         ============================================================ */
-      .work {
-        padding-top: 100px;
-        padding-bottom: 100px;
-      }
-
-      .work-lede {
-        font-size: 15px;
-        line-height: 1.6;
-        color: var(--muted);
-        max-width: 560px;
-        margin: 0 0 52px;
-      }
-
-      .cases {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .case {
-        display: grid;
-        grid-template-columns: 60px 260px 1fr 200px;
-        gap: 28px;
-        align-items: baseline;
-        padding: 24px 0;
-        border-top: 1px solid var(--line);
-        transition: background 0.2s ease;
-      }
-
-      .case:hover {
-        background: var(--grid);
-      }
-
-      .case-num {
-        font-family: var(--font-mono);
-        font-size: 12px;
-        color: var(--dim);
-      }
-
-      .case-title {
-        font-size: 17px;
-        font-weight: 700;
-      }
-
-      .case-domain {
-        font-family: var(--font-mono);
-        font-size: 10.5px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--accent);
-        margin-top: 5px;
-      }
-
-      .case-detail {
-        font-size: 14.5px;
-        line-height: 1.6;
-        color: var(--muted);
-        margin: 0;
-      }
-
-      .case-meta {
-        font-family: var(--font-mono);
-        font-size: 11px;
-        line-height: 1.8;
-        color: var(--dim);
-      }
-
-      .work-footnote {
-        font-family: var(--font-mono);
-        font-size: 12.5px;
-        line-height: 1.7;
-        color: var(--dim);
-        margin: 28px 0 0;
-      }
-
-      /* ============================================================
-         Skills
-         ============================================================ */
-      .skills {
-        padding-bottom: 100px;
-      }
-
-      .tiers {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-      }
-
-      .tier {
-        border: 1px solid var(--line);
-        border-radius: 5px;
-        padding: 24px;
-        background: var(--panel);
-      }
-
-      .tier-head {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        gap: 12px;
-        margin-bottom: 18px;
-      }
-
-      .tier-name {
-        font-size: 16px;
-        font-weight: 700;
-        margin: 0;
-      }
-
-      .tier-sub {
-        font-family: var(--font-mono);
-        font-size: 10.5px;
-        letter-spacing: 0.06em;
-        color: var(--dim);
-        white-space: nowrap;
-      }
-
-      .tier .chip {
-        font-size: 11.5px;
-        color: var(--body);
-        padding: 4px 10px;
-      }
-
-      /* ============================================================
-         Contact & footer
-         ============================================================ */
-      .contact {
-        border-top: 1px solid var(--line);
-        padding-top: 110px;
-      }
-
-      .contact-title {
-        font-size: clamp(44px, 6vw, 84px);
-        font-weight: 800;
-        letter-spacing: -0.035em;
-        line-height: 1.05;
-        margin: 0 0 36px;
-      }
-
-      .contact-actions {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 16px;
-        margin-bottom: 48px;
-      }
-
-      /* Transparent on desktop so the three buttons stay one flex row; becomes
-         a real 50/50 grid at the mobile breakpoint. */
-      .contact-secondary {
-        display: contents;
-      }
-
-      .btn-primary {
-        text-decoration: none;
-        background: var(--accent);
-        color: var(--accent-on);
-        padding: 15px 30px;
-        border-radius: 4px;
-        font-family: var(--font-mono);
-        font-size: 15px;
-        font-weight: 700;
-        transition:
-          background 0.2s ease,
-          color 0.2s ease;
-      }
-
-      .btn-primary:hover {
-        background: var(--ink);
-        color: var(--bg);
-      }
-
-      .btn-ghost {
-        text-decoration: none;
-        color: var(--body);
-        border: 1px solid var(--chip);
-        padding: 14px 24px;
-        border-radius: 4px;
-        font-family: var(--font-mono);
-        font-size: 13px;
-        transition:
-          border-color 0.2s ease,
-          color 0.2s ease;
-      }
-
-      .btn-ghost:hover {
-        border-color: var(--accent);
-        color: var(--accent);
-      }
-
-      .site-foot {
-        padding-bottom: 80px;
-      }
-
-      .site-foot-inner {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        flex-wrap: wrap;
-        gap: 12px;
-        border-top: 1px solid var(--line);
-        padding-top: 22px;
-        font-family: var(--font-mono);
-        font-size: 11.5px;
-        color: var(--dim);
-      }
-
-      /* ============================================================
-         Mobile
-         ============================================================ */
-      @media (max-width: 760px) {
-        :root {
-          --pad: 22px;
-          --nav-h: 66px;
-        }
-
-        .nav {
-          padding: 12px 20px;
-        }
-
-        .nav-right {
-          gap: 16px;
-        }
-
-        .nav-link {
-          display: none;
-        }
-
-        html.js .menu-toggle,
-        html.js .to-top {
-          display: flex;
-        }
-
-        html.js .mobile-menu:not([hidden]) {
-          display: flex;
-        }
-
-        /* Matches the 36px ✕ inside the overlay; the theme toggle is sized
-           to match so the two controls don't read as a mistake. */
-        .menu-toggle,
-        .theme-toggle {
-          width: 36px;
-          height: 36px;
-        }
-
-        .btn-accent {
-          padding: 7px 12px;
-        }
-
-        /* Section rhythm is retuned for a phone: the desktop 100–110px
-           paddings read as dead space once the viewport is 375px wide. */
-        .hero {
-          padding-top: 64px;
-          padding-bottom: 48px;
-        }
-
-        .eyebrow--hero {
-          margin-bottom: 18px;
-        }
-
-        .hero-typed {
-          white-space: normal;
-          margin-top: 4px;
-        }
-
-        /* Two-line phrases must not put the caret on a third line, or the
-           sizer would under-reserve. */
-        .hero-typed-live {
-          overflow: hidden;
-        }
-
-        .hero-lede {
-          margin-top: 28px;
-        }
-
-        .section-title {
-          margin-bottom: 36px;
-        }
-
-        .now {
-          padding-top: 0;
-          padding-bottom: 56px;
-        }
-
-        .timeline {
-          padding-top: 24px;
-          padding-bottom: 64px;
-        }
-
-        .skills {
-          padding-bottom: 56px;
-        }
-
-        .eyebrow--skills {
-          margin-bottom: 26px;
-        }
-
-        .contact {
-          padding-top: 64px;
-        }
-
-        .contact-actions {
-          flex-direction: column;
-          align-items: stretch;
-          gap: 12px;
-          margin-bottom: 34px;
-        }
-
-        .contact-actions .btn-primary {
-          width: 100%;
-          text-align: center;
-        }
-
-        /* LinkedIn + GitHub share one row, together spanning the email
-           button's width. */
-        .contact-secondary {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 12px;
-        }
-
-        .contact-secondary .btn-ghost {
-          text-align: center;
-        }
-
-        .site-foot {
-          padding-bottom: 48px;
-        }
-
-        .term-body {
-          padding: 20px 16px;
-          font-size: 12.5px;
-        }
-
-        .term-bar {
-          padding: 10px 16px;
-        }
-
-        .job-grid,
-        .case,
-        .tiers {
-          grid-template-columns: 1fr;
-          gap: 10px;
-        }
-
-        .jobs {
-          gap: 44px;
-        }
-
-        .work-lede {
-          margin-bottom: 34px;
-        }
-
-        .rail {
-          padding-left: 32px;
-        }
-
-        .job-dot {
-          left: -30px;
-        }
-
-        .work {
-          padding-top: 56px;
-          padding-bottom: 56px;
-        }
-
-        .site-foot-inner {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 10px;
-        }
-      }
-
-      /* ============================================================
-         Reduced motion
-         ============================================================ */
-      @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
-        }
-
-        *,
-        *::before,
-        *::after {
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
-          /* Negative delay lands each staggered item on its end state
-             immediately, instead of holding at opacity 0 for the delay. */
-          animation-delay: -1ms !important;
-          transition-duration: 0.01ms !important;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="page">
-      <nav class="nav" aria-label="Primary">
-        <a class="nav-mark" href="#top">ABORICI<b>.DEV</b></a>
-        <div class="nav-right">
-          <a class="nav-link" href="#now">NOW</a>
-          <a class="nav-link" href="#timeline">TIMELINE</a>
-          <a class="nav-link" href="#work">WORK</a>
-          <button
-            class="theme-toggle"
-            id="themeToggle"
-            type="button"
-            aria-label="Switch to light theme"
-          >
-            <span class="glyph-sun" aria-hidden="true">&#9728;</span>
-            <span class="glyph-moon" aria-hidden="true">&#9790;</span>
-          </button>
-          <a class="btn-accent" href="mailto:aurelborici20@gmail.com"
-            >CONTACT &rarr;</a
-          >
-          <button
-            class="menu-toggle"
-            id="menuToggle"
-            type="button"
-            aria-label="Open menu"
-            aria-expanded="false"
-            aria-controls="mobileMenu"
-          >
-            <span aria-hidden="true"></span>
-          </button>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aurel Boriçi · Senior Software &amp; AI Engineer</title>
+<meta name="description" content="Aurel Boriçi, senior software and AI engineer in Tirana. 5+ years building microservices and cloud-native systems on Azure for fintech, healthcare and e-commerce.">
+<meta name="author" content="Aurel Boriçi">
+<link rel="canonical" href="https://aborici.dev/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="mask-icon" href="/favicon.svg" color="#F0540C">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aborici.dev/">
+<meta property="og:site_name" content="aborici.dev">
+<meta property="og:title" content="Aurel Boriçi · Senior Software &amp; AI Engineer">
+<meta property="og:description" content="Microservices, cloud-native systems, and AI features on Azure. Open to senior engineering roles.">
+<meta property="og:image" content="https://aborici.dev/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Aurel Boriçi, Senior Software and AI Engineer, Tirana. I build software teams can maintain.">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Aurel Boriçi · Senior Software &amp; AI Engineer">
+<meta name="twitter:description" content="Microservices, cloud-native systems, and AI features on Azure. Open to senior engineering roles.">
+<meta name="theme-color" content="#05070D" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ECEEF3" media="(prefers-color-scheme: light)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+/* Before first paint: mark JS as available and apply a saved theme so it never flashes. */
+(function(){var r=document.documentElement;r.classList.add('js');
+try{var t=localStorage.getItem('ab-theme');if(t==='dark'||t==='light')r.dataset.theme=t}catch(e){}})();
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Aurel Boriçi",
+    "jobTitle": "Senior Software & AI Engineer",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Tirana",
+      "addressCountry": "AL"
+    },
+    "email": "mailto:aurelborici20@gmail.com",
+    "sameAs": [
+      "https://www.linkedin.com/in/aurel-borici/",
+      "https://github.com/AurelBorici"
+    ],
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Canadian Institute of Technology"
+    },
+    "knowsAbout": [
+      "C#",
+      ".NET",
+      "Microservices",
+      "Azure",
+      "Azure AI",
+      "Angular",
+      "PostgreSQL",
+      "RabbitMQ",
+      "MongoDB",
+      "Elasticsearch"
+    ]
+  }
+</script>
+<style>
+/* Layout idea: one room, one pendant lamp. The hero sits under the lamp; the rest is an
+   instrument-panel dossier on a 12-column grid. Lamp on = light theme, lamp off = dark theme. */
+:root{
+  --bg:#ECEEF3; --surface:#F7F8FB; --ink:#0A0D17; --muted:#555D73;
+  --line:rgba(10,13,23,.14); --line-strong:rgba(10,13,23,.32);
+  --accent:#F0540C; --accent-ink:#B23A00; --ion:#1747D1;
+  --dot:10,13,23; --hot:240,84,12;
+  --lamp-on:1; --glass:rgba(255,255,255,.5); --glass-edge:rgba(255,255,255,.75); --glass-hi:rgba(255,255,255,.95); --glass-thumb:rgba(10,13,23,.09); --glass-shadow:rgba(10,13,23,.22); --bulb:#FFE9C2; --filament:#F0540C; --shade:#0A0D17; --shade-edge:#2A3145;
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"Cascadia Code",Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#05070D; --surface:#0B0F1A; --ink:#E9EDF7; --muted:#8990A6;
+    --line:rgba(170,190,255,.14); --line-strong:rgba(170,190,255,.34);
+    --accent:#FF6A1F; --accent-ink:#FF8A4A; --ion:#79E2FF;
+    --dot:170,190,255; --hot:255,106,31;
+    --lamp-on:0; --glass:rgba(24,30,48,.42); --glass-edge:rgba(255,255,255,.13); --glass-hi:rgba(255,255,255,.26); --glass-thumb:rgba(255,255,255,.13); --glass-shadow:rgba(0,0,0,.6); --bulb:#161C2C; --filament:#46516B; --shade:#121828; --shade-edge:#3A4560;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#05070D; --surface:#0B0F1A; --ink:#E9EDF7; --muted:#8990A6;
+  --line:rgba(170,190,255,.14); --line-strong:rgba(170,190,255,.34);
+  --accent:#FF6A1F; --accent-ink:#FF8A4A; --ion:#79E2FF;
+  --dot:170,190,255; --hot:255,106,31;
+  --lamp-on:0; --glass:rgba(24,30,48,.42); --glass-edge:rgba(255,255,255,.13); --glass-hi:rgba(255,255,255,.26); --glass-thumb:rgba(255,255,255,.13); --glass-shadow:rgba(0,0,0,.6); --bulb:#161C2C; --filament:#46516B; --shade:#121828; --shade-edge:#3A4560;
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.6 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+h1,h2,h3,p,ul,ol,dl,dd{margin:0;padding:0}
+ul,ol{list-style:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+::selection{background:var(--accent);color:#0A0D17}
+
+#matrix{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1;overflow-x:clip}
+.wrap{max-width:1200px;margin-inline:auto;padding-inline:clamp(16px,4vw,40px)}
+.mono{font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line);
+  background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.nav .wrap{display:flex;align-items:center;gap:20px;height:60px}
+.brand{font:800 .95rem/1 var(--display);text-decoration:none;letter-spacing:.02em;flex:none}
+.brand i{font-style:normal;color:var(--accent)}
+.nav ol{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav ol::-webkit-scrollbar{display:none}
+.nav ol a{display:flex;gap:8px;align-items:baseline;padding:8px 10px;text-decoration:none;color:var(--muted);white-space:nowrap;transition:color .2s}
+.nav ol a b{font-weight:400;color:var(--accent-ink)}
+.nav ol a:hover{color:var(--ink)}
+.nav a[aria-current="true"]{color:var(--ink)}
+.pill{display:none;align-items:center;gap:8px;margin-left:auto;padding:9px 12px;border:1px solid var(--line-strong);text-decoration:none;white-space:nowrap}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 1.8s ease-out infinite}
+.tabbar{display:none}
+.swipe{display:none}
+.case.wide{grid-column:1/-1;min-height:0;display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:12px 40px}
+.case.wide>div{display:flex;flex-direction:column;gap:12px}
+.btn:active{transform:scale(.97)}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(0)}
+@supports (animation-timeline: scroll()){
+  .progress{animation:grow linear both;animation-timeline:scroll(root)}
+  @keyframes grow{to{transform:scaleX(1)}}
+}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding-bottom:clamp(40px,6vw,72px)}
+.hero::before{content:"";position:absolute;right:-10%;top:-120px;width:min(900px,120vw);height:900px;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,176,92,.38),rgba(255,176,92,0));opacity:var(--lamp-on);transition:opacity .5s}
+.hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,56px);align-items:start}
+.hero-copy{padding-top:clamp(56px,9vw,120px);display:flex;flex-direction:column;gap:22px;min-width:0}
+.eyebrow{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted)}
+.eyebrow span:first-child{color:var(--accent-ink)}
+.name{font:800 clamp(2.75rem,7.4vw,6.4rem)/.94 var(--display);letter-spacing:-.025em;text-transform:uppercase;display:flex;flex-direction:column}
+.name .outline{color:var(--bg);-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;position:relative;width:fit-content}
+.name .outline{margin-bottom:.3em}
+.name .outline::after{content:"";position:absolute;left:0;width:1.6em;bottom:-.3em;height:.09em;background:var(--accent);transform-origin:0 50%;animation:underline 1s .2s cubic-bezier(.2,.7,.2,1) both}
+@keyframes underline{from{transform:scaleX(.08)}to{transform:scaleX(1)}}
+.tagline{font:600 clamp(1.15rem,2.3vw,1.7rem)/1.25 var(--display);letter-spacing:-.01em;text-wrap:balance;max-width:22ch}
+.tagline em{font-style:normal;color:var(--accent-ink)}
+.lede{color:var(--muted);font-size:1.0625rem;max-width:52ch}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.btn{--cut:10px;display:inline-flex;align-items:center;gap:10px;padding:13px 20px;font:500 .8rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:0;
+  color:var(--ink);background:var(--line);clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% var(--cut),100% 100%,var(--cut) 100%,0 calc(100% - var(--cut)));transition:background .2s,color .2s,transform .2s}
+.btn:hover{background:var(--ink);color:var(--bg);transform:translateY(-2px)}
+.btn.primary{background:var(--accent);color:#0A0D17}
+.btn.primary:hover{background:var(--ink);color:var(--bg)}
+.btn svg{width:14px;height:14px;flex:none}
+
+/* lamp */
+.hero-side{position:relative;min-width:0}
+.lamp{position:relative;height:292px;z-index:3;pointer-events:none}
+.lamp-svg{position:absolute;right:clamp(0px,4vw,48px);top:0;width:240px;height:300px;overflow:visible}
+.lamp-note{position:absolute;left:0;bottom:26px;display:flex;flex-direction:column;gap:4px;color:var(--muted)}
+.lamp-note strong{font:600 1.5rem/1 var(--display);color:var(--ink);letter-spacing:0;text-transform:uppercase}
+.lamp-note .hint{color:var(--accent-ink);animation:nudge 2.4s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+.wire{stroke:var(--shade-edge);stroke-width:2}
+.cap{fill:var(--shade-edge)}
+.shade{fill:var(--shade);stroke:var(--shade-edge);stroke-width:1.5;transition:fill .4s}
+.shade-rim{fill:var(--accent)}
+.bulb{fill:var(--bulb);stroke:var(--shade-edge);stroke-width:1;transition:fill .3s}
+.filament{fill:none;stroke:var(--filament);stroke-width:1.6;stroke-linecap:round;transition:stroke .3s}
+.halo{fill:url(#haloGrad);opacity:var(--lamp-on);transition:opacity .3s}
+.cone{fill:url(#coneGrad);opacity:var(--lamp-on);transition:opacity .45s;filter:blur(5px)}
+.cord{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;opacity:.8}
+.knob{cursor:grab;pointer-events:auto;touch-action:none;outline:none}
+.knob.dragging{cursor:grabbing}
+.knob-body{fill:var(--ink);transition:fill .15s}
+.knob-loop{fill:none;stroke:var(--ink);stroke-width:2;transition:stroke .15s}
+.knob-ring{fill:none;stroke:var(--accent);stroke-width:2;opacity:0}
+.knob:focus-visible .knob-ring{opacity:1}
+.knob:hover .knob-body,.knob.armed .knob-body{fill:var(--accent)}
+.knob:hover .knob-loop,.knob.armed .knob-loop{stroke:var(--accent)}
+
+/* terminal: a screen, so it keeps its own dark palette in both themes */
+.term{position:relative;z-index:1;background:#080B14;color:#DDE3F2;border:1px solid rgba(170,190,255,.22);font-family:var(--mono);font-size:.8125rem;line-height:1.55;
+  box-shadow:0 30px 60px -30px rgba(5,7,13,.55),0 0 0 6px color-mix(in srgb,var(--accent) calc(var(--lamp-on)*10%),transparent)}
+.term::before,.term::after{content:"";position:absolute;width:14px;height:14px;border:2px solid var(--accent);pointer-events:none}
+.term::before{left:-2px;top:-2px;border-right:0;border-bottom:0}
+.term::after{right:-2px;bottom:-2px;border-left:0;border-top:0}
+.term-bar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid rgba(170,190,255,.16);color:#8990A6;font-size:.72rem;letter-spacing:.06em}
+.term-bar time{color:#79E2FF;font-variant-numeric:tabular-nums}
+.term dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 16px;padding:16px 14px 6px}
+.term dt{color:#79E2FF}
+.term dd{overflow-wrap:anywhere}
+.term .open{color:#FF8A4A}
+.term .open i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#FF6A1F;margin-right:8px;animation:pulse 1.8s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,106,31,.7)}100%{box-shadow:0 0 0 10px rgba(255,106,31,0)}}
+.term .prompt{padding:8px 14px 14px;color:#8990A6}
+.term .prompt b{font-weight:400;color:#DDE3F2;animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+.term-out{height:272px;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:4px;scrollbar-width:thin;outline-offset:-2px}
+.term-out>div{overflow-wrap:anywhere;flex:none}
+.term-out .e{color:#fff;margin-top:10px}
+.term-out .e:first-child{margin-top:0}
+.term-out .m{color:#8990A6}
+.term-out .ok,.term-out .ok>span:last-child{color:#FF8A4A}
+.term-out .err{color:#FF8FA3}
+.term-out .kv{display:grid;grid-template-columns:12ch minmax(0,1fr);gap:12px}
+.term-out .kv>span:first-child{color:#79E2FF}
+.term-in{display:flex;align-items:center;gap:10px;margin:0;padding:6px 8px 6px 14px;border-top:1px solid rgba(170,190,255,.16);transition:border-color .2s}
+.term-in:focus-within{border-top-color:#FF6A1F}
+.term-in label{color:#FF8A4A;font-size:1rem}
+.term-in input{flex:1 1 auto;min-width:0;min-height:44px;background:transparent;border:0;outline:none;color:#DDE3F2;font:400 16px/1 var(--mono)}
+.term-in input::placeholder{color:#6B7389}
+.term-in button{min-height:38px;padding:0 16px;border:0;background:#FF6A1F;color:#0A0D17;font:500 .75rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.term-chips{display:flex;flex-wrap:wrap;gap:6px;padding:8px 14px 14px}
+.term-chips button{min-height:40px;padding:0 12px;border:1px solid rgba(170,190,255,.24);background:transparent;color:#C9D0E4;font:400 .78rem/1 var(--mono);cursor:pointer;transition:border-color .2s,color .2s}
+.term-chips button:hover,.term-chips button:active{border-color:#FF6A1F;color:#fff}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-block:1px solid var(--line);margin-top:clamp(40px,6vw,72px)}
+.stats li{padding:22px 20px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.stats li:first-child{border-left:0;padding-left:0}
+.stats b{font:800 clamp(1.8rem,4vw,3rem)/1 var(--display);font-variant-numeric:tabular-nums}
+.stats b sup{font-size:.5em;color:var(--accent);vertical-align:top}
+.stats span{color:var(--muted)}
+
+/* marquee */
+.band{border-bottom:1px solid var(--line);overflow:hidden;padding:18px 0;background:var(--bg)}
+.band div{display:flex;width:max-content;animation:slide 48s linear infinite}
+.band span{font:800 clamp(1.4rem,3.4vw,2.6rem)/1 var(--display);text-transform:uppercase;white-space:nowrap;padding-right:.9em;color:var(--bg);-webkit-text-stroke:2px var(--line-strong);paint-order:stroke fill}
+.band span b{font-weight:800;color:var(--accent);-webkit-text-stroke:0}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* sections */
+section.block{padding-block:clamp(64px,9vw,120px)}
+.head{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:16px 40px;align-items:end;margin-bottom:clamp(28px,4vw,48px)}
+.head .mono{color:var(--accent-ink)}
+.head h2{font:600 clamp(1.5rem,3.6vw,2.7rem)/1.08 var(--display);letter-spacing:-.02em;text-wrap:balance}
+.head p{color:var(--muted);max-width:56ch}
+
+/* timeline tracks */
+.tracks{border:1px solid var(--line);background:color-mix(in srgb,var(--surface) 70%,transparent);padding:20px clamp(12px,2.5vw,24px) 12px;margin-bottom:32px}
+.trace-hint{color:var(--muted);margin-bottom:16px}
+button.track{width:100%;min-height:40px;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button.track .bar{background:var(--line-strong);transition:background .25s}
+button.track:hover .bar{background:var(--muted)}
+button.track[aria-pressed="true"] .bar{background:var(--accent)}
+button.track[aria-pressed="true"]>span:first-child{color:var(--ink)}
+button.track .bar.side,button.track:hover .bar.side{background:repeating-linear-gradient(135deg,var(--ion) 0 4px,transparent 4px 8px)}
+button.track[aria-pressed="true"] .bar.side{background:var(--ion)}
+button.track .bar.live::after{background:var(--muted);animation:none}
+button.track[aria-pressed="true"] .bar.live::after{background:var(--accent);animation:pulse 1.8s ease-out infinite}
+button.track[aria-pressed="true"] .bar.side.live::after{background:var(--ion);animation:none}
+.role[hidden]{display:none}
+.roles.picked .role{border-bottom:0;padding-bottom:0}
+.feature{border:1px solid var(--accent);background:color-mix(in srgb,var(--surface) 80%,transparent);padding:clamp(22px,4vw,36px);display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);gap:24px 48px;margin-bottom:24px}
+.feature>div{display:flex;flex-direction:column;gap:14px;min-width:0}
+.feature .top{display:flex;flex-wrap:wrap;gap:6px 16px;color:var(--muted)}
+.feature .top b{font-weight:500;color:var(--accent-ink)}
+.feature h3{font:600 clamp(1.3rem,2.8vw,2rem)/1.15 var(--display);letter-spacing:-.015em;text-wrap:balance;max-width:20ch}
+.feature p:not(.top){color:var(--muted);max-width:58ch}
+.feature dl{display:flex;flex-direction:column;gap:16px;border-left:1px solid var(--line);padding-left:clamp(16px,3vw,32px)}
+.feature dt{color:var(--muted)}
+.feature dd{font-weight:600}
+.more span{flex:1 1 320px;max-width:64ch}
+.track{display:grid;grid-template-columns:clamp(84px,14vw,170px) minmax(0,1fr);align-items:center;gap:12px;padding:7px 0}
+.track>span{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lane{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));position:relative;
+  background:repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px calc(100%/7))}
+.bar{grid-column:var(--s)/var(--e);height:14px;background:var(--ink);position:relative;transform-origin:0 50%;animation:barIn .9s cubic-bezier(.2,.7,.2,1) both}
+.bar.live{background:var(--accent)}
+.bar.live::after{content:"";position:absolute;right:-4px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:var(--accent);animation:pulse 1.8s ease-out infinite}
+.bar.side{background:repeating-linear-gradient(135deg,var(--ion) 0 4px,transparent 4px 8px);outline:1px solid var(--ion);outline-offset:-1px}
+.bar.side::after{background:var(--ion);animation:none}
+@keyframes barIn{from{transform:scaleX(.15)}to{transform:scaleX(1)}}
+.years{color:var(--muted);padding-top:8px}
+.years .lane{background:none}
+.years .lane i{font-style:normal;font-size:.68rem}
+
+.roles{border-top:1px solid var(--line)}
+.role{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr) minmax(0,7fr);gap:12px 32px;padding:26px 0;border-bottom:1px solid var(--line);position:relative;transition:padding .25s}
+.role::before{content:"";position:absolute;left:0;top:-1px;height:2px;width:0;background:var(--accent);transition:width .35s}
+.role:hover::before{width:100%}
+.role .when{color:var(--muted);font-variant-numeric:tabular-nums;padding-top:6px}
+.role .when em{font-style:normal;color:var(--accent-ink)}
+.role h3{font:600 1.25rem/1.2 var(--display);letter-spacing:-.01em}
+.role h3+p{color:var(--muted);margin-top:6px}
+.role .what{display:flex;flex-direction:column;gap:10px}
+.role .what li{padding-left:18px;position:relative}
+.role .what li::before{content:"";position:absolute;left:0;top:.72em;width:8px;height:1px;background:var(--accent)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tags li{font:400 .7rem/1 var(--mono);letter-spacing:.04em;padding:6px 8px;border:1px solid var(--line);color:var(--muted)}
+
+/* cases */
+.cases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.case{position:relative;background:var(--bg);padding:26px 24px 24px;display:flex;flex-direction:column;gap:12px;min-height:250px;overflow:hidden}
+.case::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,0%),color-mix(in srgb,var(--accent) 24%,transparent),transparent 70%)}
+.case:hover::before{opacity:1}
+.case>*{position:relative}
+.case .top{display:flex;justify-content:space-between;gap:12px;color:var(--muted)}
+.case .top b{font-weight:500;color:var(--accent-ink)}
+.case h3{font:600 1.15rem/1.2 var(--display);letter-spacing:-.01em;text-wrap:balance}
+.case .who{color:var(--ion)}
+.case p{color:var(--muted);font-size:.9375rem}
+.case .tags{margin-top:auto;padding-top:8px}
+.more{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:baseline;margin-top:20px;color:var(--muted)}
+.more b{font:600 1.1rem/1 var(--display);color:var(--ink)}
+
+/* stack */
+.tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.tier{border:1px solid var(--line);padding:24px;background:color-mix(in srgb,var(--surface) 70%,transparent);display:flex;flex-direction:column;gap:18px}
+.tier header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.tier h3{font:600 1.1rem/1 var(--display)}
+.meter{display:flex;gap:4px}
+.meter i{width:18px;height:6px;background:var(--line)}
+.meter i.on{background:var(--accent)}
+.tier p{color:var(--muted);font-size:.875rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips li{font:500 .8rem/1 var(--mono);padding:9px 11px;border:1px solid var(--line-strong);transition:background .2s,color .2s,border-color .2s}
+.chips li:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tier.core .chips li{border-color:var(--accent)}
+
+/* contact */
+.contact{border-top:1px solid var(--line)}
+.contact h2{font:800 clamp(1.9rem,6vw,4.8rem)/1 var(--display);letter-spacing:-.03em;text-transform:uppercase;text-wrap:balance;max-width:14ch}
+.contact h2 em{font-style:normal;color:var(--bg);-webkit-text-stroke:3px var(--accent);paint-order:stroke fill}
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:36px}
+.mail a.addr{font:500 clamp(1rem,2.6vw,1.6rem)/1.2 var(--mono);text-decoration:none;border-bottom:2px solid var(--accent);padding-bottom:4px;overflow-wrap:anywhere}
+.links{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 32px;justify-content:space-between}
+
+/* theme switch: light spreads from the bulb */
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+
+/* without JS the lamp, the prompt and the copy button cannot work, so they are not shown */
+html:not(.js) .lamp,html:not(.js) .term-in,html:not(.js) .term-chips,html:not(.js) .term-out .m,
+html:not(.js) #copy,html:not(.js) .trace-hint,html:not(.js) #matrix{display:none}
+html:not(.js) .term-out{height:auto}
+html:not(.js) button.track{cursor:default}
+html:not(.js) .hero-copy{padding-top:clamp(40px,7vw,96px)}
+
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .hero-side{display:contents}
+  .lamp{order:1;height:214px}
+  .lamp-svg{width:170px;height:212px;right:0}
+  .lamp-note{bottom:auto;top:44px}
+  .hero-copy{order:2;padding-top:8px}
+  .term{order:3;margin-top:36px}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats li:nth-child(odd){border-left:0;padding-left:0}
+  .stats li:nth-child(n+3){border-top:1px solid var(--line)}
+  .head{grid-template-columns:minmax(0,1fr)}
+  .role{grid-template-columns:minmax(0,1fr);gap:8px}
+  .cases{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .feature{grid-template-columns:minmax(0,1fr)}
+  .feature dl{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:18px}
+  .tiers{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:600px){
+  /* phone: thumb-reach tab bar, swipeable case deck, full-width actions */
+  html{scroll-padding-top:72px}
+  body{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  .nav ol{display:none}
+  .pill{display:inline-flex}
+  .tabbar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;z-index:30;
+    left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));padding:5px;border-radius:999px;
+    border:1px solid var(--glass-edge);background:var(--glass);
+    backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);
+    box-shadow:0 14px 34px -10px var(--glass-shadow),inset 0 1px 0 var(--glass-hi),inset 0 -1px 0 rgba(0,0,0,.1)}
+  .tabbar .thumb{position:absolute;top:5px;bottom:5px;left:5px;width:calc((100% - 10px)/5);border-radius:999px;
+    background:linear-gradient(180deg,var(--glass-hi) -140%,var(--glass-thumb) 60%);
+    box-shadow:inset 0 1px 0 var(--glass-hi),inset 0 0 0 1px var(--glass-edge),0 4px 12px -6px var(--glass-shadow);
+    transform:translateX(calc(var(--i,0)*100%));transition:transform .5s cubic-bezier(.3,1.35,.5,1)}
+  .tabbar a{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;height:50px;border-radius:999px;
+    text-decoration:none;color:var(--muted);font-size:.62rem;letter-spacing:.04em;-webkit-tap-highlight-color:transparent;transition:color .25s}
+  .tabbar a b{font-weight:500;font-size:.78rem;color:var(--accent-ink)}
+  .tabbar a[aria-current="true"]{color:var(--ink)}
+  .tabbar a:active{transform:scale(.94)}
+  .name{font-size:min(15vw,5rem)}
+  .lamp{height:206px}
+  .eyebrow span:last-child{display:none}
+  .cta{display:grid;grid-template-columns:1fr 1fr}
+  .cta .btn{justify-content:center;padding:17px 12px}
+  .cta .btn.primary{grid-column:1/-1}
+  .tags li{font-size:.75rem;padding:7px 9px}
+  .chips li{padding:12px 13px}
+  .cases{display:flex;gap:12px;background:none;border:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+    margin-inline:-16px;padding-inline:16px;scroll-padding-inline:16px;-webkit-overflow-scrolling:touch}
+  .cases::-webkit-scrollbar{display:none}
+  .case,.case.wide{flex:0 0 84%;display:flex;flex-direction:column;scroll-snap-align:start;border:1px solid var(--line-strong);min-height:300px}
+  .case.wide>div:last-child{flex:1}
+  .swipe{display:flex;justify-content:space-between;margin-top:14px;color:var(--muted)}
+  .swipe span:first-child{color:var(--accent-ink)}
+  .mail .btn,.links .btn{flex:1;justify-content:center;padding:17px 12px}
+  .mail a.addr{flex-basis:100%}
+  footer{padding-bottom:28px}
+  .term-out{height:300px}
+  .term-out .kv{grid-template-columns:11ch minmax(0,1fr);gap:8px}
+  .term-chips button{min-height:44px}
+  .years .lane i{font-size:.56rem;letter-spacing:0}
+  .nav .wrap{gap:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<canvas id="matrix" aria-hidden="true"></canvas>
+<div class="page">
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="brand" href="#now">AB<i>/</i>DEV</a>
+    <ol class="mono">
+      <li><a href="#now"><b>01</b>Now</a></li>
+      <li><a href="#timeline"><b>02</b>Timeline</a></li>
+      <li><a href="#work"><b>03</b>Work</a></li>
+      <li><a href="#stack"><b>04</b>Stack</a></li>
+      <li><a href="#contact"><b>05</b>Contact</a></li>
+    </ol>
+    <a class="pill mono" href="#contact"><i></i>Open to roles</a>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</nav>
+
+<nav class="tabbar mono" id="tabbar" aria-label="Sections, quick access">
+  <span class="thumb" aria-hidden="true"></span>
+  <a href="#now"><b>01</b>Now</a>
+  <a href="#timeline"><b>02</b>Timeline</a>
+  <a href="#work"><b>03</b>Work</a>
+  <a href="#stack"><b>04</b>Stack</a>
+  <a href="#contact"><b>05</b>Contact</a>
+</nav>
+
+<main>
+<header class="hero" id="now">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow mono"><span>Senior Software &amp; AI Engineer</span><span>Tirana, Albania</span><span>41.3275° N 19.8187° E</span></p>
+        <h1 class="name"><span>Aurel</span><span class="outline">Boriçi</span></h1>
+        <p class="tagline">I build software teams can maintain. <em>For fintech.</em></p>
+        <p class="lede">Microservices, cloud-native systems, and AI features on Azure, done quietly and well. Five-plus years shipping in fintech, with healthcare and e-commerce along the way.</p>
+        <div class="cta">
+          <a class="btn primary" href="#contact">Get in touch
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 12 12 2M5 2h7v7"/></svg></a>
+          <a class="btn" href="#work">See the work</a>
+          <a class="btn" href="https://github.com/AurelBorici" rel="noopener">GitHub</a>
         </div>
-      </nav>
-
-      <div class="mobile-menu" id="mobileMenu" hidden>
-        <div class="mm-top">
-          <a class="nav-mark" href="#top">ABORICI<b>.DEV</b></a>
-          <button
-            class="mm-close"
-            id="menuClose"
-            type="button"
-            aria-label="Close menu"
-          >
-            <span aria-hidden="true">&#10005;</span>
-          </button>
-        </div>
-        <nav class="mobile-nav" aria-label="Sections">
-          <a href="#now"
-            ><span class="mm-sys">SYS.01</span
-            ><span class="mm-label">Now</span></a
-          >
-          <a href="#timeline"
-            ><span class="mm-sys">SYS.02</span
-            ><span class="mm-label">Timeline</span></a
-          >
-          <a href="#work"
-            ><span class="mm-sys">SYS.03</span
-            ><span class="mm-label">Work</span></a
-          >
-          <a href="#skills"
-            ><span class="mm-sys">SYS.04</span
-            ><span class="mm-label">Skills</span></a
-          >
-          <a href="#contact"
-            ><span class="mm-sys">SYS.05</span
-            ><span class="mm-label">Contact</span></a
-          >
-        </nav>
-        <p class="mm-status">
-          <span class="term-ok">&#9679; OPEN</span> &mdash; senior engineering
-          &amp; cloud-native roles
-        </p>
       </div>
 
-      <main>
-        <!-- Hero -->
-        <header class="hero wrap" id="top">
-          <p class="eyebrow eyebrow--hero">
-            Aurel Boriçi &middot; Senior Software Engineer &middot; Tirana, AL
-          </p>
-          <h1 class="hero-title">
-            I build software <span class="hero-typed"
-              ><span class="hero-typed-sizer" aria-hidden="true"
-                >teams can maintain.<span class="caret"></span></span
-              ><span class="hero-typed-live"
-                ><span id="typed">for fintech.</span
-                ><span class="caret" aria-hidden="true"></span></span
-            ></span>
-          </h1>
-          <p class="hero-lede">
-            Microservices, cloud-native, and Azure &mdash; done quietly and
-            well.
-          </p>
-        </header>
+      <div class="hero-side">
+        <div class="lamp">
+          <p class="lamp-note mono"><span>Room light</span><strong id="lampState">Off</strong><span class="hint" id="lampHint">Pull the cord →</span></p>
+          <svg class="lamp-svg" id="lampSvg" viewBox="0 0 240 300">
+            <defs>
+              <linearGradient id="coneGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FFC27A" stop-opacity=".6"/>
+                <stop offset="1" stop-color="#FFC27A" stop-opacity="0"/>
+              </linearGradient>
+              <radialGradient id="haloGrad">
+                <stop offset="0" stop-color="#FFD9A0" stop-opacity=".95"/>
+                <stop offset="1" stop-color="#FFB45C" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <g id="lampRig">
+              <polygon class="cone" points="70,152 170,152 350,560 -110,560"/>
+              <line class="wire" x1="120" y1="-90" x2="120" y2="88"/>
+              <circle class="halo" cx="120" cy="160" r="52"/>
+              <circle class="bulb" id="bulb" cx="120" cy="156" r="13"/>
+              <path class="filament" d="M113 160q3.5-9 7 0q3.5-9 7 0"/>
+              <path class="shade" d="M64 150C64 112 91 92 120 92s56 20 56 58Z"/>
+              <rect class="shade-rim" x="60" y="148" width="120" height="5" rx="2.5"/>
+              <rect class="cap" x="112" y="82" width="16" height="12" rx="2"/>
+              <path class="cord" id="cord" d="M150 152L150 262"/>
+              <g class="knob" id="knob" tabindex="0" role="switch" aria-checked="false" aria-label="Room light. Pull the cord to switch between dark and light mode." transform="translate(150 262)">
+                <circle r="40" cy="18" fill="transparent"/>
+                <circle class="knob-ring" r="24" cy="18"/>
+                <rect class="knob-body" x="-5" y="0" width="10" height="24" rx="5"/>
+                <circle class="knob-loop" cy="31" r="6"/>
+              </g>
+            </g>
+          </svg>
+        </div>
 
-        <!-- Now -->
-        <section class="now wrap" id="now">
-          <h2 class="sr-only">Current status</h2>
-          <div class="term">
-            <div class="term-bar">
-              <span>aurel@tirana &mdash; status</span>
-              <span><span id="clock">--:--:--</span> &middot; UTC+2</span>
-            </div>
-            <div class="term-body">
-              <div>
-                <span class="term-sigil">$</span>
-                <span class="term-cmd">status --now</span>
-              </div>
-              <div class="term-line">
-                <span class="term-key">role</span>
-                <span class="term-val">Senior Software Engineer @ CiGen</span>
-              </div>
-              <div class="term-line">
-                <span class="term-key">building</span>
-                <span class="term-val"
-                  >large-scale fintech platform &middot; loan processing</span
-                >
-              </div>
-              <div class="term-line">
-                <span class="term-key">integrating</span>
-                <span class="term-val"
-                  >Azure AI &rarr; product features, design to production</span
-                >
-              </div>
-              <div class="term-line">
-                <span class="term-key">mentoring</span>
-                <span class="term-val">aspiring devs &middot; C# / .NET / Java / SQL</span>
-              </div>
-              <div class="term-line">
-                <span class="term-key">availability</span>
-                <span class="term-val"
-                  ><span class="term-ok">&#9679; OPEN</span> &mdash; senior
-                  engineering &amp; cloud-native roles</span
-                >
-              </div>
-              <div>
-                <span class="term-sigil">$</span>
-                <span class="term-caret" aria-hidden="true"></span>
-              </div>
-            </div>
+        <div class="term" role="group" aria-label="Terminal. Type a command, or tap one below.">
+          <div class="term-bar"><span>aurel@tirana</span><time id="clock">--:--:--</time></div>
+          <div class="term-out" id="termOut" aria-live="polite" tabindex="0">
+            <div class="e">$ status</div>
+            <div class="kv"><span>role</span><span>Senior Software Engineer @ CiGen</span></div>
+            <div class="kv"><span>building</span><span>large-scale fintech platform · loan processing</span></div>
+            <div class="kv"><span>integrating</span><span>Azure AI → product features, design to production</span></div>
+            <div class="kv"><span>mentoring</span><span>aspiring devs · C# / .NET / Java / SQL</span></div>
+            <div class="kv ok"><span>available</span><span>open to senior engineering &amp; cloud-native roles</span></div>
+            <div class="m">This prompt works. Type help, or tap a command.</div>
           </div>
-        </section>
-
-        <!-- Timeline -->
-        <section class="timeline wrap" id="timeline">
-          <p class="eyebrow">SYS.02 &mdash; Career log</p>
-          <h2 class="section-title">
-            Five years, four domains, <em>one discipline</em>.
-          </h2>
-
-          <div class="rail" id="rail">
-            <div class="rail-track" aria-hidden="true"></div>
-            <div class="rail-fill" id="railFill" aria-hidden="true"></div>
-
-            <div class="jobs">
-              <article class="job">
-                <span class="job-dot" aria-hidden="true"></span>
-                <div class="job-grid">
-                  <div>
-                    <div class="job-years">2025 &mdash; NOW</div>
-                  </div>
-                  <div>
-                    <div class="job-head">
-                      <h3 class="job-company">CiGen</h3>
-                      <span class="job-role">Software Engineer</span>
-                    </div>
-                    <ul class="job-bullets">
-                      <li>
-                        Building a large-scale fintech loan-processing platform
-                        &mdash; designing microservices from scratch across the
-                        origination-to-disbursement flow.
-                      </li>
-                      <li>
-                        Integrated Azure AI capabilities into client solutions,
-                        shipping features end-to-end from design to production.
-                      </li>
-                    </ul>
-                    <div class="chips">
-                      <span class="chip">.NET</span>
-                      <span class="chip">C#</span>
-                      <span class="chip">Azure</span>
-                      <span class="chip">Azure AI</span>
-                      <span class="chip">Microservices</span>
-                    </div>
-                  </div>
-                </div>
-              </article>
-
-              <article class="job">
-                <span class="job-dot" aria-hidden="true"></span>
-                <div class="job-grid">
-                  <div>
-                    <div class="job-years">2024 &mdash; 2025</div>
-                  </div>
-                  <div>
-                    <div class="job-head">
-                      <h3 class="job-company">Engineering Group</h3>
-                      <span class="job-role">Software Engineer</span>
-                    </div>
-                    <ul class="job-bullets">
-                      <li>
-                        Developed and maintained multiple .NET microservices,
-                        improving application performance release over release.
-                      </li>
-                      <li>
-                        Migrated a production microservice from .NET Framework
-                        to modern .NET.
-                      </li>
-                    </ul>
-                    <div class="chips">
-                      <span class="chip">.NET</span>
-                      <span class="chip">C#</span>
-                      <span class="chip">Microservices</span>
-                    </div>
-                  </div>
-                </div>
-              </article>
-
-              <article class="job">
-                <span class="job-dot" aria-hidden="true"></span>
-                <div class="job-grid">
-                  <div>
-                    <div class="job-years">2022 &mdash; 2024</div>
-                  </div>
-                  <div>
-                    <div class="job-head">
-                      <h3 class="job-company">PwC</h3>
-                      <span class="job-role">Software Engineer</span>
-                    </div>
-                    <ul class="job-bullets">
-                      <li>
-                        Built and maintained enterprise-scale microservices in
-                        .NET and Angular.
-                      </li>
-                      <li>
-                        Improved application performance through refactoring and
-                        MSSQL query optimisation.
-                      </li>
-                    </ul>
-                    <div class="chips">
-                      <span class="chip">.NET</span>
-                      <span class="chip">Angular</span>
-                      <span class="chip">MSSQL</span>
-                    </div>
-                  </div>
-                </div>
-              </article>
-
-              <article class="job">
-                <span class="job-dot" aria-hidden="true"></span>
-                <div class="job-grid">
-                  <div>
-                    <div class="job-years">2021 &mdash; 2022</div>
-                  </div>
-                  <div>
-                    <div class="job-head">
-                      <h3 class="job-company">3i Solutions</h3>
-                      <span class="job-role">Software Engineer</span>
-                    </div>
-                    <ul class="job-bullets">
-                      <li>
-                        Designed end-to-end microservice architectures in .NET
-                        and Spring Boot, including database design across MSSQL,
-                        PostgreSQL, MongoDB, and Elasticsearch.
-                      </li>
-                    </ul>
-                    <div class="chips">
-                      <span class="chip">.NET</span>
-                      <span class="chip">Spring Boot</span>
-                      <span class="chip">PostgreSQL</span>
-                      <span class="chip">MongoDB</span>
-                      <span class="chip">Elasticsearch</span>
-                    </div>
-                  </div>
-                </div>
-              </article>
-
-              <article class="job">
-                <span class="job-dot" aria-hidden="true"></span>
-                <div class="job-grid">
-                  <div>
-                    <div class="job-years">2020 &mdash; NOW</div>
-                    <div class="job-note">PARALLEL TRACK</div>
-                  </div>
-                  <div>
-                    <div class="job-head">
-                      <h3 class="job-company">Freelance</h3>
-                      <span class="job-role">Engineer &amp; Mentor</span>
-                    </div>
-                    <ul class="job-bullets">
-                      <li>
-                        Feature work, refactoring, and PostgreSQL tuning across
-                        client codebases in .NET, Spring Boot, and Angular.
-                      </li>
-                      <li>
-                        Training aspiring developers in C#, .NET, Java, and SQL.
-                      </li>
-                    </ul>
-                    <div class="chips">
-                      <span class="chip">.NET</span>
-                      <span class="chip">Java</span>
-                      <span class="chip">Angular</span>
-                      <span class="chip">PostgreSQL</span>
-                      <span class="chip">Mentoring</span>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <!-- Case notes -->
-        <section class="work wrap" id="work">
-          <p class="eyebrow">SYS.03 &mdash; Case notes</p>
-          <h2 class="section-title section-title--tight">
-            Shipped under NDA.
-          </h2>
-          <p class="work-lede">
-            Clients stay unnamed &mdash; the engineering doesn&rsquo;t have to.
-          </p>
-
-          <div class="cases">
-            <article class="case">
-              <span class="case-num">001</span>
-              <div>
-                <div class="case-title">UK Healthcare Platform</div>
-                <div class="case-domain">Healthcare</div>
-              </div>
-              <p class="case-detail">
-                Patient-facing platform for the UK market. Owned service
-                refactoring and database optimisation on high-traffic query
-                paths.
-              </p>
-              <div class="case-meta">
-                Backend engineer<br />.NET &middot; Angular &middot; MSSQL
-              </div>
-            </article>
-
-            <article class="case">
-              <span class="case-num">002</span>
-              <div>
-                <div class="case-title">Identity &amp; Access Management</div>
-                <div class="case-domain">Security</div>
-              </div>
-              <p class="case-detail">
-                Enterprise IAM: authentication, role-based access, and audit
-                trails consumed by multiple downstream products.
-              </p>
-              <div class="case-meta">
-                Service design<br />.NET &middot; Spring Boot
-              </div>
-            </article>
-
-            <article class="case">
-              <span class="case-num">003</span>
-              <div>
-                <div class="case-title">Document Management</div>
-                <div class="case-domain">Enterprise</div>
-              </div>
-              <p class="case-detail">
-                Document lifecycle and retrieval platform &mdash; full-text
-                search over Elasticsearch with versioned storage.
-              </p>
-              <div class="case-meta">
-                Architecture<br />.NET &middot; Elasticsearch
-              </div>
-            </article>
-
-            <article class="case">
-              <span class="case-num">004</span>
-              <div>
-                <div class="case-title">Loan Processing Platform</div>
-                <div class="case-domain">Fintech</div>
-              </div>
-              <p class="case-detail">
-                Ongoing at CiGen: large-scale loan platform &mdash;
-                origination, AI-assisted decisioning, and disbursement as
-                decoupled microservices.
-              </p>
-              <div class="case-meta">
-                Lead engineer<br />.NET &middot; Azure AI
-              </div>
-            </article>
-
-            <article class="case">
-              <span class="case-num">005</span>
-              <div>
-                <div class="case-title">FinTech Products</div>
-                <div class="case-domain">Fintech</div>
-              </div>
-              <p class="case-detail">
-                Financial platform work across several products &mdash;
-                message-driven services with an emphasis on correctness and
-                auditability.
-              </p>
-              <div class="case-meta">
-                Backend engineer<br />.NET &middot; RabbitMQ
-              </div>
-            </article>
-
-            <article class="case">
-              <span class="case-num">006</span>
-              <div>
-                <div class="case-title">Framework &rarr; Modern .NET</div>
-                <div class="case-domain">Migration</div>
-              </div>
-              <p class="case-detail">
-                Migrated a production microservice off .NET Framework,
-                modernising the stack without interrupting delivery.
-              </p>
-              <div class="case-meta">
-                Migration owner<br />.NET Framework &rarr; .NET
-              </div>
-            </article>
-          </div>
-
-          <p class="work-footnote">
-            + five more across HR, LMS, ESG reporting, and productivity tooling
-            &mdash; happy to walk through architecture in an interview.
-          </p>
-        </section>
-
-        <!-- Skills -->
-        <section class="skills wrap" id="skills">
-          <h2 class="eyebrow eyebrow--skills">
-            SYS.04 &mdash; Toolkit, by depth
-          </h2>
-          <div class="tiers">
-            <div class="tier">
-              <div class="tier-head">
-                <h3 class="tier-name">Core</h3>
-                <span class="tier-sub">DAILY DRIVERS</span>
-              </div>
-              <div class="chips">
-                <span class="chip">C#</span>
-                <span class="chip">.NET</span>
-                <span class="chip">ASP.NET</span>
-                <span class="chip">REST APIs</span>
-                <span class="chip">Entity Framework</span>
-                <span class="chip">SQL Server</span>
-                <span class="chip">Azure Functions</span>
-                <span class="chip">Service Bus</span>
-                <span class="chip">Azure DevOps</span>
-              </div>
-            </div>
-
-            <div class="tier">
-              <div class="tier-head">
-                <h3 class="tier-name">Working</h3>
-                <span class="tier-sub">REGULAR USE</span>
-              </div>
-              <div class="chips">
-                <span class="chip">Angular</span>
-                <span class="chip">TypeScript</span>
-                <span class="chip">PostgreSQL</span>
-                <span class="chip">RabbitMQ</span>
-                <span class="chip">SignalR</span>
-                <span class="chip">Dapper</span>
-                <span class="chip">Blob Storage</span>
-                <span class="chip">Azure Monitor</span>
-                <span class="chip">Azure AI Foundry</span>
-              </div>
-            </div>
-
-            <div class="tier">
-              <div class="tier-head">
-                <h3 class="tier-name">Familiar</h3>
-                <span class="tier-sub">SHIPPED WITH</span>
-              </div>
-              <div class="chips">
-                <span class="chip">React</span>
-                <span class="chip">Java</span>
-                <span class="chip">Spring Boot</span>
-                <span class="chip">GraphQL</span>
-                <span class="chip">MongoDB</span>
-                <span class="chip">Elasticsearch</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Contact -->
-        <section class="contact" id="contact">
-          <div class="wrap">
-            <p class="eyebrow eyebrow--contact">SYS.05 &mdash; Handshake</p>
-            <h2 class="contact-title">Let&rsquo;s <em>talk</em>.</h2>
-            <div class="contact-actions">
-              <a class="btn-primary" href="mailto:aurelborici20@gmail.com"
-                >aurelborici20@gmail.com</a
-              >
-              <div class="contact-secondary">
-                <a
-                  class="btn-ghost"
-                  href="https://www.linkedin.com/in/aurel-borici/"
-                  target="_blank"
-                  rel="noopener"
-                  >LINKEDIN &nearr;</a
-                >
-                <a
-                  class="btn-ghost"
-                  href="https://github.com/AurelBorici"
-                  target="_blank"
-                  rel="noopener"
-                  >GITHUB &nearr;</a
-                >
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer class="site-foot">
-        <div class="wrap">
-          <div class="site-foot-inner">
-            <span>&copy; 2026 AUREL BORIÇI</span>
-            <span
-              >BSc SOFTWARE ENGINEERING &middot; CANADIAN INSTITUTE OF
-              TECHNOLOGY &middot; 2018&ndash;2022</span
-            >
-            <span>TIRANA, ALBANIA &middot; UTC+2</span>
+          <form class="term-in" id="termForm">
+            <label for="cmd">$</label>
+            <input id="cmd" type="text" placeholder="type help and press Enter" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go">
+            <button type="submit">Run</button>
+          </form>
+          <div class="term-chips" id="termChips">
+            <button type="button">help</button><button type="button">whoami</button><button type="button">career</button><button type="button">work</button><button type="button">stack</button><button type="button">ai</button><button type="button">contact</button>
           </div>
         </div>
-      </footer>
+      </div>
     </div>
 
-    <button
-      class="to-top"
-      id="toTop"
-      type="button"
-      aria-label="Back to top"
-      data-visible="false"
-    >
-      <span aria-hidden="true">&uarr;</span>
-    </button>
+    <ul class="stats">
+      <li><b>5<sup>+</sup></b><span class="mono">Years in production</span></li>
+      <li><b>04</b><span class="mono">Engineering teams</span></li>
+      <li><b>10<sup>+</sup></b><span class="mono">Projects on record</span></li>
+      <li><b>01</b><span class="mono">Discipline: .NET on Azure</span></li>
+    </ul>
+  </div>
+</header>
 
-    <script>
-      (function () {
-        var root = document.documentElement;
-        var STORAGE_KEY = "aurel-theme";
-        var reduceMotion =
-          window.matchMedia &&
-          window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+<div class="band" aria-hidden="true">
+  <div>
+    <span>C# <b>/</b> .NET <b>/</b> ASP.NET <b>/</b> Azure Functions <b>/</b> Service Bus <b>/</b> SQL Server <b>/</b> Entity Framework <b>/</b> Azure AI Foundry <b>/</b> Microservices <b>/</b></span>
+    <span>C# <b>/</b> .NET <b>/</b> ASP.NET <b>/</b> Azure Functions <b>/</b> Service Bus <b>/</b> SQL Server <b>/</b> Entity Framework <b>/</b> Azure AI Foundry <b>/</b> Microservices <b>/</b></span>
+  </div>
+</div>
 
-        // ---------- Theme ----------
-        var toggle = document.getElementById("themeToggle");
-        var themeColor = document.getElementById("themeColor");
+<section class="block" id="timeline">
+  <div class="wrap">
+    <div class="head">
+      <p class="mono">02 / Timeline</p>
+      <div>
+        <h2>Five years, four domains, one discipline.</h2>
+      </div>
+    </div>
 
-        function syncTheme() {
-          var light = root.getAttribute("data-theme") === "light";
-          toggle.setAttribute(
-            "aria-label",
-            light ? "Switch to dark theme" : "Switch to light theme",
-          );
-          themeColor.setAttribute("content", light ? "#faf8f4" : "#0d0e0b");
+    <p class="trace-hint">My career, read the way I read a distributed trace. Pick a span.</p>
+    <div class="tracks" role="group" aria-label="Career spans, 2020 to 2026">
+      <button type="button" class="track" data-role="cigen" aria-pressed="true"><span class="mono">CiGen</span><span class="lane"><span class="bar live" style="--s:6;--e:8"></span></span></button>
+      <button type="button" class="track" data-role="eg" aria-pressed="false"><span class="mono">Eng. Group</span><span class="lane"><span class="bar" style="--s:5;--e:6"></span></span></button>
+      <button type="button" class="track" data-role="pwc" aria-pressed="false"><span class="mono">PwC</span><span class="lane"><span class="bar" style="--s:3;--e:5"></span></span></button>
+      <button type="button" class="track" data-role="3i" aria-pressed="false"><span class="mono">3i Solutions</span><span class="lane"><span class="bar" style="--s:2;--e:3"></span></span></button>
+      <button type="button" class="track" data-role="freelance" aria-pressed="false"><span class="mono">Freelance</span><span class="lane"><span class="bar side live" style="--s:1;--e:8"></span></span></button>
+      <div class="track years" aria-hidden="true"><span></span><span class="lane mono"><i>2020</i><i>2021</i><i>2022</i><i>2023</i><i>2024</i><i>2025</i><i>2026</i></span></div>
+    </div>
+
+    <ol class="roles" id="roles" aria-live="polite">
+      <li class="role" id="role-cigen">
+        <p class="when mono">2025 — <em>Now</em></p>
+        <div><h3>CiGen</h3><p class="mono">Senior Software Engineer</p></div>
+        <div>
+          <ul class="what">
+            <li>Building a large-scale fintech loan-processing platform, designing microservices from origination to disbursement.</li>
+            <li>Integrated Azure AI capabilities into client solutions, shipping features from design to production.</li>
+          </ul>
+          <ul class="tags" style="margin-top:16px"><li>.NET</li><li>C#</li><li>Azure</li><li>Azure AI</li><li>Microservices</li></ul>
+        </div>
+      </li>
+      <li class="role" id="role-eg">
+        <p class="when mono">2024 — 2025</p>
+        <div><h3>Engineering Group</h3><p class="mono">Software Engineer</p></div>
+        <div>
+          <ul class="what">
+            <li>Developed and maintained multiple .NET microservices, with performance improvements along the way.</li>
+            <li>Migrated a production microservice from .NET Framework to modern .NET.</li>
+          </ul>
+          <ul class="tags" style="margin-top:16px"><li>.NET</li><li>C#</li><li>Microservices</li></ul>
+        </div>
+      </li>
+      <li class="role" id="role-pwc">
+        <p class="when mono">2022 — 2024</p>
+        <div><h3>PwC</h3><p class="mono">Software Engineer</p></div>
+        <div>
+          <ul class="what">
+            <li>Built and maintained enterprise-scale microservices in .NET and Angular.</li>
+            <li>Improved performance through refactoring and MSSQL query optimisation.</li>
+          </ul>
+          <ul class="tags" style="margin-top:16px"><li>.NET</li><li>Angular</li><li>MSSQL</li></ul>
+        </div>
+      </li>
+      <li class="role" id="role-3i">
+        <p class="when mono">2021 — 2022</p>
+        <div><h3>3i Solutions</h3><p class="mono">Software Engineer</p></div>
+        <div>
+          <ul class="what">
+            <li>Designed end-to-end microservice architectures in .NET and Spring Boot.</li>
+            <li>Owned database design across MSSQL, PostgreSQL, MongoDB and Elasticsearch.</li>
+          </ul>
+          <ul class="tags" style="margin-top:16px"><li>.NET</li><li>Spring Boot</li><li>PostgreSQL</li><li>MongoDB</li><li>Elasticsearch</li></ul>
+        </div>
+      </li>
+      <li class="role" id="role-freelance">
+        <p class="when mono">2020 — <em>Now</em><br>Parallel track</p>
+        <div><h3>Freelance</h3><p class="mono">Engineer &amp; Mentor</p></div>
+        <div>
+          <ul class="what">
+            <li>Feature work, refactoring and PostgreSQL tuning across client codebases.</li>
+            <li>Training aspiring developers in C#, .NET, Java and SQL.</li>
+          </ul>
+          <ul class="tags" style="margin-top:16px"><li>.NET</li><li>Java</li><li>Angular</li><li>PostgreSQL</li><li>Mentoring</li></ul>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="block" id="work" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <p class="mono">03 / Work</p>
+      <div>
+        <h2>Shipped under NDA.</h2>
+        <p style="margin-top:12px">Clients stay unnamed. The engineering doesn’t have to.</p>
+      </div>
+    </div>
+
+    <article class="feature">
+      <div>
+        <p class="mono top"><b>Case 004</b><span>Fintech and AI · ongoing at CiGen</span></p>
+        <h3>AI-assisted loan processing platform</h3>
+        <p>A large-scale loan platform built as decoupled microservices: origination, AI-assisted decisioning and disbursement. I design the services and take the Azure AI features from design to production.</p>
+      </div>
+      <dl>
+        <div><dt class="mono">My part</dt><dd>Full-stack engineer</dd></div>
+        <div><dt class="mono">Stack</dt><dd>.NET, C#, Azure, Azure AI</dd></div>
+        <div><dt class="mono">Shape</dt><dd>Decoupled microservices</dd></div>
+      </dl>
+    </article>
+
+    <ul class="cases" id="cases">
+      <li class="case">
+        <p class="top mono"><b>Case 007</b><span>E-commerce</span></p>
+        <h3>E-commerce Payments &amp; AI Search</h3>
+        <p class="who mono">Payments · Search</p>
+        <p>Implemented the payment process for an e-commerce app: Apple Pay, Google Pay and card payments. Also built its AI search.</p>
+        <ul class="tags"><li>Apple Pay</li><li>Google Pay</li><li>Card payments</li><li>AI search</li></ul>
+      </li>
+      <li class="case">
+        <p class="top mono"><b>Case 001</b><span>Healthcare</span></p>
+        <h3>UK Healthcare Platform</h3>
+        <p class="who mono">Backend engineer</p>
+        <p>Patient-facing platform. Owned service refactoring and database optimisation on high-traffic query paths.</p>
+        <ul class="tags"><li>.NET</li><li>Angular</li><li>MSSQL</li></ul>
+      </li>
+      <li class="case">
+        <p class="top mono"><b>Case 002</b><span>Security</span></p>
+        <h3>Identity &amp; Access Management</h3>
+        <p class="who mono">Service design</p>
+        <p>Enterprise authentication, role-based access and audit trails used by multiple downstream products.</p>
+        <ul class="tags"><li>.NET</li><li>Spring Boot</li></ul>
+      </li>
+      <li class="case">
+        <p class="top mono"><b>Case 003</b><span>Enterprise</span></p>
+        <h3>Document Management</h3>
+        <p class="who mono">Architecture</p>
+        <p>Document lifecycle and retrieval with full-text search and versioned storage.</p>
+        <ul class="tags"><li>.NET</li><li>Elasticsearch</li></ul>
+      </li>
+      <li class="case">
+        <p class="top mono"><b>Case 005</b><span>Fintech</span></p>
+        <h3>FinTech Products</h3>
+        <p class="who mono">Backend engineer</p>
+        <p>Message-driven financial services with an emphasis on correctness and auditability.</p>
+        <ul class="tags"><li>.NET</li><li>RabbitMQ</li></ul>
+      </li>
+      <li class="case">
+        <p class="top mono"><b>Case 006</b><span>Migration</span></p>
+        <h3>Framework → Modern .NET</h3>
+        <p class="who mono">Migration owner</p>
+        <p>Moved a production microservice off .NET Framework without interrupting delivery.</p>
+        <ul class="tags"><li>.NET Framework</li><li>.NET</li></ul>
+      </li>
+    </ul>
+    <p class="swipe mono" aria-hidden="true"><span>Swipe →</span><span id="caseCount">01 / 06</span></p>
+    <p class="more"><b>10+ in total</b><span>More across HR, LMS, ESG reporting and productivity tooling. Happy to walk through the architecture in an interview.</span></p>
+  </div>
+</section>
+
+<section class="block" id="stack" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <p class="mono">04 / Stack</p>
+      <div>
+        <h2>Tools, by depth.</h2>
+      </div>
+    </div>
+    <div class="tiers">
+      <article class="tier core">
+        <header><h3>Core</h3><span class="meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></span></header>
+        <p>Daily drivers. Production systems designed and owned in these.</p>
+        <ul class="chips"><li>C#</li><li>.NET</li><li>ASP.NET</li><li>REST APIs</li><li>Entity Framework</li><li>SQL Server</li><li>Azure Functions</li><li>Service Bus</li><li>Azure DevOps</li></ul>
+      </article>
+      <article class="tier">
+        <header><h3>Working</h3><span class="meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span></header>
+        <p>Shipped with regularly, alongside the core.</p>
+        <ul class="chips"><li>Angular</li><li>TypeScript</li><li>PostgreSQL</li><li>RabbitMQ</li><li>SignalR</li><li>Dapper</li><li>Blob Storage</li><li>Azure Monitor</li><li>Azure AI Foundry</li></ul>
+      </article>
+      <article class="tier">
+        <header><h3>Familiar</h3><span class="meter" aria-hidden="true"><i class="on"></i><i></i><i></i></span></header>
+        <p>Used on real projects; productive after a short ramp.</p>
+        <ul class="chips"><li>React</li><li>Java</li><li>Spring Boot</li><li>GraphQL</li><li>MongoDB</li><li>Elasticsearch</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="block contact" id="contact">
+  <div class="wrap">
+    <p class="mono" style="color:var(--accent-ink);margin-bottom:20px">05 / Contact</p>
+    <h2>Open to senior <em>engineering</em> roles.</h2>
+    <p class="lede" style="margin-top:20px">Senior engineering and cloud-native work, remote from Tirana.</p>
+    <div class="mail">
+      <a class="addr" href="mailto:aurelborici20@gmail.com">aurelborici20@gmail.com</a>
+      <button class="btn" type="button" id="copy">Copy address</button>
+    </div>
+    <div class="links">
+      <a class="btn primary" href="https://www.linkedin.com/in/aurel-borici/" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/AurelBorici" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap mono">
+    <span>© 2026 Aurel Boriçi</span>
+    <span>BSc Software Engineering · Canadian Institute of Technology · 2018–2022</span>
+    <span>Tirana, Albania</span>
+  </div>
+</footer>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mq=matchMedia('(prefers-color-scheme: dark)');
+  var $=function(s){return document.querySelector(s)};
+
+  /* ---------- theme ---------- */
+  try{var saved=localStorage.getItem('ab-theme');if(saved==='dark'||saved==='light')root.dataset.theme=saved}catch(e){}
+  function current(){return root.dataset.theme||(mq.matches?'dark':'light')}
+  var knob=$('#knob'),stateEl=$('#lampState'),hint=$('#lampHint'),bulb=$('#bulb');
+  var dotRGB='170,190,255',hotRGB='255,106,31';
+  function sync(){
+    var on=current()==='light';
+    knob.setAttribute('aria-checked',String(on));
+    stateEl.textContent=on?'On':'Off';
+    var cs=getComputedStyle(root);
+    dotRGB=cs.getPropertyValue('--dot').trim()||dotRGB;
+    hotRGB=cs.getPropertyValue('--hot').trim()||hotRGB;
+    if(reduced)drawMatrix(0);
+  }
+  function toggle(){
+    var next=current()==='dark'?'light':'dark';
+    var b=bulb.getBoundingClientRect(),x=b.left+b.width/2,y=b.top+b.height/2;
+    var apply=function(){root.dataset.theme=next;sync()};
+    try{localStorage.setItem('ab-theme',next)}catch(e){}
+    hint.textContent=next==='light'?'Pull again for dark →':'Pull again for light →';
+    ripples.push({x:x,y:y,t0:performance.now()});
+    try{if(navigator.vibrate)navigator.vibrate(12)}catch(e){}
+    if(!document.startViewTransition||reduced){apply();return}
+    var vt=document.startViewTransition(apply);
+    vt.ready.then(function(){
+      var r=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y));
+      root.animate({clipPath:['circle(0px at '+x+'px '+y+'px)','circle('+r+'px at '+x+'px '+y+'px)']},
+        {duration:700,easing:'cubic-bezier(.2,.7,.2,1)',pseudoElement:'::view-transition-new(root)'});
+    }).catch(function(){});
+  }
+  new MutationObserver(sync).observe(root,{attributes:true,attributeFilter:['data-theme']});
+  if(mq.addEventListener)mq.addEventListener('change',sync);
+
+  /* ---------- pull cord physics ---------- */
+  var svg=$('#lampSvg'),rig=$('#lampRig'),cord=$('#cord');
+  var A={x:150,y:152},L=110,R={x:150,y:262},PIV={x:120,y:0},MAX=L+85,TH=30;
+  var k={x:R.x,y:R.y,vx:0,vy:0},th=0,thv=0,drag=false,armed=false,raf=0,last=0,moved=0,start=null;
+  function render(){
+    knob.setAttribute('transform','translate('+k.x.toFixed(1)+' '+k.y.toFixed(1)+')');
+    var dx=k.x-A.x,dy=k.y-A.y,d=Math.hypot(dx,dy),p;
+    if(d<L-1){var sag=Math.sqrt(L*L-d*d)*.5;p='M'+A.x+' '+A.y+'Q'+((A.x+k.x)/2).toFixed(1)+' '+((A.y+k.y)/2+sag).toFixed(1)+' '+k.x.toFixed(1)+' '+k.y.toFixed(1)}
+    else p='M'+A.x+' '+A.y+'L'+k.x.toFixed(1)+' '+k.y.toFixed(1);
+    cord.setAttribute('d',p);
+    rig.setAttribute('transform','rotate('+th.toFixed(2)+' '+PIV.x+' '+PIV.y+')');
+  }
+  function step(now){
+    var dt=Math.min(.033,(now-last)/1000||.016);last=now;
+    if(!drag){
+      k.vx+=(-190*(k.x-R.x)-8*k.vx)*dt;k.vy+=(-190*(k.y-R.y)-8*k.vy)*dt;
+      k.x+=k.vx*dt;k.y+=k.vy*dt;
+    }
+    var tgt=drag?-Math.max(-7,Math.min(7,(k.x-R.x)*.06)):0;
+    thv+=(-70*(th-tgt)-5*thv)*dt;th+=thv*dt;
+    render();
+    var e=Math.abs(k.x-R.x)+Math.abs(k.y-R.y)+Math.abs(k.vx)+Math.abs(k.vy)+Math.abs(th)*4+Math.abs(thv);
+    if(drag||e>.3)raf=requestAnimationFrame(step);
+    else{k.x=R.x;k.y=R.y;k.vx=k.vy=0;th=thv=0;render();raf=0}
+  }
+  function kick(){if(!raf){last=performance.now();raf=requestAnimationFrame(step)}}
+  function toLocal(e){
+    var pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;
+    var s=pt.matrixTransform(svg.getScreenCTM().inverse());
+    var a=-th*Math.PI/180,x=s.x-PIV.x,y=s.y-PIV.y;
+    return{x:PIV.x+x*Math.cos(a)-y*Math.sin(a),y:PIV.y+x*Math.sin(a)+y*Math.cos(a)-16};
+  }
+  function tug(){k.vy=560;thv+=10;kick();setTimeout(toggle,150)}
+  function release(){drag=false;armed=false;knob.classList.remove('dragging','armed');kick()}
+  knob.addEventListener('pointerdown',function(e){
+    e.preventDefault();
+    try{knob.setPointerCapture(e.pointerId)}catch(err){}
+    drag=true;armed=false;moved=0;start={x:e.clientX,y:e.clientY};knob.classList.add('dragging');kick();
+  });
+  knob.addEventListener('pointermove',function(e){
+    if(!drag)return;
+    var p=toLocal(e),dx=p.x-A.x,dy=p.y-A.y,d=Math.hypot(dx,dy)||1;
+    if(d>MAX){dx*=MAX/d;dy*=MAX/d;d=MAX}
+    k.x=A.x+dx;k.y=A.y+dy;
+    moved=Math.max(moved,Math.hypot(e.clientX-start.x,e.clientY-start.y));
+    var a=d-L>TH;if(a!==armed){armed=a;knob.classList.toggle('armed',a)}
+  });
+  knob.addEventListener('pointerup',function(){
+    if(!drag)return;
+    var fire=armed,tap=moved<5;
+    release();
+    if(fire)toggle();else if(tap)tug();
+  });
+  knob.addEventListener('pointercancel',release);
+  knob.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();tug()}});
+
+  /* ---------- dot matrix: reacts to the pointer and to the lamp ---------- */
+  var cv=$('#matrix'),ctx=cv.getContext('2d'),W=0,H=0,mx=-9999,my=-9999,ripples=[],G=30;
+  function resize(){
+    var dpr=Math.min(window.devicePixelRatio||1,2);W=innerWidth;H=innerHeight;
+    cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    if(reduced)drawMatrix(0);
+  }
+  function drawMatrix(t){
+    ctx.clearRect(0,0,W,H);
+    var off=-((window.scrollY*.12)%G),hot=[],i,x,y;
+    for(i=ripples.length-1;i>=0;i--){ripples[i].life=1-(t-ripples[i].t0)/1700;if(ripples[i].life<=0)ripples.splice(i,1)}
+    ctx.fillStyle='rgb('+dotRGB+')';
+    for(y=off;y<H+G;y+=G){
+      for(x=G/2;x<W;x+=G){
+        var h=0,dx=x-mx,dy=y-my,d2=dx*dx+dy*dy;
+        if(d2<24000)h=1-d2/24000;
+        for(i=0;i<ripples.length;i++){
+          var r=ripples[i],rr=(t-r.t0)*.95,q=1-Math.abs(Math.hypot(x-r.x,y-r.y)-rr)/70;
+          if(q>0)h=Math.max(h,q*r.life);
         }
+        if(h>.03){hot.push(x,y,h);continue}
+        ctx.globalAlpha=.11+.05*Math.sin(x*.012+y*.017+t*.0008);
+        ctx.fillRect(x-.75,y-.75,1.5,1.5);
+      }
+    }
+    ctx.fillStyle='rgb('+hotRGB+')';
+    for(i=0;i<hot.length;i+=3){
+      var s=1.5+hot[i+2]*2.2;ctx.globalAlpha=Math.min(1,.2+hot[i+2]*.8);
+      ctx.fillRect(hot[i]-s/2,hot[i+1]-s/2,s,s);
+    }
+    ctx.globalAlpha=1;
+  }
+  function loop(t){if(!document.hidden)drawMatrix(t);requestAnimationFrame(loop)}
+  addEventListener('resize',resize);
+  addEventListener('pointermove',function(e){mx=e.clientX;my=e.clientY},{passive:true});
+  document.addEventListener('pointerleave',function(){mx=my=-9999});
+  resize();sync();
+  if(!reduced)requestAnimationFrame(loop);
 
-        syncTheme();
+  /* ---------- card glow follows the pointer ---------- */
+  document.querySelectorAll('.case').forEach(function(c){
+    c.addEventListener('pointermove',function(e){
+      var b=c.getBoundingClientRect();
+      c.style.setProperty('--mx',(e.clientX-b.left)+'px');c.style.setProperty('--my',(e.clientY-b.top)+'px');
+    });
+  });
 
-        toggle.addEventListener("click", function () {
-          var light = root.getAttribute("data-theme") === "light";
-          if (light) root.removeAttribute("data-theme");
-          else root.setAttribute("data-theme", "light");
-          try {
-            localStorage.setItem(STORAGE_KEY, light ? "dark" : "light");
-          } catch (e) {}
-          syncTheme();
-        });
+  /* ---------- active section in both navs ---------- */
+  if('IntersectionObserver' in window){
+    var ids=['now','timeline','work','stack','contact'];
+    var links=document.querySelectorAll('.nav ol a,.tabbar a');
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        if(!en.isIntersecting)return;
+        $('#tabbar').style.setProperty('--i',ids.indexOf(en.target.id));
+        links.forEach(function(a){a.setAttribute('aria-current',String(a.getAttribute('href')==='#'+en.target.id))});
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    ids.forEach(function(id){io.observe(document.getElementById(id))});
+  }
 
-        // ---------- Mobile menu ----------
-        // The toggle is CSS-hidden until this class lands, so the button only
-        // exists where it can actually work.
-        root.classList.add("js");
+  /* ---------- terminal ---------- */
+  var out=$('#termOut'),cmd=$('#cmd'),lastCmd='';
+  var T={
+    help:[['whoami','who this is'],['status','what I am doing now'],['career','where I have worked'],['work','case notes'],['stack','tools, by depth'],['ai','the AI side of the job'],['lamp','pull the cord'],['contact','how to reach me'],['clear','wipe the screen'],{m:'A few commands are not listed.'}],
+    whoami:['Aurel Boriçi','Senior software and AI engineer','Tirana, Albania','BSc Software Engineering, Canadian Institute of Technology, 2018–2022'],
+    status:[['role','Senior Software Engineer @ CiGen'],['building','large-scale fintech platform · loan processing'],['integrating','Azure AI → product features, design to production'],['mentoring','aspiring devs · C# / .NET / Java / SQL'],{ok:['available','open to senior engineering & cloud-native roles']}],
+    career:[['2025 – now','CiGen · Senior Software Engineer'],['2024 – 2025','Engineering Group · Software Engineer'],['2022 – 2024','PwC · Software Engineer'],['2021 – 2022','3i Solutions · Software Engineer'],['2020 – now','Freelance · Engineer and mentor'],{m:'Pick a span in the timeline for details.'}],
+    work:[['004','AI-assisted loan processing platform'],['007','E-commerce payments and AI search'],['001','UK healthcare platform'],['002','Identity and access management'],['003','Document management'],['005','Fintech products'],['006','Framework to modern .NET'],{m:'10+ in total. Clients stay unnamed.'}],
+    stack:[['core','C#, .NET, ASP.NET, REST APIs, Entity Framework, SQL Server, Azure Functions, Service Bus, Azure DevOps'],['working','Angular, TypeScript, PostgreSQL, RabbitMQ, SignalR, Dapper, Blob Storage, Azure Monitor, Azure AI Foundry'],['familiar','React, Java, Spring Boot, GraphQL, MongoDB, Elasticsearch']],
+    ai:[['shipping','Azure AI capabilities inside client solutions, design to production'],['in product','AI-assisted decisioning in the loan platform'],['in product','AI search in an e-commerce app'],['tooling','Azure AI Foundry']],
+    contact:[['email','aurelborici20@gmail.com'],['linkedin','linkedin.com/in/aurel-borici'],['github','github.com/AurelBorici']],
+    ls:['career/  work/  stack/  contact/'],
+    pwd:['/home/aurel/tirana'],
+    coffee:[{err:'418 I am a teapot.'}],
+    exit:[{m:'There is no exit. There is only contact.'}],
+    hello:['Hello. Type help to look around.']
+  };
+  T.hi=T.hello;T.projects=T.work;T.skills=T.stack;T.email=T.contact;
+  function line(l){
+    var d=document.createElement('div'),cls='',v=l;
+    if(l&&!Array.isArray(l)&&typeof l==='object'){cls=Object.keys(l)[0];v=l[cls]}
+    if(Array.isArray(v)){d.className='kv '+cls;for(var i=0;i<2;i++){var sp=document.createElement('span');sp.textContent=v[i];d.appendChild(sp)}}
+    else{d.className=cls;d.textContent=v}
+    out.appendChild(d);
+  }
+  function answer(key){
+    if(T[key])return T[key];
+    if(key==='date'||key==='time')return [clock.textContent];
+    if(key.indexOf('sudo')===0)return [{ok:'Permission granted. You may now hire Aurel: aurelborici20@gmail.com'}];
+    if(key.indexOf('rm ')===0||key==='rm')return [{err:'Nice try. Everything here is backed up and audited.'}];
+    if(key==='lamp'||key==='theme'||key==='light'||key==='dark'){tug();return [{m:'Click. You can also drag the cord yourself.'}]}
+    return [{err:'command not found: '+key+'. Type help.'}];
+  }
+  function exec(raw){
+    var c=String(raw||'').trim();if(!c)return;
+    var key=c.toLowerCase().replace(/\s+/g,' ');lastCmd=c;cmd.value='';
+    if(key==='clear'||key==='cls'){out.textContent='';return}
+    line({e:'$ '+c});answer(key).forEach(line);
+    while(out.children.length>80)out.removeChild(out.firstChild);
+    out.scrollTop=out.scrollHeight;
+  }
+  $('#termForm').addEventListener('submit',function(e){e.preventDefault();exec(cmd.value)});
+  cmd.addEventListener('keydown',function(e){if(e.key==='ArrowUp'&&lastCmd){e.preventDefault();cmd.value=lastCmd}});
+  $('#termChips').addEventListener('click',function(e){if(e.target.tagName==='BUTTON')exec(e.target.textContent)});
 
-        var menuToggle = document.getElementById("menuToggle");
-        var mobileMenu = document.getElementById("mobileMenu");
-        // Every anchor in the overlay dismisses it (the logo included — it
-        // jumps to #top). The trap spans anchors and buttons in DOM order;
-        // menuToggle itself is covered by the overlay, so it stays out.
-        var menuLinks = Array.prototype.slice.call(
-          mobileMenu.querySelectorAll("a"),
-        );
-        var menuFocusables = Array.prototype.slice.call(
-          mobileMenu.querySelectorAll("a, button"),
-        );
-        var firstSectionLink = mobileMenu.querySelector(".mobile-nav a");
-        var hideTimer = null;
+  /* ---------- career trace: pick a span ---------- */
+  var tracks=document.querySelectorAll('button.track'),roleEls=document.querySelectorAll('.role');
+  function pick(id){
+    tracks.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.role===id))});
+    roleEls.forEach(function(r){r.hidden=r.id!=='role-'+id});
+  }
+  $('#roles').classList.add('picked');
+  tracks.forEach(function(b){b.addEventListener('click',function(){pick(b.dataset.role)})});
+  pick('cigen');
 
-        function menuOpen() {
-          return menuToggle.getAttribute("aria-expanded") === "true";
-        }
+  /* ---------- case deck counter (phone) ---------- */
+  var deck=$('#cases'),count=$('#caseCount'),cards=deck.children;
+  deck.addEventListener('scroll',function(){
+    var best=0,bd=1e9,l=deck.getBoundingClientRect().left;
+    for(var i=0;i<cards.length;i++){var d=Math.abs(cards[i].getBoundingClientRect().left-l-16);if(d<bd){bd=d;best=i}}
+    if(deck.scrollLeft+deck.clientWidth>=deck.scrollWidth-4)best=cards.length-1;
+    count.textContent=('0'+(best+1)).slice(-2)+' / '+('0'+cards.length).slice(-2);
+  },{passive:true});
 
-        function openMenu() {
-          if (hideTimer) {
-            clearTimeout(hideTimer);
-            hideTimer = null;
-          }
-          mobileMenu.hidden = false;
-          void mobileMenu.offsetWidth; // force layout so the transition plays
-          mobileMenu.setAttribute("data-open", "true");
-          menuToggle.setAttribute("aria-expanded", "true");
-          menuToggle.setAttribute("aria-label", "Close menu");
-          document.body.style.overflow = "hidden";
-          requestAnimationFrame(function () {
-            firstSectionLink.focus();
-          });
-        }
+  /* ---------- Tirana clock ---------- */
+  var clock=$('#clock'),fmt;
+  try{fmt=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Tirane',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false,timeZoneName:'short'})}catch(e){}
+  function tick(){if(fmt)clock.textContent=fmt.format(new Date())+' · Tirana'}
+  tick();setInterval(tick,1000);
 
-        function closeMenu(returnFocus) {
-          mobileMenu.setAttribute("data-open", "false");
-          menuToggle.setAttribute("aria-expanded", "false");
-          menuToggle.setAttribute("aria-label", "Open menu");
-          document.body.style.overflow = "";
-          hideTimer = setTimeout(function () {
-            if (!menuOpen()) mobileMenu.hidden = true;
-            hideTimer = null;
-          }, 220);
-          if (returnFocus) menuToggle.focus();
-        }
-
-        menuToggle.addEventListener("click", function () {
-          if (menuOpen()) closeMenu(true);
-          else openMenu();
-        });
-
-        menuLinks.forEach(function (link) {
-          link.addEventListener("click", function () {
-            closeMenu(false);
-          });
-        });
-
-        document
-          .getElementById("menuClose")
-          .addEventListener("click", function () {
-            closeMenu(true);
-          });
-
-        document.addEventListener("keydown", function (e) {
-          if (!menuOpen()) return;
-          if (e.key === "Escape") {
-            e.preventDefault();
-            closeMenu(true);
-            return;
-          }
-          if (e.key !== "Tab") return;
-          var first = menuFocusables[0];
-          var last = menuFocusables[menuFocusables.length - 1];
-          if (e.shiftKey && document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          } else if (!e.shiftKey && document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
-        });
-
-        window.addEventListener("resize", function () {
-          if (window.innerWidth > 760 && menuOpen()) closeMenu(false);
-        });
-
-        // ---------- Tirana clock ----------
-        var clock = document.getElementById("clock");
-
-        function tick() {
-          clock.textContent = new Date().toLocaleTimeString("en-GB", {
-            timeZone: "Europe/Tirane",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-          });
-        }
-
-        tick();
-        setInterval(tick, 1000);
-
-        // ---------- Typing headline ----------
-        // The static markup already reads as a complete sentence, so this only
-        // takes over when motion is welcome.
-        var typed = document.getElementById("typed");
-        var words = [
-          "for fintech.",
-          "on Azure.",
-          "that scales quietly.",
-          "in .NET & Angular.",
-          "end to end.",
-          "teams can maintain.",
-        ];
-
-        if (!reduceMotion) {
-          var wi = 0;
-          var ci = 0;
-          var deleting = false;
-          var pause = 0;
-          typed.textContent = "";
-          setInterval(function () {
-            var word = words[wi];
-            if (!deleting) {
-              ci++;
-              if (ci === word.length) {
-                deleting = true;
-                pause = 22;
-              }
-            } else if (pause > 0) {
-              pause--;
-            } else {
-              ci--;
-              if (ci === 0) {
-                deleting = false;
-                wi = (wi + 1) % words.length;
-              }
-            }
-            typed.textContent = word.slice(0, ci);
-          }, 75);
-        }
-
-        // ---------- Scroll-driven timeline rail ----------
-        var rail = document.getElementById("rail");
-        var railFill = document.getElementById("railFill");
-        var jobs = Array.prototype.slice.call(rail.querySelectorAll(".job"));
-
-        if (reduceMotion) {
-          railFill.style.height = "100%";
-        } else {
-          rail.classList.add("rail-on");
-
-          var onScroll = function () {
-            var rect = rail.getBoundingClientRect();
-            var progress = Math.max(
-              0,
-              Math.min(1, (window.innerHeight * 0.55 - rect.top) / rect.height),
-            );
-            railFill.style.height = (progress * 100).toFixed(1) + "%";
-
-            var active = Math.min(
-              jobs.length - 1,
-              Math.floor(progress * jobs.length),
-            );
-            jobs.forEach(function (job, i) {
-              job.classList.toggle("is-past", i <= active);
-              job.classList.toggle("is-current", i === active);
-            });
-          };
-
-          window.addEventListener("scroll", onScroll, { passive: true });
-          window.addEventListener("resize", onScroll);
-          onScroll();
-        }
-
-        // ---------- Back to top ----------
-        var toTop = document.getElementById("toTop");
-
-        var onTopScroll = function () {
-          toTop.setAttribute(
-            "data-visible",
-            window.scrollY > 700 ? "true" : "false",
-          );
-        };
-
-        window.addEventListener("scroll", onTopScroll, { passive: true });
-        onTopScroll();
-
-        toTop.addEventListener("click", function () {
-          window.scrollTo({
-            top: 0,
-            behavior: reduceMotion ? "auto" : "smooth",
-          });
-        });
-      })();
-    </script>
-
-    <!-- Cloudflare Web Analytics -->
-    <script
-      defer
-      src="https://static.cloudflareinsights.com/beacon.min.js"
-      data-cf-beacon='{"token": "f3b2dd0d44364ca7b3d805faa22114a2"}'
-    ></script>
-  </body>
+  /* ---------- copy email ---------- */
+  var copy=$('#copy');
+  copy.addEventListener('click',function(){
+    var done=function(ok){copy.textContent=ok?'Copied':'Select the address to copy';setTimeout(function(){copy.textContent='Copy address'},1800)};
+    try{navigator.clipboard.writeText('aurelborici20@gmail.com').then(function(){done(true)},function(){done(false)})}catch(e){done(false)}
+  });
+})();
+</script>
+<!-- Cloudflare Web Analytics -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "f3b2dd0d44364ca7b3d805faa22114a2"}'></script>
+</body>
 </html>
