@@ -384,6 +384,10 @@ html:not(.js) .hero-copy{padding-top:clamp(40px,7vw,96px)}
     background:linear-gradient(180deg,var(--glass-hi) -140%,var(--glass-thumb) 60%);
     box-shadow:inset 0 1px 0 var(--glass-hi),inset 0 0 0 1px var(--glass-edge),0 4px 12px -6px var(--glass-shadow);
     transform:translateX(calc(var(--i,0)*100%));transition:transform .5s cubic-bezier(.3,1.35,.5,1)}
+  .tabbar{touch-action:none;-webkit-user-select:none;user-select:none}
+  .tabbar a{-webkit-user-drag:none;-webkit-touch-callout:none}
+  .tabbar.sliding .thumb{transition:none;box-shadow:inset 0 1px 0 var(--glass-hi),inset 0 0 0 1px var(--glass-edge),0 8px 18px -6px var(--glass-shadow)}
+  .tabbar.sliding a:active{transform:none}
   .tabbar a{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;height:50px;border-radius:999px;
     text-decoration:none;color:var(--muted);font-size:.62rem;letter-spacing:.04em;-webkit-tap-highlight-color:transparent;transition:color .25s}
   .tabbar a b{font-weight:500;font-size:.78rem;color:var(--accent-ink)}
@@ -440,11 +444,11 @@ html:not(.js) .hero-copy{padding-top:clamp(40px,7vw,96px)}
 
 <nav class="tabbar mono" id="tabbar" aria-label="Sections, quick access">
   <span class="thumb" aria-hidden="true"></span>
-  <a href="#now"><b>01</b>Now</a>
-  <a href="#timeline"><b>02</b>Timeline</a>
-  <a href="#work"><b>03</b>Work</a>
-  <a href="#stack"><b>04</b>Stack</a>
-  <a href="#contact"><b>05</b>Contact</a>
+  <a href="#now" draggable="false"><b>01</b>Now</a>
+  <a href="#timeline" draggable="false"><b>02</b>Timeline</a>
+  <a href="#work" draggable="false"><b>03</b>Work</a>
+  <a href="#stack" draggable="false"><b>04</b>Stack</a>
+  <a href="#contact" draggable="false"><b>05</b>Contact</a>
 </nav>
 
 <main>
@@ -889,14 +893,50 @@ html:not(.js) .hero-copy{padding-top:clamp(40px,7vw,96px)}
   if('IntersectionObserver' in window){
     var ids=['now','timeline','work','stack','contact'];
     var links=document.querySelectorAll('.nav ol a,.tabbar a');
+    var tabbar=$('#tabbar'),lockUntil=0;
+    var setActive=function(i){
+      tabbar.style.setProperty('--i',i);
+      links.forEach(function(a){a.setAttribute('aria-current',String(a.getAttribute('href')==='#'+ids[i]))});
+    };
     var io=new IntersectionObserver(function(es){
       es.forEach(function(en){
-        if(!en.isIntersecting)return;
-        $('#tabbar').style.setProperty('--i',ids.indexOf(en.target.id));
-        links.forEach(function(a){a.setAttribute('aria-current',String(a.getAttribute('href')==='#'+en.target.id))});
+        if(!en.isIntersecting||performance.now()<lockUntil)return;
+        setActive(ids.indexOf(en.target.id));
       });
     },{rootMargin:'-45% 0px -50% 0px'});
     ids.forEach(function(id){io.observe(document.getElementById(id))});
+
+    /* the glass thumb can be dragged: it follows the finger, then snaps and jumps to that section */
+    var sx=null,sliding=false,slid=false,at=0;
+    var slot=function(e){
+      var b=tabbar.getBoundingClientRect(),w=(b.width-10)/ids.length;
+      return Math.max(0,Math.min(ids.length-1,(e.clientX-b.left-5)/w-.5));
+    };
+    tabbar.addEventListener('pointerdown',function(e){sx=e.clientX;sliding=false;slid=false});
+    tabbar.addEventListener('pointermove',function(e){
+      if(sx===null)return;
+      if(!sliding){
+        if(Math.abs(e.clientX-sx)<8)return;
+        sliding=true;tabbar.classList.add('sliding');
+        try{tabbar.setPointerCapture(e.pointerId)}catch(err){}
+      }
+      var f=slot(e),n=Math.round(f);
+      tabbar.style.setProperty('--i',f.toFixed(3));
+      if(n!==at){at=n;links.forEach(function(a){a.setAttribute('aria-current',String(a.getAttribute('href')==='#'+ids[n]))});
+        try{if(navigator.vibrate)navigator.vibrate(6)}catch(err){}}
+    });
+    var drop=function(e){
+      if(sx===null)return;sx=null;
+      if(!sliding)return;
+      sliding=false;slid=true;tabbar.classList.remove('sliding');
+      var n=Math.round(slot(e));at=n;
+      lockUntil=performance.now()+1200;setActive(n);
+      document.getElementById(ids[n]).scrollIntoView();
+      try{history.replaceState(null,'','#'+ids[n])}catch(err){}
+    };
+    tabbar.addEventListener('pointerup',drop);
+    tabbar.addEventListener('pointercancel',drop);
+    tabbar.addEventListener('click',function(e){if(slid){slid=false;e.preventDefault();e.stopPropagation()}},true);
   }
 
   /* ---------- terminal ---------- */
